@@ -25,6 +25,7 @@
           "title": "Indoor Billboard Advertising",
           "description": "High-impact advertising in premium indoor locations across {city}",
           "image": "/images/indoor-billboard.avif",
+          "imagePosition": "top",
           "href": "/indoor-billboards/screen-advertising"
         },
         {

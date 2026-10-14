@@ -6,7 +6,9 @@ import {
   TrendingUp, Zap, Check
 } from "@lucide/astro"
 
-interface Feature { icon?: string; title: string; description: string; image?: string; href?: string }
+interface Feature { icon?: string; title: string; description: string; image?: string; imagePosition?: "top" | "center" | "bottom"; href?: string }
+
+const objectPosition = { top: "object-top", center: "object-center", bottom: "object-bottom" }
 
 interface Props {
   badge?: string
@@ -101,7 +103,7 @@ const { head, tail } = splitTitle(processedTitle)
                 <>
                   <div class="sb-card-header--minimal sb-card-header--mobile-only"></div>
                   <div class="sb-card-media sb-card-media--desktop-only">
-                    <img src={feature.image} srcset={`${feature.image.replace(/(\.[^.]+)$/, '-700$1')} 700w, ${feature.image} 999w`} sizes="(max-width: 1024px) 50vw, 25vw" alt={getLocationText(feature.title)} width="640" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover" />
+                    <img src={feature.image} srcset={`${feature.image.replace(/(\.[^.]+)$/, '-700$1')} 700w, ${feature.image} 999w`} sizes="(max-width: 1024px) 50vw, 25vw" alt={getLocationText(feature.title)} width="640" height="400" loading="lazy" decoding="async" class:list={["w-full h-full object-cover", objectPosition[feature.imagePosition ?? "center"]]} />
                     {variant === "numbered" && (
                       <span class="sb-card-num">{String(i + 1).padStart(2, "0")}</span>
                     )}
