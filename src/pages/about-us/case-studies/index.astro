@@ -1,0 +1,49 @@
+---
+// Case Studies GRID route — lives under About Us (/about-us/case-studies).
+//
+// Thin route: fetch data, drop in the section — exactly like the template's
+// content pages compose sections. Reads ?category= for the active filter, so
+// this page renders on-demand (prerender = false) while the rest of the site
+// stays static. Data comes from the shared read-only API (no key ships).
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import HeroPage from "@/components/sections/HeroPage.astro";
+import CaseStudiesGrid from "@/components/sections/CaseStudiesGrid.astro";
+import { listCaseStudies, getCategories } from "@/lib/case-studies";
+
+export const prerender = false;
+
+const BASE_PATH = "/about-us/case-studies";
+
+const selected = Astro.url.searchParams.get("category") ?? "All";
+
+const [categories, studies] = await Promise.all([
+  getCategories(),
+  listCaseStudies({ category: selected }),
+]);
+
+const metaTitle = "Case Studies | Proof of Work";
+const metaDescription =
+  "Real local businesses, measured outcomes — the results our clients earned across GBP, paid social, PPC, geofencing, and more.";
+---
+
+<BaseLayout title={metaTitle} description={metaDescription}>
+  <HeroPage
+    badge="Proof of Work"
+    title={"Case Studies"}
+    description="Measured results for real local businesses — profile interactions, leads, impressions, and return on ad spend."
+    image="/images/about-us-partner.avif"
+    imageAlt="Case studies and results"
+    buttonText="Get In Touch"
+    buttonHref="/contact-us"
+  />
+
+  <CaseStudiesGrid
+    studies={studies}
+    categories={categories}
+    selected={selected}
+    basePath={BASE_PATH}
+    eyebrow="Results That Speak"
+    title={"Case Studies"}
+    description="Each engagement below is a real local business with measured outcomes. Filter by the service that got them there."
+  />
+</BaseLayout>

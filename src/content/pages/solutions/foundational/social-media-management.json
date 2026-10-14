@@ -1,0 +1,135 @@
+{
+  "title": "Social Media Management | Grow Your Brand & Engagement",
+  "description": "Build a strong online presence with expert social media management that drives engagement and brand awareness.",
+  "keywords": "social media management {city}, SMM services {city}, social media marketing {city}, best social media management {city}, top SMM agency {city}, Facebook management, Instagram management, social media content creation {city}, social media strategy",
+  "sections": [
+    {
+      "type": "hero",
+      "badge": "Foundational",
+      "title": "Social Media Management",
+      "description": "Improve the performance, engagement, and audience reach of your social media profiles.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us",
+      "image": "/images/social-media-management-hero.avif",
+      "imageAlt": "Social media management dashboard and analytics"
+    },
+    {
+      "type": "content",
+      "variant": "dark",
+      "title": "Social Media Management",
+      "description": "Connect with your target audience on social media to boost engagement and social credibility. We'll help amplify your brand story with engaging graphics and on-trend content. Social Media Management (SMM) serves as a catalyst for cultivating brand loyalty and establishing your business as a trusted leader in your industry.",
+      "image": "/images/reach-more-people.avif",
+      "imageAlt": "Engaging social media content and posts",
+      "imagePosition": "left"
+    },
+    {
+      "type": "cta",
+      "variant": "card",
+      "title": "Build Brand Loyalty With Social Media Management",
+      "description": "Effective Social Media Management allows you to engage with your target audience where they spend a significant amount of their time. Consistent SMM helps establish your brand's voice and is the essential first step to a powerful <a class='underline font-bold' href='/solutions/lead-gen/social-media-advertising'>Social Media Advertising</a> campaign.",
+      "buttonText": "Learn More",
+      "buttonHref": "/contact-us"
+    },
+    {
+      "type": "features",
+      "title": "What's Included in Social Media Management?",
+      "columns": 4,
+      "features": [
+        {
+          "icon": "palette",
+          "title": "Strategic Content Creation",
+          "description": "Our skilled designers ensure that each creative asset resonates with your target audiences. Our <a class='underline font-bold' href='/solutions/foundational/design-services'>design services</a> team crafts scroll-stopping visuals."
+        },
+        {
+          "icon": "monitor",
+          "title": "Monthly Content Calendar",
+          "description": "Consistent, frequent social media activity is key to remaining relevant online. With pre-planned content calendars, we'll ensure your posts align with your brand and a reliable posting cadence."
+        },
+        {
+          "icon": "target",
+          "title": "Dedicated Strategist",
+          "description": "We specialize in managing your online presence across various social platforms. Our wealth of experience, knowledge about trends, and best practices ensure that you're not wasting time on trial and error."
+        },
+        {
+          "icon": "share",
+          "title": "Performance Reporting",
+          "description": "By analyzing performance metrics and monitoring market trends, we make informed recommendations for optimizing your social media strategy."
+        }
+      ]
+    },
+    {
+      "type": "valueCards",
+      "title": "Steps on Social Media Management",
+      "description": "A clear four-step workflow to launch, manage, and continually optimize your social media program.",
+      "variant": "cards",
+      "cards": [
+        {
+          "icon": "message",
+          "title": "Step 1: On-Boarding",
+          "description": "During this initial step, we'll meet to gather essential information about your brand, goals, and audience.",
+          "image": "/images/on-boarding-media.avif"
+        },
+        {
+          "icon": "target",
+          "title": "Step 2: Research + Strategy",
+          "description": "In this phase, we'll dive into research about your audience and competitors to craft a strategy that aligns with your brand identity and objectives.",
+          "image": "/images/brand-image.avif"
+        },
+        {
+          "icon": "palette",
+          "title": "Step 3: Content Development",
+          "description": "We'll develop creative content for the upcoming month as we translate our strategy into engaging posts, graphics, and captions that align with your goals.",
+          "image": "/images/content-development.avif"
+        },
+        {
+          "icon": "wrench",
+          "title": "Step 4: Report and Optimization",
+          "description": "As we progress, we'll have regular performance reports detailing key metrics and insights for continuous optimization.",
+          "image": "/images/report-optimization.avif"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "title": "Common Questions About Social Media Management",
+      "faqs": [
+        {
+          "question": "How much does Social Media Management cost?",
+          "answer": "The cost can vary according to a business's needs, goals, and the overall scope of the project. You can find out more about how we can address your specific needs by <a class='underline font-bold' href='/contact-us'>contacting us</a>."
+        },
+        {
+          "question": "Can I make my posts even if my profile is being managed?",
+          "answer": "Yes! All we ask is that you let us know what you plan on posting to ensure that our messaging and cadence is consistent throughout the duration of your contract."
+        },
+        {
+          "question": "Do I need to give you my password?",
+          "answer": "As long as you are an administrator on your accounts you won't need to provide us a login. During your onboarding call, we will help you set up agency access."
+        },
+        {
+          "question": "Why is Social Media Management important?",
+          "answer": "Social Media Management is a foundational marketing tool. Combined with a strong <a class='underline font-bold' href='/solutions/foundational/website-design'>website</a> and an optimized <a class='underline font-bold' href='/solutions/foundational/google-business-profile'>Google Business Profile</a>, it creates a powerful online presence."
+        }
+      ]
+    },
+    {
+      "type": "locations",
+      "title": "We Put Local Brands on the Map",
+      "description": "Our <strong>network</strong> spans across Denver's most popular neighborhoods and venues",
+      "variant": "overlay-titled",
+      "locations": [
+        { "name": "Aurora", "href": "/locations/aurora", "description": "East Denver Metro" },
+        { "name": "Lakewood", "href": "/locations/lakewood", "description": "West Denver Metro" },
+        { "name": "Arvada", "href": "/locations/arvada", "description": "Northwest Denver" },
+        { "name": "Centennial", "href": "/locations/centennial", "description": "South Denver Metro" }
+      ]
+    },
+    {
+      "type": "cta",
+      "variant": "banner",
+      "title": "Ready to get started?",
+      "description": "Contact us today to learn how we can help grow your business.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us"
+    }
+  ]
+}

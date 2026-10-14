@@ -1,0 +1,125 @@
+{
+  "title": "Digital Marketing Solutions | Full-Service Marketing Agency",
+  "description": "Explore our suite of digital marketing, including indoor billboards, website design, social media, & PPC, to grow your business with proven results.",
+  "keywords": "marketing solutions {city}, digital marketing services {city}, full service marketing {city}, marketing services overview, {city} advertising solutions, comprehensive marketing {city}",
+  "sections": [
+    {
+      "type": "hero",
+      "badge": "Digital Marketing",
+      "title": "Digital Marketing Services",
+      "description": "A full range of services to make your business a digital powerhouse!",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us",
+      "image": "/images/digital-marketing.avif",
+      "imageAlt": "Digital marketing services dashboard"
+    },
+    {
+      "type": "valueCards",
+      "title": "A Digital Marketing Powerhouse",
+      "variant": "cards",
+      "cards": [
+        {
+          "icon": "users",
+          "title": "Reach More People",
+          "description": "Use multiple channels like <a class='underline font-bold' href='/indoor-billboards/screen-advertising'>indoor billboards</a> and <a class='underline font-bold' href='/solutions/lead-gen/social-media-advertising'>social media ads</a> to connect with a wider audience.",
+          "image": "/images/reach-more-people.avif"
+        },
+        {
+          "icon": "message",
+          "title": "Increase Engagement",
+          "description": "Connect with users on their preferred channels, where they're more likely to engage with your <a class='underline font-bold' href='/solutions/foundational/social-media-management'>content</a>.",
+          "image": "/images/increase-engagement.avif"
+        },
+        {
+          "icon": "award",
+          "title": "Consistent Brand Image",
+          "description": "Maintain a uniform <a class='underline font-bold' href='/solutions/foundational/design-services'>brand image</a> across channels to make your brand recognizable and relatable.",
+          "image": "/images/brand-image.avif"
+        },
+        {
+          "icon": "trending",
+          "title": "Simplify Customer Path",
+          "description": "Create more touch points in the <a class='underline font-bold' href='/solutions/foundational/website-design'>customer journey</a>, making it easier to guide them towards a desired action.",
+          "image": "/images/customer-path.avif"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "badge": "Multichannel Marketing",
+      "title": "All Our Marketing Solutions",
+      "description": "Explore our full suite of services designed to grow your business.",
+      "columns": 3,
+      "features": [
+        {
+          "icon": "monitor",
+          "title": "Screen Advertising",
+          "description": "Our hyper-local digital screens showcase your personalized motion ad on repeat, keeping your brand at the forefront for existing customers and building awareness with new ones.",
+          "href": "/indoor-billboards/screen-advertising"
+        },
+        {
+          "icon": "globe",
+          "title": "Website Design",
+          "description": "Collaborate with our skilled creative team to craft a visually stunning and well-functioning website, perfectly aligned with your brand's identity and objectives.",
+          "href": "/solutions/foundational/website-design"
+        },
+        {
+          "icon": "google",
+          "title": "Google Business Profile",
+          "description": "Your Google Business Profile is the open sign on your digital storefront. Work alongside a dedicated specialist to ensure your profile is optimized with posts, photos, and hours of operation.",
+          "href": "/solutions/foundational/google-business-profile"
+        },
+        {
+          "icon": "share",
+          "title": "Social Media Management",
+          "description": "Amplify your brand online with Social Media management. Our SMM team will elevate your brand presence through strategic management and captivating content.",
+          "href": "/solutions/foundational/social-media-management"
+        },
+        {
+          "icon": "dollar",
+          "title": "Pay-Per-Click (PPC)",
+          "description": "Drive leads and dominate search engine results pages with highly targeted Pay-Per-Click campaigns. Make yourself known on the world's most used search engine.",
+          "href": "/solutions/lead-gen/pay-per-click"
+        },
+        {
+          "icon": "megaphone",
+          "title": "Social Media Ads",
+          "description": "Use targeted messaging and in-depth customer demographics to reach your ideal customers on social platforms and spark valuable engagement.",
+          "href": "/solutions/lead-gen/social-media-advertising"
+        },
+        {
+          "icon": "target",
+          "title": "Display Advertising | Geofencing",
+          "description": "Leverage location-targeted ads to reach users online and on their devices. These visually engaging ads help increase your brand visibility.",
+          "href": "/solutions/branding-awareness/display-geofencing"
+        },
+        {
+          "icon": "tv",
+          "title": "Connected TV | OTT Ads",
+          "description": "Cutting-edge CTV | OTT ads put your brand front and center to a streaming audience with non-skippable placements on platforms like Apple TV, ESPN, and Roku.",
+          "href": "/solutions/branding-awareness/connected-tv"
+        },
+        {
+          "icon": "music",
+          "title": "Streaming Audio",
+          "description": "Streamline your message directly into listeners' favorite podcasts, radio, or music with strategic streaming audio ads that captivate at the perfect moment.",
+          "href": "/solutions/branding-awareness/streaming-audio"
+        },
+        {
+          "icon": "palette",
+          "title": "Design Services",
+          "description": "Our skilled designers transform your vision into exceptional graphic design, from logos and rebrands to captivating flyers, shaping your brand identity and marketing.",
+          "href": "/solutions/foundational/design-services"
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "variant": "bold",
+      "title": "Ready to Build Your Marketing Strategy?",
+      "description": "Let our team craft a custom multichannel campaign that delivers real results for your business.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us"
+    }
+  ]
+}

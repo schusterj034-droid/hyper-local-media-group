@@ -1,0 +1,347 @@
+---
+import { siteConfig } from "@/config/site"
+import {
+  Monitor, Share2, Globe, Target, Tv, Megaphone, DollarSign, Palette,
+  Users, MessageSquare, Rocket, Settings, Wrench, Award, Clock, MapPin,
+  TrendingUp, Zap, Check
+} from "@lucide/astro"
+
+interface Feature { icon?: string; title: string; description: string; image?: string; href?: string }
+
+interface Props {
+  badge?: string
+  title: string
+  description?: string
+  features: Feature[]
+  columns?: 2 | 3 | 4
+  variant?: "default" | "numbered" | "minimal"
+}
+
+const { badge, title, description, features, columns = 4, variant = "default" } = Astro.props
+
+const getLocationText = (text: string) => text
+  .replaceAll("{city}", siteConfig.location.city)
+  .replaceAll("{state}", siteConfig.location.state)
+  .replaceAll("{business}", siteConfig.business.name)
+
+const processedTitle = getLocationText(title)
+const processedDescription = description ? getLocationText(description) : undefined
+const processedBadge = badge ? getLocationText(badge) : undefined
+
+const gridCols: Record<number, string> = {
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-2 lg:grid-cols-3",
+  4: "md:grid-cols-2 lg:grid-cols-4"
+}
+
+const iconComponents: Record<string, any> = {
+  monitor: Monitor, share: Share2, globe: Globe, target: Target,
+  tv: Tv, megaphone: Megaphone, dollar: DollarSign, palette: Palette,
+  users: Users, message: MessageSquare, rocket: Rocket, settings: Settings,
+  wrench: Wrench, award: Award, clock: Clock, pin: MapPin,
+  trending: TrendingUp, zap: Zap, check: Check, google: Globe,
+}
+
+// Two-tone heading split
+const splitTitle = (t: string) => {
+  if (t.includes("\n")) {
+    const [a, ...rest] = t.split("\n")
+    return { head: a.trim(), tail: rest.join(" ").trim() }
+  }
+  const words = t.split(" ")
+  if (words.length < 3) return { head: t, tail: "" }
+  const mid = Math.ceil(words.length / 2)
+  return { head: words.slice(0, mid).join(" "), tail: words.slice(mid).join(" ") }
+}
+const { head, tail } = splitTitle(processedTitle)
+---
+
+<section class="py-20 md:py-28 bg-white">
+  <div class="container mx-auto px-4">
+    <div class={`max-w-3xl mb-14 animate-fade-up ${variant === "numbered" ? "text-center mx-auto" : ""}`}>
+      {processedBadge && <span class={`conztru-badge mb-4 ${variant === "minimal" ? "conztru-badge--navy" : ""}`}>{processedBadge}</span>}
+      <h2 class="text-3xl md:text-4xl lg:text-5xl mb-5 leading-tight text-balance" style="font-family:'Barlow',sans-serif; font-weight:800;">
+        <span style="color:#0D1B2A;">{head} </span>
+        {tail && <span class="conztru-italic-red">{tail}</span>}
+      </h2>
+      {processedDescription && <p class="text-lg md:text-xl text-gray-600 leading-relaxed" set:html={processedDescription} />}
+    </div>
+
+    <div class={`grid gap-6 ${gridCols[columns]}`}>
+      {features.map((feature, i) => {
+        const IconComponent = feature.icon ? iconComponents[feature.icon] : null
+        if (variant === "minimal") {
+          return (
+            <div class="animate-fade-up h-full" style={`animation-delay: ${i * 100}ms`}>
+              <article class="sb-card sb-card--minimal group h-full flex flex-col">
+                <div class="sb-card-header--minimal"></div>
+                <div class="sb-card-icon sb-card-icon--minimal">
+                  {IconComponent && <IconComponent class="w-7 h-7 text-white" />}
+                </div>
+                <div class="sb-card-body sb-card-body--minimal">
+                  <h3 class="sb-card-title">{getLocationText(feature.title)}</h3>
+                  <p class="sb-card-desc sb-card-desc--minimal" set:html={getLocationText(feature.description)} />
+                  {feature.href && (
+                    <a href={feature.href} class="sb-card-link" aria-label={`Learn more about ${getLocationText(feature.title)}`}>
+                      <span aria-hidden="true">Learn more</span>
+                      <span class="sr-only">about {getLocationText(feature.title)}</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </a>
+                  )}
+                </div>
+                <span class="sb-card-accent" aria-hidden="true"></span>
+              </article>
+            </div>
+          )
+        }
+        return (
+          <div class="animate-fade-up h-full" style={`animation-delay: ${i * 100}ms`}>
+            <article class:list={["sb-card group h-full flex flex-col", !feature.image && "sb-card--minimal"]}>
+              {feature.image ? (
+                <>
+                  <div class="sb-card-header--minimal sb-card-header--mobile-only"></div>
+                  <div class="sb-card-media sb-card-media--desktop-only">
+                    <img src={feature.image} srcset={`${feature.image.replace(/(\.[^.]+)$/, '-700$1')} 700w, ${feature.image} 999w`} sizes="(max-width: 1024px) 50vw, 25vw" alt={getLocationText(feature.title)} width="640" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover" />
+                    {variant === "numbered" && (
+                      <span class="sb-card-num">{String(i + 1).padStart(2, "0")}</span>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div class="sb-card-header--minimal">
+                  {variant === "numbered" && (
+                    <span class="sb-card-num">{String(i + 1).padStart(2, "0")}</span>
+                  )}
+                </div>
+              )}
+
+              {/* Overlapping icon badge */}
+              <div class:list={["sb-card-icon", !feature.image && "sb-card-icon--minimal"]}>
+                {IconComponent && <IconComponent class="w-6 h-6 text-white" />}
+              </div>
+
+              {/* Body */}
+              <div class="sb-card-body">
+                <h3 class="sb-card-title">{getLocationText(feature.title)}</h3>
+                <p class="sb-card-desc" set:html={getLocationText(feature.description)} />
+                {feature.href && (
+                  <a href={feature.href} class="sb-card-link" aria-label={`Learn more about ${getLocationText(feature.title)}`}>
+                    <span aria-hidden="true">Learn more</span>
+                    <span class="sr-only">about {getLocationText(feature.title)}</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </a>
+                )}
+              </div>
+
+              {/* Bottom accent line */}
+              <span class="sb-card-accent" aria-hidden="true"></span>
+            </article>
+          </div>
+        )
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Mobile: hide image, show header bar. Desktop: show image, hide header bar. */
+  .sb-card-header--mobile-only { display: block; }
+  .sb-card-media--desktop-only { display: none; }
+  @media (min-width: 768px) {
+    .sb-card-header--mobile-only { display: none; }
+    .sb-card-media--desktop-only { display: block; }
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up {
+    animation: fade-up 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-up { animation: none; opacity: 1; }
+  }
+
+  /* Service Block card — white, image header, overlapping icon */
+  .sb-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px rgba(13, 27, 42, 0.05), 0 10px 24px rgba(13, 27, 42, 0.12);
+    transition: transform .35s ease, box-shadow .35s ease;
+    isolation: isolate;
+  }
+  .sb-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 5px 10px rgba(13, 27, 42, 0.07), 0 22px 48px rgba(13, 27, 42, 0.18);
+  }
+
+  .sb-card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background-color: #0D1B2A;
+    overflow: hidden;
+  }
+  .sb-card-media img {
+    transition: transform .6s ease;
+  }
+  .sb-card:hover .sb-card-media img {
+    transform: scale(1.06);
+  }
+  .sb-card-media-fallback {
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(232,37,26,0.45), transparent 55%),
+      linear-gradient(135deg, #0D1B2A 0%, #1a2a3f 100%);
+  }
+
+  .sb-card-num {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background-color: #E8251A;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    z-index: 2;
+  }
+
+  /* Overlapping circular icon — glass, half on image, half on body */
+  .sb-card-icon {
+    position: relative;
+    margin: -32px 0 0 26px;
+    width: 64px;
+    height: 64px;
+    border-radius: 9999px;
+    background-color: rgba(13, 27, 42, 0.45);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 8px 20px rgba(13, 27, 42, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    z-index: 2;
+    transition: background-color .3s ease, transform .3s ease, border-color .3s ease;
+  }
+  .sb-card:hover .sb-card-icon {
+    background-color: rgba(232, 37, 26, 0.55);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: scale(1.05);
+  }
+
+  .sb-card-body {
+    padding: 18px 26px 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .sb-card-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 800;
+    color: #0D1B2A;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .sb-card-desc {
+    font-size: 0.9rem;
+    color: #6b7280;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  /* Minimal variant (no image) — let description show in full */
+  .sb-card--minimal .sb-card-desc {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+  }
+  .sb-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #C41C12;
+    text-decoration: none;
+    transition: gap .25s ease;
+  }
+  .sb-card:hover .sb-card-link {
+    gap: 10px;
+  }
+
+  /* Bottom accent line — animates in on hover */
+  .sb-card-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #E8251A;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+  }
+  .sb-card:hover .sb-card-accent {
+    transform: scaleX(1);
+  }
+
+  /* Navy badge override (used by minimal variant) */
+  .conztru-badge--navy { color: #0D1B2A; }
+  .conztru-badge--navy::before { background-color: #0D1B2A; }
+
+  /* Minimal variant — solid navy header bar + overlapping icon, no image */
+  .sb-card--minimal {
+    border: 1px solid rgba(13, 27, 42, 0.06);
+  }
+  .sb-card-header--minimal {
+    width: 100%;
+    height: 72px;
+    background-color: #0D1B2A;
+  }
+  .sb-card-icon--minimal {
+    margin: -32px 0 0 26px;
+    width: 64px;
+    height: 64px;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 55%, rgba(13, 27, 42, 0.15) 100%),
+      rgba(13, 27, 42, 0.35);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow:
+      0 10px 24px rgba(13, 27, 42, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+  }
+  .sb-card--minimal:hover .sb-card-icon--minimal {
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.08) 55%, rgba(232, 37, 26, 0.25) 100%),
+      rgba(232, 37, 26, 0.45);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+  .sb-card-body--minimal {
+    padding: 18px 26px 26px;
+  }
+  .sb-card-desc--minimal {
+    -webkit-line-clamp: unset;
+    display: block;
+    overflow: visible;
+  }
+</style>

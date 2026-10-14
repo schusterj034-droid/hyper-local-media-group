@@ -1,0 +1,121 @@
+{
+  "title": "About {business} | Local Business Branding",
+  "description": "{business} - Built for local businesses.",
+  "keywords": "{city} marketing agency about, marketing company {city}, digital marketing team {city}, {city} advertising agency team, marketing agency story",
+  "sections": [
+    {
+      "type": "hero",
+      "badge": "Learn About Our Story",
+      "title": "About Us",
+      "description": "{business} - Built for local businesses.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us",
+      "image": "/images/about-us-partner.avif",
+      "imageAlt": "{city} digital marketing agency team"
+    },
+    {
+      "type": "content",
+      "badge": "Who We Are",
+      "variant": "card",
+      "title": "Empowering {city} Businesses",
+      "description": "With 20 years of corporate experience working with industry leaders, we've brought our expertise to {city}. We're passionate about helping local businesses thrive through innovative <a class='underline font-bold' href='/indoor-billboards/screen-advertising'>digital billboard advertising</a>, <a class='underline font-bold' href='/solutions/foundational/website-design'>website design</a>, and <a class='underline font-bold' href='/solutions'>multichannel campaigns</a>.<br><br>Our team combines strategic thinking with creative execution to deliver marketing solutions that actually work. We understand that every business is unique, which is why we take the time to learn about your goals, your audience, and your challenges before recommending any strategy.<br><br>Beyond business, we're committed to our community, building relationships and supporting local non-profits and charitable organizations. Together, let's build something great, our strategy, your brand!",
+      "image": "/images/about-us-team.avif",
+      "imageAlt": "Marketing team working on client campaigns",
+      "imagePosition": "left",
+      "features": []
+    },
+    {
+      "type": "valueCards",
+      "badge": "Why Choose Us",
+      "title": "5 Reasons To Choose Us",
+      "variant": "overlay",
+      "cards": [
+        {
+          "icon": "pin",
+          "title": "Experts in Local Marketing",
+          "description": "Our marketing strategies are finely tuned to reach your specific community. From indoor digital billboards to robust digital campaigns, we ensure your brand connects with the people who matter most.",
+          "image": "/images/local-marketing-experts.avif"
+        },
+        {
+          "icon": "people",
+          "title": "Community-Based Advertising",
+          "description": "We understand the value of community and tailor our campaigns to resonate with local values and interests. This approach boosts visibility and fosters strong relationships with your audience.",
+          "image": "/images/community-advertising.avif"
+        },
+        {
+          "icon": "dollar",
+          "title": "Affordability",
+          "description": "We offer cost-effective marketing solutions tailored to your budget, providing exceptional value without compromising on quality or impact.",
+          "image": "/images/affordability.avif"
+        },
+        {
+          "icon": "sparkle",
+          "title": "Amazing Creative",
+          "description": "Our team excels at creating dynamic, engaging content that stands out. From social media content to PPC campaigns, we deliver results.",
+          "image": "/images/amazing-creative.avif"
+        },
+        {
+          "icon": "award",
+          "title": "A Proven Track Record",
+          "description": "We have a history of successful campaigns that drive results. Our clients have seen significant increases in brand awareness, foot traffic, and customer engagement.",
+          "image": "/images/track-record.avif"
+        }
+      ]
+    },
+    {
+      "type": "locations",
+      "title": "We Put Local Brands on the Map",
+      "description": "Our <strong>network</strong> spans across {city}'s most popular neighborhoods and venues",
+      "variant": "overlay-titled",
+      "locations": [
+        {
+          "name": "Aurora",
+          "href": "/locations/aurora",
+          "description": "East Denver Metro"
+        },
+        {
+          "name": "Lakewood",
+          "href": "/locations/lakewood",
+          "description": "West Denver Metro"
+        },
+        {
+          "name": "Arvada",
+          "href": "/locations/arvada",
+          "description": "Northwest Denver"
+        },
+        {
+          "name": "Centennial",
+          "href": "/locations/centennial",
+          "description": "South Denver Metro"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "badge": "FAQs",
+      "title": "Frequently Asked Questions",
+      "faqs": [
+        {
+          "question": "How long have you been in business?",
+          "answer": "We have over 20 years of corporate marketing experience working with Fortune 500 companies, now dedicated to helping local businesses succeed."
+        },
+        {
+          "question": "What industries do you work with?",
+          "answer": "We work with businesses of all sizes and industries, from local shops and restaurants to professional services and e-commerce stores. Explore our full range of <a class='underline font-bold' href='/solutions'>marketing solutions</a> to see how we can help."
+        },
+        {
+          "question": "Do you offer free consultations?",
+          "answer": "Yes! We offer free consultations to discuss your business goals and how we can help you achieve them. <a class='underline font-bold' href='/contact-us'>Reach out today</a> to get started."
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "variant": "banner",
+      "title": "Ready to get started?",
+      "description": "Contact us today to learn how we can help grow your business.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us"
+    }
+  ]
+}

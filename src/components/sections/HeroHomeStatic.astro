@@ -1,0 +1,504 @@
+---
+import { Picture } from "astro:assets"
+import { siteConfig } from "@/config/site"
+import navbarData from "../../content/settings/navbar.json"
+import heroHome from "../../assets/images/home.avif"
+
+interface Props {
+  badge?: string
+  title: string
+  subtitle: string
+  buttonText?: string
+  buttonHref?: string
+  image: string
+}
+
+const {
+  badge,
+  title,
+  subtitle,
+  buttonText = "Talk to Our Team",
+  buttonHref = "/contact-us",
+  image
+} = Astro.props
+
+const processText = (text: string) => text
+  .replaceAll("{city}", siteConfig.location.city)
+  .replaceAll("{state}", siteConfig.location.state)
+  .replaceAll("{business}", siteConfig.business.name)
+
+const processedTitle = processText(title)
+const processedSubtitle = processText(subtitle)
+const processedBadge = badge ? processText(badge) : undefined
+
+// Two-tone split: first part bold white, second part lighter
+const splitTitle = (t: string) => {
+  if (t.includes("\n")) {
+    const [a, ...rest] = t.split("\n")
+    return { head: a.trim(), tail: rest.join(" ").trim() }
+  }
+  const words = t.split(" ")
+  if (words.length < 3) return { head: t, tail: "" }
+  const mid = Math.ceil(words.length / 2)
+  return { head: words.slice(0, mid).join(" "), tail: words.slice(mid).join(" ") }
+}
+const { head, tail } = splitTitle(processedTitle)
+
+// Featured solution pages — all solution pages are surfaced as preview cards,
+// with two picked at random on every page load via the inline script below.
+// We pair each solution page (for the hero image) with its navbar entry
+// (for the short title + description that appear inside the card overlay).
+const solutionModules = import.meta.glob(
+  "../../content/pages/solutions/**/*.json",
+  { eager: true }
+) as Record<string, any>
+
+// Build a flat href → { title, description } map from navbar.json.
+// The navbar mixes shapes — dropdown entries have a direct `items` array,
+// megamenu entries nest items under `sections[].items`. Walk both.
+const navItemsByHref = new Map<string, { title: string; description?: string; href: string }>()
+for (const entry of ((navbarData as any).navItems || [])) {
+  for (const item of (entry.items || [])) {
+    if (item?.href) navItemsByHref.set(item.href, item)
+  }
+  for (const section of (entry.sections || [])) {
+    for (const item of (section.items || [])) {
+      if (item?.href) navItemsByHref.set(item.href, item)
+    }
+  }
+}
+
+const allFeatured = Object.entries(solutionModules)
+  .map(([filePath, mod]) => {
+    const data = (mod as any).default ?? mod
+    const hero = (data.sections || []).find((s: any) => s.type === "hero")
+    if (!hero) return null
+    const slug = filePath
+      .replace("../../content/pages/", "")
+      .replace(/\.json$/, "")
+    const href = `/${slug}`
+    const navItem = navItemsByHref.get(href)
+    return {
+      title: processText(navItem?.title || hero.title || data.title || ""),
+      label: processText(navItem?.description || ""),
+      image: hero.image || image,
+      href,
+    }
+  })
+  .filter((c) => c !== null) as { title: string; label: string; image: string; href: string }[]
+
+// All cards render at build time (hidden) so they get Astro's scoped styles;
+// the inline script shuffles and reveals two on every page load.
+---
+
+<section class="conztru-hero relative overflow-hidden">
+  <!-- Full-bleed hero image -->
+  <div class="conztru-hero-media">
+    <Picture
+      src={heroHome}
+      formats={["avif"]}
+      fallbackFormat="avif"
+      widths={[480, 640, 800, heroHome.width]}
+      sizes="(max-width: 640px) 400px, 100vw"
+      alt="Featured project showcase"
+      class="w-full h-full object-cover"
+      pictureAttributes={{ class: "absolute inset-0 w-full h-full" }}
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
+    <div class="conztru-hero-overlay" aria-hidden="true"></div>
+  </div>
+
+  <!-- Content layer -->
+  <div class="conztru-hero-content w-full max-w-[1600px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 relative z-10">
+
+    <!-- Headline block -->
+    <div class="conztru-hero-headline max-w-4xl">
+      {processedBadge && (
+        <span class="conztru-hero-badge mb-5">{processedBadge}</span>
+      )}
+
+      <h1 class="conztru-hero-title text-balance">
+        <span class="conztru-title-head">{head}</span>
+        {tail && <span class="conztru-title-tail">{tail}</span>}
+      </h1>
+
+      <p class="conztru-hero-sub mt-6 max-w-2xl text-lg md:text-xl lg:text-2xl leading-relaxed">
+        {processedSubtitle}
+      </p>
+
+      <div class="mt-8">
+        <a href={buttonHref} class="conztru-hero-cta inline-flex items-center gap-2 h-12 pl-6 pr-1.5 rounded-full">
+          <span class="text-sm font-semibold tracking-wide">{buttonText}</span>
+          <span class="conztru-hero-cta-arrow inline-flex items-center justify-center w-9 h-9 rounded-full">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7"/>
+              <path d="M7 7h10v10"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom row: project cards aligned right (desktop only) -->
+    <div class="conztru-hero-bottom pb-10 md:pb-14 hidden sm:block">
+      <div class="flex justify-end">
+        <!-- All featured cards are rendered at build time so they pick up Astro's
+             scoped styles. The inline script below shuffles them and reveals 2
+             on every page load. -->
+        <div
+          class="conztru-projects relative flex items-end justify-end gap-5 ml-auto"
+          id="conztru-projects"
+        >
+          {allFeatured.map((card) => (
+            <a
+              href={card.href}
+              class="conztru-project-card"
+              data-featured-card
+              hidden
+              aria-label={`${card.label}: ${card.title}`}
+            >
+              <span class="conztru-project-num">
+                <span class="conztru-project-num-text" data-featured-num>01</span>
+                <span class="conztru-project-num-line" aria-hidden="true"></span>
+              </span>
+              <div class="conztru-project-image">
+                <img src={card.image} alt={card.title} width="220" height="260" loading="lazy" decoding="async" />
+              </div>
+              <div class="conztru-project-overlay">
+                <div class="conztru-project-title">{card.title}</div>
+                <div class="conztru-project-label">{card.label}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    // Skip entirely on mobile — project cards are hidden via CSS
+    if (window.matchMedia('(max-width: 640px)').matches) return;
+
+    const run = () => {
+      const root = document.getElementById("conztru-projects");
+      if (!root) return;
+
+      const cards = Array.from(root.querySelectorAll("[data-featured-card]"));
+      if (cards.length === 0) return;
+
+      const indices = cards.map((_, i) => i);
+      const picks = [];
+      const take = Math.min(2, indices.length);
+      for (let i = 0; i < take; i++) {
+        const j = Math.floor(Math.random() * indices.length);
+        picks.push(indices.splice(j, 1)[0]);
+      }
+
+      picks.forEach((cardIdx, slot) => {
+        const card = cards[cardIdx];
+        const num = card.querySelector("[data-featured-num]");
+        if (num) num.textContent = String(slot + 1).padStart(2, "0");
+        card.hidden = false;
+        root.appendChild(card);
+      });
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(run, { timeout: 2000 });
+    } else {
+      window.addEventListener('load', () => setTimeout(run, 0));
+    }
+  })();
+</script>
+
+<style>
+  .conztru-hero {
+    position: relative;
+    /* Fill the viewport as a minimum, but grow with content so nothing ever
+       gets clipped by the bottom edge (e.g. when zoomed in). dvh handles
+       mobile browser chrome. */
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: #0D1B2A;
+    isolation: isolate;
+    border-radius: 0 0 24px 24px;
+    overflow: hidden;
+  }
+
+  .conztru-hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .conztru-hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .conztru-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 27, 42, 0.60);
+  }
+
+  .conztru-hero-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    /* Account for the fixed navbar so the headline centers in the visible
+       space below it rather than under it. */
+    padding-top: 6rem;
+  }
+
+  .conztru-hero-headline {
+    color: #ffffff;
+    /* Vertically center the headline in the remaining space so short/wide
+       viewports (and zoomed-out views) don't leave a dead gap up top. */
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .conztru-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .conztru-hero-badge::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background-color: #E8251A;
+  }
+
+  .conztru-hero-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+  }
+  .conztru-title-head {
+    display: block;
+    color: #ffffff;
+    font-weight: 800;
+  }
+  .conztru-title-tail {
+    display: block;
+    color: rgba(255, 255, 255, 0.80);
+    font-weight: 500;
+  }
+
+  .conztru-hero-sub {
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .conztru-hero-badge {
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .conztru-hero-cta {
+    background-color: #ffffff;
+    color: #0D1B2A;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+  .conztru-hero-cta:hover {
+    background-color: #f4f4f4;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  }
+  .conztru-hero-cta-arrow {
+    background-color: #0D1B2A;
+    color: #ffffff;
+    transition: all 0.25s ease;
+  }
+  .conztru-hero-cta:hover .conztru-hero-cta-arrow {
+    background-color: #E8251A;
+    transform: rotate(45deg);
+  }
+
+  .conztru-hero-bottom {
+    /* Pinned to the bottom of the hero; the headline's auto margins above
+       absorb any extra vertical space so nothing drifts. */
+    margin-top: 2rem;
+    flex-shrink: 0;
+  }
+
+  /* Project cards */
+  .conztru-projects {
+    width: 100%;
+    max-width: 820px;
+    padding-top: 28px;
+  }
+  .conztru-project-card {
+    position: relative;
+    flex: 0 0 auto;
+    width: 300px;
+    height: 170px;
+    border-radius: 14px;
+    overflow: visible;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+  }
+  .conztru-project-card:nth-child(1) { z-index: 3; }
+  .conztru-project-card:nth-child(2) { z-index: 2; }
+  .conztru-project-card:nth-child(3) { z-index: 1; }
+
+  .conztru-project-card:hover {
+    transform: translateY(-4px);
+    z-index: 10;
+  }
+
+  /* Number + horizontal connecting line above each card */
+  .conztru-project-num {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+  }
+  .conztru-project-num-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.05em;
+    font-family: 'Barlow', sans-serif;
+    flex-shrink: 0;
+  }
+  .conztru-project-num-line {
+    flex: 1;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.35);
+  }
+
+  /* Full-bleed image inside card */
+  .conztru-project-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+  .conztru-project-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+  }
+  .conztru-project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .conztru-project-card:hover .conztru-project-image img {
+    transform: scale(1.06);
+  }
+
+  /* Text overlay — frosted glass pill matching navbar */
+  .conztru-project-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    max-width: 75%;
+    background-color: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    padding: 10px 12px;
+    z-index: 2;
+  }
+  .conztru-project-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+  }
+  .conztru-project-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.2;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Only very wide AND genuinely short viewports (heavy zoom-out, ultrawide):
+     relax the full-viewport minimum so the hero doesn't stretch into a huge
+     empty band. min-height (never a fixed height) means content can still push
+     it taller if needed, so the cards are never clipped. The tighter aspect
+     threshold keeps normal wide desktops at full 100dvh. */
+  @media (min-aspect-ratio: 2/1) and (min-width: 1280px) {
+    .conztru-hero,
+    .conztru-hero-content {
+      min-height: clamp(680px, 100vh, 1000px);
+    }
+  }
+
+  /* Responsive tweaks — tablet and down: let content stack naturally instead
+     of forcing a full-viewport height. */
+  @media (max-width: 1024px) {
+    .conztru-hero,
+    .conztru-hero-content {
+      min-height: auto;
+      height: auto;
+    }
+    .conztru-hero {
+      padding-bottom: 2rem;
+    }
+    .conztru-hero-headline {
+      margin-top: 1rem;
+      margin-bottom: 0;
+    }
+    .conztru-projects {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .conztru-hero-content {
+      padding-top: 5rem;
+    }
+    .conztru-hero-headline {
+      margin-top: 0;
+    }
+    .conztru-hero-sub {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .conztru-hero-bottom {
+      display: none;
+    }
+  }
+</style>
+</content>

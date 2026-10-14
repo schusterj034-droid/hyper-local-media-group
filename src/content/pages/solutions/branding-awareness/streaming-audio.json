@@ -1,0 +1,137 @@
+{
+  "title": "Digital Audio Advertising | Targeted Streaming Ads",
+  "description": "Reach listeners with streaming audio ads on music and podcast platforms. Non-skippable, professionally produced ads that build awareness and drive action.",
+  "keywords": "streaming audio advertising {city}, podcast advertising {city}, Spotify ads {city}, audio ads {city}, streaming music advertising, podcast ad campaigns, digital audio advertising",
+  "sections": [
+    {
+      "type": "hero",
+      "badge": "Branding & Awareness",
+      "title": "Streaming Audio Advertising",
+      "description": "Reach millions of engaged listeners with targeted audio ads on popular streaming music and podcast platforms. Non-skippable ads that drive real results.",
+      "buttonText": "Get Started",
+      "buttonHref": "/contact-us",
+      "image": "/images/streaming-audio.avif",
+      "imageAlt": "Streaming audio advertising on music platforms"
+    },
+    {
+      "type": "content",
+      "variant": "dark",
+      "title": "Streaming Audio",
+      "description": "Streaming Audio Advertising is a strategic approach to engaging with your audience as they immerse themselves in their favorite music, podcasts, or radio shows online. Seamlessly integrate your message into your target audience's favorite listening mediums, capturing their attention at just the right moment.",
+      "image": "/images/streaming-audio-content.avif",
+      "imageAlt": "Podcast and music streaming audio ads",
+      "imagePosition": "left"
+    },
+    {
+      "type": "cta",
+      "variant": "card",
+      "title": "Stream Audio Advertising can Extend Your Market Reach",
+      "description": "Streaming Audio Advertising's versatility and ability to reach consumers during various activities make it a powerful tool for building brand awareness. Maximize the impact of your streaming audio campaign with complimentary strategies like <a class='underline font-bold' href='/solutions/foundational/social-media-management'>Social Media Management</a>, <a class='underline font-bold' href='/solutions/branding-awareness/connected-tv'>Connected TV</a>, or <a class='underline font-bold' href='/solutions/branding-awareness/display-geofencing'>Display Advertising</a>.",
+      "buttonText": "Launch Your Campaign",
+      "buttonHref": "/contact-us"
+    },
+    {
+      "type": "features",
+      "title": "Benefits of Streaming Audio Advertising",
+      "description": "Reach engaged listeners on popular music streaming services and podcast networks.",
+      "columns": 4,
+      "features": [
+        {
+          "icon": "target",
+          "title": "Precision Targeting",
+          "description": "Target listeners by age, gender, location, interests, listening habits, and device type. Reach your ideal customers with data-driven audience segmentation."
+        },
+        {
+          "icon": "megaphone",
+          "title": "Non-Skippable Ads",
+          "description": "Unlike video ads, streaming audio ads cannot be skipped. Your message reaches 100% of your target audience with full attention — much like our <a class='underline font-bold' href='/indoor-billboards/screen-advertising'>indoor digital billboards</a>."
+        },
+        {
+          "icon": "palette",
+          "title": "Professional Production",
+          "description": "Access professional voice talent, sound design, and audio production services. We create compelling audio ads that capture attention and drive listener action."
+        },
+        {
+          "icon": "monitor",
+          "title": "Flexible Formats & Platforms",
+          "description": "Choose from 15-second, 30-second, or 60-second audio spots. Run ads across multiple streaming music services and podcast networks."
+        }
+      ]
+    },
+    {
+      "type": "valueCards",
+      "title": "Our Streaming Audio Advertising Process",
+      "description": "From strategy to launch, we handle every aspect of your audio campaign across streaming platforms.",
+      "variant": "cards",
+      "cards": [
+        {
+          "icon": "users",
+          "title": "Strategy & Discovery",
+          "description": "We start with a comprehensive consultation to understand your business goals, target audience, budget, and key performance indicators.",
+          "image": "/images/strategy.avif"
+        },
+        {
+          "icon": "palette",
+          "title": "Script & Production",
+          "description": "Our creative team develops compelling audio scripts. We handle professional voice talent, recording, sound design, and music licensing.",
+          "image": "/images/script.avif"
+        },
+        {
+          "icon": "rocket",
+          "title": "Campaign Launch",
+          "description": "After your approval, we launch your streaming audio ads across selected music streaming services and podcast networks with advanced targeting.",
+          "image": "/images/campaign-launch.avif"
+        },
+        {
+          "icon": "trending",
+          "title": "Analytics & Optimization",
+          "description": "Receive detailed performance reports tracking impressions, completion rates, click-through rates, and conversions. We continuously optimize for maximum exposure.",
+          "image": "/images/report-optimization.avif"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "title": "Streaming Audio Advertising FAQs",
+      "description": "Common questions about advertising on streaming music and podcast platforms.",
+      "faqs": [
+        {
+          "question": "What platforms do streaming audio ads run on?",
+          "answer": "Your streaming audio ads can run on major music streaming services and premium podcast networks. We help you select the best platform mix based on your target audience."
+        },
+        {
+          "question": "How much does streaming audio advertising cost?",
+          "answer": "Streaming audio advertising costs vary based on targeting, platform selection, ad length, and campaign duration. Most campaigns start around $1,000-$2,500 per month with CPM rates typically ranging from $15-$35."
+        },
+        {
+          "question": "What's included in creative production?",
+          "answer": "We handle complete audio ad production including strategy consultation, scriptwriting, professional voice talent, recording, sound design, music licensing, and final mixing. Production typically takes 7-10 business days."
+        },
+        {
+          "question": "Can I combine audio ads with other channels?",
+          "answer": "Absolutely! Streaming audio works great alongside <a class='underline font-bold' href='/solutions/lead-gen/social-media-advertising'>social media advertising</a> and <a class='underline font-bold' href='/solutions/branding-awareness/connected-tv'>connected TV</a> for a comprehensive brand awareness strategy."
+        }
+      ]
+    },
+    {
+      "type": "locations",
+      "title": "We Put Local Brands on the Map",
+      "description": "Our <strong>network</strong> spans across Denver's most popular neighborhoods and venues",
+      "variant": "overlay-titled",
+      "locations": [
+        { "name": "Aurora", "href": "/locations/aurora", "description": "East Denver Metro" },
+        { "name": "Lakewood", "href": "/locations/lakewood", "description": "West Denver Metro" },
+        { "name": "Arvada", "href": "/locations/arvada", "description": "Northwest Denver" },
+        { "name": "Centennial", "href": "/locations/centennial", "description": "South Denver Metro" }
+      ]
+    },
+    {
+      "type": "cta",
+      "variant": "banner",
+      "title": "Ready to get started?",
+      "description": "Contact us today to learn how we can help grow your business.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us"
+    }
+  ]
+}

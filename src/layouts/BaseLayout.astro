@@ -1,0 +1,250 @@
+---
+import { Font, getImage } from "astro:assets";
+import heroHome from "../assets/images/home.avif";
+import "../styles/global.css";
+import Navbar from "@/components/Navbar.astro";
+import Footer from "@/components/Footer.astro";
+import ThemeProvider from "@/components/ThemeProvider.astro";
+import PopupModal from "@/components/PopupModal.astro";
+import FreeScanButton from "@/components/FreeScanButton.astro";
+import { siteConfig, localizeMetadata } from "@/config/site";
+import {
+  organizationSchema,
+  brandOrganizationSchema,
+  websiteSchema,
+  webPageSchema,
+  breadcrumbSchema,
+} from "@/lib/schemas";
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  noindex?: boolean;
+  canonicalUrl?: string;
+  preloadImage?: string;
+  extraSchemas?: any[];
+}
+
+const {
+  title,
+  description,
+  keywords,
+  ogImage,
+  ogType = "website",
+  noindex = false,
+  canonicalUrl,
+  preloadImage,
+  extraSchemas = [],
+} = Astro.props;
+
+// JSON metadata.title authoritative per §4b — no `| siteName` append
+const localized = localizeMetadata({ title, description, keywords });
+const finalTitle = localized.title || siteConfig.seo.defaultTitle;
+const finalDescription = localized.description || siteConfig.seo.defaultDescription;
+const finalKeywords = localized.keywords || siteConfig.seo.keywords;
+const finalOgImage = ogImage || siteConfig.seo.ogImage;
+
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const autoCanonical =
+  new URL(pathname, siteConfig.seo.siteUrl).href.replace(/\/$/, "") ||
+  siteConfig.seo.siteUrl;
+const canonical = canonicalUrl || autoCanonical;
+
+// ─── Auto Breadcrumbs ────────────────────────────────────────────────────────
+const ORPHAN_SEGMENTS = new Set<string>([]);
+const segments = pathname === "/" ? [] : pathname.split("/").filter(Boolean);
+const crumbs: Array<{ name: string; url: string }> = [{ name: "Home", url: "/" }];
+segments.forEach((seg: string, i: number) => {
+  if (ORPHAN_SEGMENTS.has(seg) && i < segments.length - 1) return;
+  const url = "/" + segments.slice(0, i + 1).join("/");
+  const name = seg
+    .split("-")
+    .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+  crumbs.push({ name, url });
+});
+
+// ─── Schemas ─────────────────────────────────────────────────────────────────
+const baseSchemas: any[] = [
+  organizationSchema(),
+  brandOrganizationSchema(),
+  websiteSchema(),
+  webPageSchema({
+    url: pathname,
+    name: finalTitle,
+    description: finalDescription,
+    image: finalOgImage,
+  }),
+];
+if (crumbs.length > 1) baseSchemas.push(breadcrumbSchema(crumbs));
+const allSchemas = [...baseSchemas, ...extraSchemas];
+
+// ─── LCP image preload (homepage hero) ───────────────────────────────────────
+// The homepage hero <Picture> is the LCP element. Astro doesn't emit a real
+// <link rel=preload> for it, so the browser only discovers the image after
+// parsing the body. Generating the same AVIF variants here lets us preload
+// with the exact imagesrcset/imagesizes the <Picture> renders, eliminating the
+// resource-load-delay and starting the fetch at the very top of the document.
+const isHome = pathname === "/";
+let heroPreload: { srcset: string; sizes: string } | null = null;
+if (isHome) {
+  const heroSizes = "(max-width: 640px) 400px, 100vw";
+  const picture = await getImage({
+    src: heroHome,
+    format: "avif",
+    widths: [480, 640, 800, heroHome.width],
+    sizes: heroSizes,
+  });
+  heroPreload = {
+    srcset: picture.srcSet.attribute,
+    sizes: heroSizes,
+  };
+}
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    {/* LCP hero image preload — first discoverable resource so the fetch starts
+        immediately and wins priority over fonts. Placed before <Font> on purpose. */}
+    {heroPreload && (
+      <link
+        rel="preload"
+        as="image"
+        type="image/avif"
+        imagesrcset={heroPreload.srcset}
+        imagesizes={heroPreload.sizes}
+        fetchpriority="high"
+      />
+    )}
+
+    <!-- Astro 6 Fonts API — self-hosts Google Fonts, handles fallback metrics.
+         Not preloaded: the hero (LCP) uses Barlow, and preloading Poppins here
+         would steal bandwidth/priority from the LCP image. -->
+    <Font cssVariable="--font-poppins" />
+
+    <!-- Primary Meta Tags -->
+    <title>{finalTitle}</title>
+    <meta name="title" content={finalTitle} />
+    <meta name="description" content={finalDescription} />
+    {finalKeywords && <meta name="keywords" content={finalKeywords} />}
+    <meta name="author" content={siteConfig.business.name} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Robots -->
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    )}
+
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={finalTitle} />
+    <meta property="og:description" content={finalDescription} />
+    {finalOgImage && <meta property="og:image" content={finalOgImage} />}
+    <meta property="og:site_name" content={siteConfig.seo.siteName} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:title" content={finalTitle} />
+    <meta name="twitter:description" content={finalDescription} />
+    {finalOgImage && <meta name="twitter:image" content={finalOgImage} />}
+    {siteConfig.seo.twitterHandle && <meta name="twitter:site" content={siteConfig.seo.twitterHandle} />}
+
+    <!-- Geo Tags -->
+    <meta name="geo.region" content={`US-${siteConfig.location.state.substring(0, 2).toUpperCase()}`} />
+    <meta name="geo.placename" content={siteConfig.location.city} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content={siteConfig.colors.primary} />
+
+    {/* LCP image preload handled by <Picture fetchpriority="high"> in HeroHomeStatic */}
+
+    <!-- Preconnect for external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;0,800;1,800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;0,800;1,800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;0,800;1,800&display=swap"
+      />
+    </noscript>
+
+    <!-- Google Analytics -->
+    {siteConfig.analytics?.googleAnalyticsId && (
+      <>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleAnalyticsId}`}
+        ></script>
+        <script is:inline define:vars={{ gaId: siteConfig.analytics.googleAnalyticsId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+
+    <!-- Alpine.js — loaded after page is idle to keep LCP/TBT clean -->
+    <script is:inline src="/scripts/load-alpine.js" defer></script>
+
+    <!-- Inline critical CSS — paint LCP image before scoped styles parse.
+         min-height reserves the full hero box up front so the LCP image can
+         paint at final size without waiting on the render-blocking stylesheet. -->
+    <style is:inline>
+      html{font-family:'Barlow',system-ui,-apple-system,sans-serif}body{margin:0;min-height:100vh}*{box-sizing:border-box}
+      .conztru-hero{position:relative;min-height:100vh;background-color:#0D1B2A;overflow:hidden;border-radius:0 0 24px 24px}
+      .conztru-hero>div:first-child,.conztru-hero-media{position:absolute;inset:0;z-index:0}
+      .conztru-hero>div:first-child img,.conztru-hero-media img,.conztru-hero-media picture{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+      .conztru-hero-overlay{position:absolute;inset:0;background:rgba(13,27,42,.6)}
+      .conztru-hero-content{position:relative;display:flex;flex-direction:column;min-height:100vh}
+      .conztru-hero-headline{color:#fff;max-width:56rem}
+      .conztru-hero-title{font-family:'Barlow',sans-serif;font-weight:700;line-height:1.05;letter-spacing:-.02em;font-size:clamp(2.5rem,6vw,5rem);margin:0}
+      .conztru-title-head{display:block}.conztru-title-tail{display:block}
+      @media (max-width:1024px){.conztru-hero,.conztru-hero-content{min-height:auto}}
+    </style>
+
+    {/* JSON-LD schemas — one script per entity (no @graph wrapper) */}
+    {allSchemas.map((s) => (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />
+    ))}
+
+    <ThemeProvider />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Navbar />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer variant="classic" />
+    <FreeScanButton />
+    <PopupModal triggerId="free-scan-trigger" />
+  </body>
+</html>

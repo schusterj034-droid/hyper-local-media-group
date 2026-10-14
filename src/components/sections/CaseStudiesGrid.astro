@@ -1,0 +1,373 @@
+---
+// Case Studies GRID — presentation-only section component.
+//
+// Built the same way as the template's other sections (Hero / Features):
+// same `py-… bg-white` shell, `conztru-badge` eyebrow, two-tone Barlow
+// heading, `container mx-auto px-4`, and the template's `sb-card` DNA
+// (navy header bar, overlapping glass icon, red accent line on hover).
+//
+// Data binding is fixed; only the look is per-template. The index route
+// fetches `studies` / `categories` and drops this section in.
+//
+// NOTE: `results_summary` is intentionally NOT rendered on the cards — it's a
+// full paragraph, not a short tag. Cards show category, title, and a short
+// `challenge_summary`; the headline stats + `results_summary` live on the
+// detail page.
+import type { CaseStudy } from "@/lib/case-studies";
+import { Building2, ArrowUpRight } from "@lucide/astro";
+
+interface Props {
+  studies: CaseStudy[];
+  categories: string[];
+  selected?: string;
+  basePath?: string;
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+}
+
+const {
+  studies,
+  categories,
+  selected = "All",
+  basePath = "/about-us/case-studies",
+  eyebrow = "Proof of Work",
+  title = "Case Studies",
+  description = "Real local businesses, measured outcomes — the results did the talking.",
+} = Astro.props;
+
+// Two-tone heading split (mirrors FeaturesSection / HeroPage).
+const splitTitle = (t: string) => {
+  if (t.includes("\n")) {
+    const [a, ...rest] = t.split("\n");
+    return { head: a.trim(), tail: rest.join(" ").trim() };
+  }
+  const words = t.split(" ");
+  if (words.length < 2) return { head: t, tail: "" };
+  const mid = Math.ceil(words.length / 2);
+  return { head: words.slice(0, mid).join(" "), tail: words.slice(mid).join(" ") };
+};
+const { head, tail } = splitTitle(title);
+
+const filterHref = (cat: string) =>
+  cat === "All" ? basePath : `${basePath}?category=${encodeURIComponent(cat)}`;
+---
+
+<section class="py-20 md:py-28 bg-white">
+  <div class="container mx-auto px-4">
+    <!-- Section header — matches the template's other sections -->
+    <div class="max-w-3xl mb-10 md:mb-12 animate-fade-up">
+      {eyebrow && <span class="conztru-badge mb-4">{eyebrow}</span>}
+      <h2 class="text-3xl md:text-4xl lg:text-5xl mb-5 leading-tight text-balance" style="font-family:'Barlow',sans-serif; font-weight:800;">
+        <span style="color:#0D1B2A;">{head} </span>
+        {tail && <span class="conztru-italic-red">{tail}</span>}
+      </h2>
+      {description && <p class="text-lg md:text-xl text-gray-600 leading-relaxed">{description}</p>}
+    </div>
+
+    <!-- Filter pills — real padding, clear active/idle state in brand colors -->
+    {categories.length > 0 && (
+      <nav class="cs-filters mb-12" aria-label="Filter case studies by service">
+        <span class="cs-filters-label">Filter</span>
+        <a class:list={["cs-pill", { "is-active": selected === "All" }]} href={filterHref("All")}>All</a>
+        {categories.map((cat) => (
+          <a
+            class:list={["cs-pill", { "is-active": selected === cat }]}
+            href={filterHref(cat)}
+          >{cat}</a>
+        ))}
+      </nav>
+    )}
+
+    {studies.length === 0 ? (
+      <p class="cs-empty">No case studies published yet — check back soon.</p>
+    ) : (
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {studies.map((cs, i) => {
+          return (
+            <div class="animate-fade-up h-full" style={`animation-delay: ${Math.min(i, 8) * 80}ms`}>
+              <a
+                href={`${basePath}/${cs.slug}`}
+                class="sb-card cs-card group h-full flex flex-col"
+                aria-label={`Read the case study: ${cs.title}`}
+              >
+                {/* Media header — image, or navy fallback that matches sb-card--minimal */}
+                {cs.thumbnail_url ? (
+                  <div class="sb-card-media cs-card-media">
+                    <img
+                      src={cs.thumbnail_url}
+                      alt={cs.title}
+                      width="640"
+                      height="400"
+                      loading={i < 3 ? "eager" : "lazy"}
+                      decoding="async"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div class="cs-card-media cs-card-media--empty">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                      <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+                )}
+
+                {/* Overlapping glass icon badge — the template's signature */}
+                <div class="sb-card-icon cs-card-icon">
+                  <Building2 class="w-6 h-6 text-white" />
+                </div>
+
+                <div class="sb-card-body cs-card-body">
+                  {cs.category && <span class="cs-card-cat">{cs.category}</span>}
+
+                  <h3 class="sb-card-title cs-card-title">{cs.title}</h3>
+
+                  {/* Short challenge line only — never results_summary (a full paragraph) */}
+                  {cs.challenge_summary && (
+                    <p class="cs-card-desc">{cs.challenge_summary}</p>
+                  )}
+
+                  <span class="cs-card-link">
+                    Read the study
+                    <ArrowUpRight class="cs-card-link-arrow w-4 h-4" />
+                  </span>
+                </div>
+
+                <span class="sb-card-accent" aria-hidden="true"></span>
+              </a>
+            </div>
+          );
+        })}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up {
+    animation: fade-up 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-up { animation: none; opacity: 1; }
+  }
+
+  /* ===== Filter pills ===== */
+  .cs-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .cs-filters-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-right: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .cs-filters-label::before {
+    content: '';
+    width: 18px;
+    height: 2px;
+    background-color: #E8251A;
+    border-radius: 2px;
+  }
+  .cs-pill {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(13, 27, 42, 0.14);
+    color: #0D1B2A;
+    background: #ffffff;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: border-color 0.2s ease, color 0.2s ease,
+      background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cs-pill:hover {
+    border-color: #0D1B2A;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(13, 27, 42, 0.1);
+  }
+  .cs-pill.is-active {
+    background-color: #0D1B2A;
+    border-color: #0D1B2A;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(13, 27, 42, 0.22);
+  }
+  .cs-pill.is-active:hover {
+    background-color: #E8251A;
+    border-color: #E8251A;
+  }
+
+  /* ===== Card — extends the template's .sb-card DNA ===== */
+  .cs-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(13, 27, 42, 0.06);
+    box-shadow: 0 3px 6px rgba(13, 27, 42, 0.05), 0 10px 24px rgba(13, 27, 42, 0.12);
+    transition: transform .35s ease, box-shadow .35s ease;
+    isolation: isolate;
+    text-decoration: none;
+    color: inherit;
+  }
+  .cs-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 5px 10px rgba(13, 27, 42, 0.07), 0 22px 48px rgba(13, 27, 42, 0.18);
+  }
+
+  .cs-card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background-color: #0D1B2A;
+    overflow: hidden;
+  }
+  .cs-card-media img {
+    transition: transform .6s ease;
+  }
+  .cs-card:hover .cs-card-media img {
+    transform: scale(1.06);
+  }
+  /* No thumbnail — solid navy header w/ industry glyph (matches sb-card--minimal) */
+  .cs-card-media--empty {
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.35);
+    background:
+      radial-gradient(circle at 30% 20%, rgba(232, 37, 26, 0.4), transparent 55%),
+      linear-gradient(135deg, #0D1B2A 0%, #1a2a3f 100%);
+  }
+  .cs-card-media--empty svg {
+    width: 52px;
+    height: 52px;
+  }
+
+  /* Overlapping glass icon — the template signature (half on media, half body) */
+  .cs-card-icon {
+    position: relative;
+    margin: -32px 0 0 26px;
+    width: 64px;
+    height: 64px;
+    border-radius: 9999px;
+    background-color: rgba(13, 27, 42, 0.45);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 8px 20px rgba(13, 27, 42, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    z-index: 2;
+    transition: background-color .3s ease, transform .3s ease, border-color .3s ease;
+  }
+  .cs-card:hover .cs-card-icon {
+    background-color: rgba(232, 37, 26, 0.55);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: scale(1.05);
+  }
+
+  .cs-card-body {
+    padding: 18px 26px 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .cs-card-cat {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #C41C12;
+  }
+
+  .cs-card-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 800;
+    color: #0D1B2A;
+    font-size: 1.15rem;
+    line-height: 1.25;
+    margin: 10px 0 10px;
+    letter-spacing: -0.01em;
+    transition: color 0.2s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cs-card:hover .cs-card-title {
+    color: #C41C12;
+  }
+
+  .cs-card-desc {
+    font-size: 0.9rem;
+    color: #6b7280;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .cs-card-link {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #C41C12;
+  }
+  .cs-card-link-arrow {
+    transition: transform .25s ease;
+  }
+  .cs-card:hover .cs-card-link-arrow {
+    transform: translate(3px, -3px);
+  }
+
+  /* Bottom accent line — animates in on hover (template's sb-card-accent) */
+  .sb-card-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #E8251A;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+    z-index: 3;
+  }
+  .cs-card:hover .sb-card-accent {
+    transform: scaleX(1);
+  }
+
+  .cs-empty {
+    text-align: center;
+    color: #6b7280;
+    font-family: 'Barlow', sans-serif;
+    padding: 72px 0;
+  }
+</style>

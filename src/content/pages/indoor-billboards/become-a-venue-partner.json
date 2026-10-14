@@ -1,0 +1,163 @@
+{
+  "title": "Become a Venue Partner",
+  "description": "Join our network of premium venues to reach engaged audiences in high-traffic locations across {city}.",
+  "keywords": "become venue partner {city}, indoor billboard venue partner, digital signage venue partner, monetize venue space {city}, venue advertising partnership, host digital billboard {city}",
+  "sections": [
+    {
+      "type": "hero",
+      "badge": "Indoor Billboard Network",
+      "title": "Become a Venue Partner",
+      "description": "We all share the same customers, so why not work together?",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us",
+      "image": "/images/venue-partner-hero.avif",
+      "imageAlt": "Indoor digital billboard venue partner network"
+    },
+    {
+      "type": "content",
+      "variant": "dark",
+      "title": "Become A Venue Partner",
+      "description": "Our network of indoor digital billboards is located within retail and restaurant venues across your local community. Venue partners enjoy the benefits of discounted <a class='underline font-bold' href='/indoor-billboards/screen-advertising'>screen advertising</a>, cross-network promoting and much more! Check out our current <a class='underline font-bold' href='/indoor-billboards/locations'>network locations</a> to see where your venue could be featured.",
+      "image": "/images/venue-partner-content.avif",
+      "imageAlt": "Become a venue partner",
+      "imagePosition": "left"
+    },
+    {
+      "type": "features",
+      "title": "Why Do Venues Want to Join Our Network",
+      "columns": 3,
+      "features": [
+        {
+          "icon": "share",
+          "title": "Network Advertising",
+          "description": "One of the most enticing advantages of the network is that your venue's motion ads will be showcased in nearby non-competitive <a class='underline font-bold' href='/indoor-billboards/locations'>locations</a>, enabling you to reach out to customers of other venues. Some of these customers might also be yours, thus enhancing your top-of-mind brand awareness, increasing frequency, and sparking word-of-mouth referrals through our <a class='underline font-bold' href='/indoor-billboards/screen-advertising'>screen advertising network</a>."
+        },
+        {
+          "icon": "monitor",
+          "title": "Internal Advertising",
+          "description": "Participating in the network also provides you with the opportunity to engage with your customers while they are inside your establishment. Many venues utilize screen time to inform, promote, or educate their customers about ongoing specials, promotions, or helpful tips."
+        },
+        {
+          "icon": "palette",
+          "title": "Content Creation",
+          "description": "We handle all graphic content creation for our Venue Network Partners. Just provide us with a few design elements, perhaps some pictures and messages, and we'll take it from there."
+        },
+        {
+          "icon": "dollar",
+          "title": "Access to Marketing Services",
+          "description": "Being part of our network also provides you with access to a variety of different marketing services and our highly talented, trained marketing staff who manage them. We cover everything from <a class='underline font-bold' href='/solutions/foundational/website-design'>websites</a> and <a class='underline font-bold' href='/solutions/foundational/social-media-management'>social media</a> to <a class='underline font-bold' href='/solutions/lead-gen/pay-per-click'>pay-per-click advertising</a>, <a class='underline font-bold' href='/solutions/branding-awareness/display-geofencing'>geofencing</a>, and everything in between."
+        },
+        {
+          "icon": "megaphone",
+          "title": "Local Support",
+          "description": "Whether it's a simple technical or maintenance question, a content ad change, or an inquiry about different marketing campaign options, we are here to meet with you and service your needs."
+        },
+        {
+          "icon": "tv",
+          "title": "More Than Ads",
+          "description": "We go beyond continuous promotion of your business within the screen network, offering exceptional brand reach. We also provide engaging content for viewers, including weather updates, trivia, and fun facts, creating a more enjoyable experience for customers."
+        }
+      ]
+    },
+    {
+      "type": "valueCards",
+      "title": "How do I Become a Venue Partner?",
+      "description": "Hosting an indoor digital billboard is easy! We'll take care of everything from the installation to the ad creation. It's as easy as 1-2-3.",
+      "variant": "cards",
+      "cards": [
+        {
+          "icon": "message",
+          "title": "Step 1: Contact Us",
+          "description": "Reach out to our team to express your interest in becoming a venue partner. We'll discuss your location, foot traffic, and how our indoor billboard network can benefit your business.",
+          "image": "/images/contact-us-man.avif"
+        },
+        {
+          "icon": "users",
+          "title": "Step 2: Setup a Free Consultation",
+          "description": "Schedule a complimentary consultation where we'll visit your venue, assess the best placement options, and explain all the benefits of joining our network including cross-promotion opportunities. See how other venues benefit from our <a class='underline font-bold' href='/indoor-billboards/screen-advertising'>screen advertising network</a>.",
+          "image": "/images/free-consultation.avif"
+        },
+        {
+          "icon": "rocket",
+          "title": "Step 3: Approve Your Ad and Installation Date",
+          "description": "Review and approve your custom venue ad design, then select a convenient installation date. Our professional team will handle all technical setup, and you'll be live on the network in no time.",
+          "image": "/images/installation-date.avif"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "title": "Learn More About Our Network",
+      "description": "Discover how businesses advertise on our screens and where we're located.",
+      "columns": 3,
+      "features": [
+        {
+          "icon": "monitor",
+          "title": "Screen Advertising",
+          "description": "Interested in advertising your business on our network? <a class='underline font-bold' href='/indoor-billboards/screen-advertising'>Learn how screen advertising works</a> and how it can boost your brand visibility across {city}."
+        },
+        {
+          "icon": "target",
+          "title": "Our Network Locations",
+          "description": "See where our screens are located across {city}. <a class='underline font-bold' href='/indoor-billboards/locations'>Explore our high-traffic venues</a> and find out where your venue could be featured."
+        },
+        {
+          "icon": "share",
+          "title": "Schedule a Consultation",
+          "description": "Ready to become a partner? <a class='underline font-bold' href='/contact-us'>Contact us today to schedule your free consultation</a> and learn about the benefits of joining our network."
+        }
+      ]
+    },
+    {
+      "type": "locations",
+      "title": "Our Locations",
+      "description": "Our <a class='underline font-bold' href='/indoor-billboards/screen-advertising'>screens</a> can be found in many popular locations throughout the community. Interested in hosting a screen? <a class='underline font-bold' href='/indoor-billboards/become-a-venue-partner'>Become a venue partner</a>.",
+      "overlayBadge": "Network Coverage",
+      "overlayTitle": "Our Locations",
+      "variant": "overlay-titled",
+      "locations": [
+        { "name": "Aurora", "href": "/locations/aurora", "description": "East Denver Metro" },
+        { "name": "Arvada", "href": "/locations/arvada", "description": "Northwest Denver" },
+        { "name": "Lakewood", "href": "/locations/lakewood", "description": "West Denver Metro" },
+        { "name": "Centennial", "href": "/locations/centennial", "description": "South Denver Metro" }
+      ]
+    },
+    {
+      "type": "faq",
+      "badge": "Venue Partner FAQs",
+      "title": "Frequently Asked Questions",
+      "description": "Everything you need to know about hosting an indoor digital billboard at your venue.",
+      "variant": "accordion",
+      "faqs": [
+        {
+          "question": "What does my venue need to host an indoor digital billboard?",
+          "answer": "Not much! Our team handles everything from assessing the best screen placement to the full technical installation. We'll visit your venue during a free consultation to find the ideal spot, and our professional team takes care of all the setup."
+        },
+        {
+          "question": "What do venue partners receive in return for hosting a screen?",
+          "answer": "Venue partners enjoy discounted <a class='underline font-bold' href='/indoor-billboards/screen-advertising'>screen advertising</a>, cross-network promotion of their business in nearby non-competitive venues, and access to our full range of marketing services, from website design to social media management."
+        },
+        {
+          "question": "Who creates the ad content for my venue?",
+          "answer": "We do! We handle all graphic content creation for our Venue Network Partners. Just provide us with a few design elements, perhaps some pictures and messages, and our creative team will take it from there."
+        },
+        {
+          "question": "Can I use the screen to promote my own business inside my venue?",
+          "answer": "Absolutely. Many venue partners use screen time to inform, promote, or educate their customers about ongoing specials, promotions, or helpful tips, all while their ads also run across the rest of the network."
+        },
+        {
+          "question": "How do I get started?",
+          "answer": "It's as easy as 1-2-3: reach out to our team, schedule a free on-site consultation, then approve your ad design and installation date. You'll be live on the network in no time."
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "variant": "banner",
+      "title": "Ready to Become a Venue Partner?",
+      "description": "Join our growing network of premium venues and start benefiting from cross-network promotion, discounted advertising, and a complete suite of marketing services.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us"
+    }
+  ]
+}

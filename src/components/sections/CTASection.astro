@@ -1,0 +1,251 @@
+---
+import ButtonLink from "@/components/ui/ButtonLink.astro"
+import { getLocationText, siteConfig } from "@/config/site"
+import AnimateOnScroll from "@/components/AnimateOnScroll.astro"
+import { ArrowRight, Phone, Mail } from "lucide-react"
+
+interface Props {
+  badge?: string
+  title: string
+  description: string
+  buttonText?: string
+  buttonHref?: string
+  secondaryButtonText?: string
+  secondaryButtonHref?: string
+  variant?: "bold" | "split" | "card" | "banner"
+}
+
+const {
+  badge,
+  title,
+  description,
+  buttonText = "Get Started",
+  buttonHref = "/contact-us",
+  secondaryButtonText,
+  secondaryButtonHref,
+  variant = "bold",
+} = Astro.props
+
+const processedTitle = getLocationText(title)
+const processedDescription = getLocationText(description)
+const processedBadge = badge ? getLocationText(badge) : undefined
+
+const splitTitle = (t: string) => {
+  if (t.includes("\n")) {
+    const [a, ...rest] = t.split("\n")
+    return { head: a.trim(), tail: rest.join(" ").trim() }
+  }
+  const words = t.split(" ")
+  if (words.length < 3) return { head: t, tail: "" }
+  const mid = Math.ceil(words.length / 2)
+  return { head: words.slice(0, mid).join(" "), tail: words.slice(mid).join(" ") }
+}
+const { head, tail } = splitTitle(processedTitle)
+---
+
+{variant === "bold" && (
+  <section class="py-20 md:py-28" style="background-color:#C9D1D6;">
+    <div class="container mx-auto px-4">
+      <AnimateOnScroll animation="fade-up">
+        <div class="relative rounded-3xl p-6 sm:p-10 md:p-16 lg:p-20 overflow-hidden backdrop-blur-2xl border border-white/15 shadow-2xl" style="background: linear-gradient(135deg, rgba(13,27,42,0.92) 0%, rgba(13,27,42,0.78) 100%); box-shadow: 0 8px 32px 0 rgba(13,27,42,0.37), inset 0 1px 0 0 rgba(255,255,255,0.12);">
+          <div class="relative z-10 text-center max-w-3xl mx-auto">
+            {processedBadge && <span class="conztru-badge mb-5 justify-center" style="color:#FF7468;">{processedBadge}</span>}
+
+            <h2 class="text-3xl md:text-5xl mb-5 leading-tight text-balance" style="font-family:'Barlow',sans-serif; font-weight:800;">
+              <span class="block text-white">{head}</span>
+              {tail && <span class="block conztru-italic-red">{tail}</span>}
+            </h2>
+            <p class="text-lg md:text-xl text-white/70 mb-10 text-balance">
+              {processedDescription}
+            </p>
+            <div class="cta-row flex flex-row flex-nowrap gap-2 sm:gap-4 justify-center items-center">
+              <ButtonLink href={buttonHref} size="lg" class="conztru-cta rounded-full text-white shadow-xl !px-5 sm:!px-8 !text-xs sm:!text-sm">
+                {buttonText}
+              </ButtonLink>
+              <a href={buttonHref} aria-label="Open link" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white text-[#0D1B2A] hover:bg-[#E8251A] hover:text-white transition-colors shrink-0">
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              {secondaryButtonText && secondaryButtonHref && (
+                <ButtonLink href={secondaryButtonHref} size="lg" variant="outline" class="border-2 border-white/30 !text-white !bg-transparent hover:!bg-white/10 rounded-full">
+                  {secondaryButtonText}
+                </ButtonLink>
+              )}
+            </div>
+          </div>
+        </div>
+      </AnimateOnScroll>
+    </div>
+  </section>
+)}
+
+{variant === "split" && (
+  <section class="py-20 md:py-28 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+        <div class="grid lg:grid-cols-5">
+          <div class="lg:col-span-3 p-10 md:p-14 lg:p-16" style="background-color:#0D1B2A;">
+            <div class="max-w-xl">
+              {processedBadge && <span class="conztru-badge mb-5">{processedBadge}</span>}
+              <h2 class="text-3xl md:text-4xl lg:text-5xl mb-4 text-balance leading-tight" style="font-family:'Barlow',sans-serif; font-weight:800;">
+                <span class="block text-white">{head}</span>
+                {tail && <span class="block conztru-italic-red">{tail}</span>}
+              </h2>
+              <p class="text-lg md:text-xl text-white/70 mb-8 text-balance">
+                {processedDescription}
+              </p>
+              <div class="flex flex-wrap items-center gap-4">
+                <ButtonLink href={buttonHref} size="lg" class="conztru-cta rounded-full text-white shadow-lg">
+                  {buttonText}
+                </ButtonLink>
+                <a href={buttonHref} aria-label="Open link" class="w-12 h-12 rounded-full flex items-center justify-center bg-white text-[#0D1B2A] hover:bg-[#E8251A] hover:text-white transition-colors">
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                {secondaryButtonText && secondaryButtonHref && (
+                  <ButtonLink href={secondaryButtonHref} size="lg" variant="ghost" class="text-white hover:bg-white/10 hover:text-white">
+                    {secondaryButtonText}
+                  </ButtonLink>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-2 p-10 md:p-14 lg:p-16 flex flex-col justify-center gap-5" style="background-color:#E8251A;">
+            <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/80 mb-2">Contact Us Directly</p>
+
+            <a href={`tel:${siteConfig.contact.phone}`} class="group flex items-center gap-4 p-4 rounded-2xl bg-white/10 hover:bg-white/20 transition-all">
+              <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Phone className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p class="text-xs text-white/70 mb-0.5">Call Us</p>
+                <p class="text-base font-bold text-white">{siteConfig.contact.phoneFormatted}</p>
+              </div>
+            </a>
+
+            <a href={`mailto:${siteConfig.contact.email}`} class="group flex items-center gap-4 p-4 rounded-2xl bg-white/10 hover:bg-white/20 transition-all">
+              <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Mail className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p class="text-xs text-white/70 mb-0.5">Email Us</p>
+                <p class="text-base font-bold text-white">{siteConfig.contact.email}</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+{variant === "card" && (
+  <section class="py-20 md:py-28" style="background-color:#C9D1D6;">
+    <div class="container mx-auto px-4">
+      <AnimateOnScroll animation="fade-up">
+        <div class="relative rounded-3xl p-10 md:p-14 lg:p-20 overflow-hidden border border-white/60 shadow-2xl" style="box-shadow: 0 8px 32px 0 rgba(13,27,42,0.18), inset 0 1px 0 0 rgba(255,255,255,0.9);">
+          <img src="/images/home.avif" alt="" aria-hidden="true" width="1600" height="800" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" />
+          <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,255,255,0.84) 0%, rgba(255,255,255,0.74) 50%, rgba(255,255,255,0.64) 100%); backdrop-filter: blur(3px) saturate(140%); -webkit-backdrop-filter: blur(3px) saturate(140%);"></div>
+          <div class="absolute -top-32 -right-24 w-80 h-80 rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(232,37,26,0.10) 0%, transparent 70%);"></div>
+          <div class="relative z-10 text-center max-w-3xl mx-auto">
+            {processedBadge && <span class="conztru-badge mb-5 justify-center">{processedBadge}</span>}
+
+            <h2 class="text-3xl md:text-5xl mb-5 leading-tight text-balance" style="font-family:'Barlow',sans-serif; font-weight:800;">
+              <span class="block" style="color:#0D1B2A;">{head}</span>
+              {tail && <span class="block conztru-italic-red">{tail}</span>}
+            </h2>
+            <p class="text-lg md:text-xl text-gray-700 mb-10 text-balance" set:html={processedDescription} />
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <ButtonLink href={buttonHref} size="lg" class="conztru-cta rounded-full text-white shadow-lg">
+                {buttonText}
+              </ButtonLink>
+              <a href={buttonHref} aria-label="Open link" class="w-12 h-12 rounded-full flex items-center justify-center bg-[#0D1B2A] text-white hover:bg-[#E8251A] transition-colors">
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              {secondaryButtonText && secondaryButtonHref && (
+                <ButtonLink href={secondaryButtonHref} size="lg" variant="outline" class="border-2 border-gray-200 text-gray-700 hover:bg-gray-50 rounded-full">
+                  {secondaryButtonText}
+                </ButtonLink>
+              )}
+            </div>
+          </div>
+        </div>
+      </AnimateOnScroll>
+    </div>
+  </section>
+)}
+
+{variant === "banner" && (
+  <section class="py-16 md:py-24" style="background-color:#F5F4F0;">
+    <div class="container mx-auto px-4 md:px-8">
+      <AnimateOnScroll animation="fade-up">
+        <div class="conztru-final-cta relative overflow-hidden rounded-[2rem] px-8 py-12 md:px-14 md:py-14 lg:px-20 lg:py-16">
+          <div class="relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left lg:flex-row lg:justify-between gap-10 lg:gap-16">
+            <div class="flex-1 max-w-2xl">
+              <h2 class="text-3xl md:text-4xl lg:text-5xl mb-6 text-balance leading-[1.05] uppercase" style="font-family:'Barlow',sans-serif; font-weight:900; letter-spacing:-0.01em;">
+                <span class="text-white mr-3">{head}</span>
+                {tail && <span class="conztru-italic-red">{tail}</span>}
+              </h2>
+              <div class="flex gap-4 max-w-md mx-auto lg:mx-0">
+                <div class="w-px shrink-0" style="background-color:#E8251A;"></div>
+                <p class="on-dark text-base md:text-lg text-white/70 text-balance leading-relaxed text-left" set:html={processedDescription} />
+              </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-3 shrink-0">
+              <ButtonLink href={buttonHref} size="lg" class="conztru-cta conztru-final-cta-btn rounded-full text-white group">
+                <span>{buttonText}</span>
+                <span class="ml-2 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center transition-colors group-hover:bg-white/30">
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </ButtonLink>
+              {secondaryButtonText && secondaryButtonHref && (
+                <ButtonLink href={secondaryButtonHref} size="lg" variant="ghost" class="text-white/70 hover:text-white hover:bg-white/10 rounded-full">
+                  {secondaryButtonText}
+                </ButtonLink>
+              )}
+            </div>
+          </div>
+        </div>
+      </AnimateOnScroll>
+    </div>
+  </section>
+)}
+
+<style is:global>
+  /* Final pre-footer CTA: an elevated navy card that sits on a light section,
+     so it reads as a deliberate, contained moment — and never blends into the
+     navy footer below it. Depth (layered shadow + inset highlight) is what
+     makes it feel crafted rather than a flat color band.
+     NOTE: this block is `is:global` because the CTA button is rendered by the
+     <ButtonLink> child component, whose root <a> does not receive this file's
+     scoped data-cid — a scoped rule would never match it. */
+  .conztru-final-cta {
+    background-color: #0D1B2A;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 24px 60px -12px rgba(13, 27, 42, 0.45),
+      0 8px 24px -8px rgba(13, 27, 42, 0.30),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.10);
+  }
+  /* Primary CTA button — red comes from the global `.conztru-cta` class; this
+     adds a premium hover lift + red-tinted shadow on top. */
+  .conztru-final-cta-btn {
+    box-shadow: 0 10px 24px -6px rgba(232, 37, 26, 0.45);
+    transition:
+      transform 200ms cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 200ms cubic-bezier(0.25, 1, 0.5, 1),
+      background-color 200ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .conztru-final-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px -8px rgba(232, 37, 26, 0.55);
+  }
+  .conztru-final-cta-btn:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 100ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .conztru-final-cta-btn { transition: none; }
+    .conztru-final-cta-btn:hover { transform: none; }
+  }
+</style>

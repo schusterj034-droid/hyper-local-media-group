@@ -1,0 +1,204 @@
+---
+import { getLocationText } from "@/config/site"
+import Breadcrumbs from "@/components/Breadcrumbs.astro"
+
+interface Props {
+  badge?: string
+  title: string
+  description?: string
+  image?: string
+  imageAlt?: string
+  /** CSS object-position for the hero image crop, e.g. "center top". Defaults to center. */
+  imagePosition?: string
+  buttonText?: string
+  buttonHref?: string
+  /** legacy aliases */
+  ctaText?: string
+  ctaHref?: string
+  /** Overrides the breadcrumb's current-page label (defaults to the hero title). */
+  breadcrumbLabel?: string
+}
+
+const {
+  badge,
+  title,
+  description,
+  image,
+  imageAlt = "Hero image",
+  imagePosition,
+  buttonText,
+  buttonHref = "/contact-us",
+  ctaText,
+  ctaHref,
+  breadcrumbLabel,
+} = Astro.props
+
+const finalCtaText = buttonText ?? ctaText
+const finalCtaHref = buttonHref ?? ctaHref ?? "/contact-us"
+
+const processedTitle = getLocationText(title)
+const processedDescription = description ? getLocationText(description) : undefined
+const processedBadge = badge ? getLocationText(badge) : undefined
+
+const splitTitle = (t: string) => {
+  if (t.includes("\n")) {
+    const [a, ...rest] = t.split("\n")
+    return { head: a.trim(), tail: rest.join(" ").trim() }
+  }
+  const words = t.split(" ")
+  if (words.length < 3) return { head: t, tail: "" }
+  const mid = Math.ceil(words.length / 2)
+  return { head: words.slice(0, mid).join(" "), tail: words.slice(mid).join(" ") }
+}
+const { head, tail } = splitTitle(processedTitle)
+---
+
+<section class="conztru-hero-page relative overflow-hidden">
+    <div class="conztru-hero-page-media">
+      {image ? (
+        <img
+          src={image}
+          alt={imageAlt}
+          class="w-full h-full object-cover"
+          style={imagePosition ? `object-position:${imagePosition}` : undefined}
+          fetchpriority="high"
+          loading="eager"
+          decoding="async"
+          width={1920}
+          height={1080}
+          sizes="100vw"
+        />
+      ) : (
+        <div class="w-full h-full" style="background-color:#0D1B2A;" />
+      )}
+      <div class="conztru-hero-page-overlay" aria-hidden="true"></div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 lg:pt-28 pb-12 md:pb-20 lg:pb-24">
+      <Breadcrumbs variant="overlay" currentLabel={breadcrumbLabel ?? processedTitle} class="mb-10 md:mb-14 lg:mb-16" />
+
+      <div class="max-w-3xl">
+        {processedBadge && (
+          <span class="conztru-hero-page-badge mb-5">{processedBadge}</span>
+        )}
+
+        <h1 class="conztru-hero-page-title text-balance">
+          <span class="conztru-page-title-head">{head}</span>
+          {tail && <span class="conztru-page-title-tail">{tail}</span>}
+        </h1>
+
+        {processedDescription && (
+          <p class="conztru-hero-page-sub mt-5 max-w-xl text-lg md:text-xl leading-relaxed">
+            {processedDescription}
+          </p>
+        )}
+
+        {finalCtaText && (
+          <div class="mt-8">
+            <a href={finalCtaHref} class="conztru-hero-page-cta inline-flex items-center gap-2 h-12 pl-6 pr-1.5 rounded-full">
+              <span class="text-sm font-semibold tracking-wide">{finalCtaText}</span>
+              <span class="conztru-hero-page-cta-arrow inline-flex items-center justify-center w-9 h-9 rounded-full">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7"/>
+                  <path d="M7 7h10v10"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+</section>
+
+<style>
+  .conztru-hero-page {
+    background-color: #0D1B2A;
+    min-height: 420px;
+    isolation: isolate;
+    border-radius: 0 0 24px 24px;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .conztru-hero-page { min-height: 600px; }
+  }
+  @media (min-width: 1024px) {
+    .conztru-hero-page { min-height: 680px; }
+  }
+
+  .conztru-hero-page-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .conztru-hero-page-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(13,27,42,0.85) 0%, rgba(13,27,42,0.65) 55%, rgba(13,27,42,0.35) 100%);
+  }
+
+  .conztru-hero-page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+  }
+  .conztru-hero-page-badge::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background-color: #E8251A;
+  }
+
+  .conztru-hero-page-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-size: clamp(2rem, 5vw, 3.75rem);
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+    margin: 0;
+  }
+  .conztru-page-title-head {
+    display: block;
+    color: #ffffff;
+    font-weight: 800;
+  }
+  .conztru-page-title-tail {
+    display: block;
+    color: rgba(255, 255, 255, 0.82);
+    font-weight: 500;
+  }
+
+  .conztru-hero-page-sub {
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .conztru-hero-page-cta {
+    background-color: #ffffff;
+    color: #0D1B2A;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+  .conztru-hero-page-cta:hover {
+    background-color: #f4f4f4;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  }
+  .conztru-hero-page-cta-arrow {
+    background-color: #0D1B2A;
+    color: #ffffff;
+    transition: all 0.25s ease;
+  }
+  .conztru-hero-page-cta:hover .conztru-hero-page-cta-arrow {
+    background-color: #E8251A;
+    transform: rotate(45deg);
+  }
+</style>

@@ -1,0 +1,341 @@
+---
+import { getLocationText } from "@/config/site"
+import AnimateOnScroll from "@/components/AnimateOnScroll.astro"
+
+interface LogoItem {
+  src: string
+  alt: string
+}
+
+interface LogoGroup {
+  label: string
+  perView?: 2 | 3 | 4
+  logos: LogoItem[]
+}
+
+interface Props {
+  badge?: string
+  title?: string
+  subtitle?: string
+  description?: string
+  groups: LogoGroup[]
+}
+
+const { badge, title, subtitle, description, groups } = Astro.props
+
+const processedTitle = title ? getLocationText(title) : undefined
+const processedSubtitle = subtitle ? getLocationText(subtitle) : undefined
+const processedDescription = description ? getLocationText(description) : undefined
+const processedBadge = badge ? getLocationText(badge) : undefined
+
+const splitTitle = (t: string) => {
+  if (!t) return { head: "", tail: "" }
+  if (t.includes("\n")) {
+    const [a, ...rest] = t.split("\n")
+    return { head: a.trim(), tail: rest.join(" ").trim() }
+  }
+  const words = t.split(" ")
+  if (words.length < 3) return { head: t, tail: "" }
+  const mid = Math.ceil(words.length / 2)
+  return { head: words.slice(0, mid).join(" "), tail: words.slice(mid).join(" ") }
+}
+const { head, tail } = processedTitle ? splitTitle(processedTitle) : { head: "", tail: "" }
+
+const chunk = <T,>(arr: T[], size: number): T[][] => {
+  const out: T[][] = []
+  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size))
+  return out
+}
+
+const groupData = groups.map((g, gi) => {
+  const perView = g.perView ?? 3
+  const slides = chunk(g.logos, perView)
+  return { ...g, perView, slides, id: `platforms-carousel-${gi}` }
+})
+---
+
+<section class="py-14 sm:py-20 md:py-28 bg-white">
+  <div class="container mx-auto px-4">
+    {(processedTitle || processedBadge || processedSubtitle || processedDescription) && (
+      <AnimateOnScroll animation="fade-up">
+        <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          {processedBadge && <span class="conztru-badge mb-4 justify-center">{processedBadge}</span>}
+          {processedTitle && (
+            <h2 class="text-3xl md:text-4xl lg:text-5xl mb-4 leading-tight text-balance" style="font-family:'Barlow',sans-serif; font-weight:800;">
+              <span style="color:#0D1B2A;">{head} </span>
+              {tail && <span class="conztru-italic-red">{tail}</span>}
+            </h2>
+          )}
+          {processedSubtitle && (
+            <p class="text-lg md:text-xl text-gray-700 mb-3" style="font-family:'Barlow',sans-serif; font-weight:600;">{processedSubtitle}</p>
+          )}
+          {processedDescription && (
+            <p class="text-lg md:text-xl text-gray-600" set:html={processedDescription} />
+          )}
+        </div>
+      </AnimateOnScroll>
+    )}
+
+    <div class="space-y-10 sm:space-y-16 md:space-y-20 max-w-5xl mx-auto">
+      {groupData.map((group, gi) => (
+        <AnimateOnScroll animation="fade-up" delay={gi * 100}>
+          <div class="platforms-group">
+            <h3 class="platforms-group-label">{group.label}</h3>
+
+            <div class="platforms-carousel" data-carousel id={group.id}>
+              <button type="button" class="platforms-arrow platforms-arrow--prev" data-prev aria-label={`Previous ${group.label}`}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+
+              <div class="platforms-viewport">
+                <div class="platforms-track" data-track>
+                  {group.slides.map((slide, si) => (
+                    <div class="platforms-slide" data-slide-index={si}>
+                      {slide.map((logo) => (
+                        <div class="platforms-logo">
+                          <img src={logo.src} alt={logo.alt} width="120" height="60" loading="lazy" decoding="async" />
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button type="button" class="platforms-arrow platforms-arrow--next" data-next aria-label={`Next ${group.label}`}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
+
+            {group.slides.length > 1 && (
+              <div class="platforms-dots" data-dots>
+                {group.slides.map((_, si) => (
+                  <button
+                    type="button"
+                    class="platforms-dot"
+                    class:list={[si === 0 && "is-active"]}
+                    data-dot-index={si}
+                    aria-label={`Go to slide ${si + 1}`}
+                  ></button>
+                ))}
+              </div>
+            )}
+          </div>
+        </AnimateOnScroll>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function initPlatformsCarousels() {
+    const carousels = document.querySelectorAll<HTMLElement>("[data-carousel]")
+    carousels.forEach((carousel) => {
+      const track = carousel.querySelector<HTMLElement>("[data-track]")
+      const slides = carousel.querySelectorAll<HTMLElement>(".platforms-slide")
+      const prevBtn = carousel.querySelector<HTMLButtonElement>("[data-prev]")
+      const nextBtn = carousel.querySelector<HTMLButtonElement>("[data-next]")
+      const dots = carousel.querySelectorAll<HTMLButtonElement>("[data-dot-index]")
+      if (!track || slides.length === 0) return
+
+      let index = 0
+      const total = slides.length
+
+      const update = () => {
+        track.style.transform = `translateX(-${index * 100}%)`
+        dots.forEach((d, di) => d.classList.toggle("is-active", di === index))
+        if (prevBtn) prevBtn.disabled = index === 0
+        if (nextBtn) nextBtn.disabled = index === total - 1
+      }
+
+      const go = (next: number) => {
+        index = Math.max(0, Math.min(total - 1, next))
+        update()
+      }
+
+      prevBtn?.addEventListener("click", () => go(index - 1))
+      nextBtn?.addEventListener("click", () => go(index + 1))
+      dots.forEach((dot, di) => dot.addEventListener("click", () => go(di)))
+
+      update()
+    })
+  }
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(initPlatformsCarousels, { timeout: 2000 })
+  } else if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPlatformsCarousels)
+  } else {
+    initPlatformsCarousels()
+  }
+</script>
+
+<style>
+  .platforms-group-label {
+    text-align: center;
+    letter-spacing: 0.18em;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: #0D1B2A;
+    text-transform: uppercase;
+    margin-bottom: 1.75rem;
+  }
+
+  .platforms-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .platforms-viewport {
+    flex: 1;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .platforms-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .platforms-slide {
+    flex: 0 0 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    justify-items: center;
+    gap: 1.5rem;
+    padding: 1rem 0.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .platforms-carousel {
+      position: relative;
+      gap: 0;
+    }
+    .platforms-slide {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      padding: 0.75rem 0.25rem;
+    }
+    /* On mobile we display 2 per row instead of 3.
+       The 3rd logo wraps to its own row inside the same slide so nothing is hidden. */
+    .platforms-slide > .platforms-logo:nth-child(3) {
+      grid-column: 1 / -1;
+      max-width: 50%;
+    }
+  }
+
+  .platforms-logo {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.5rem;
+  }
+  @media (max-width: 640px) {
+    .platforms-logo {
+      height: 60px;
+      padding: 0 0.25rem;
+    }
+  }
+  .platforms-logo img {
+    max-height: 100%;
+    max-width: 160px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(0%);
+    transition: transform 0.35s ease;
+  }
+  .platforms-logo:hover img {
+    transform: scale(1.06);
+  }
+
+  .platforms-arrow {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #0D1B2A;
+    border: 1px solid rgba(13, 27, 42, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(13, 27, 42, 0.06), 0 8px 18px rgba(13, 27, 42, 0.08);
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  @media (max-width: 640px) {
+    .platforms-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      z-index: 2;
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .platforms-arrow--prev {
+      left: -4px;
+    }
+    .platforms-arrow--next {
+      right: -4px;
+    }
+    .platforms-arrow:hover {
+      transform: translateY(-50%);
+    }
+  }
+  .platforms-arrow:hover {
+    background-color: #E8251A;
+    color: #ffffff;
+    border-color: #E8251A;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(232, 37, 26, 0.18), 0 12px 24px rgba(232, 37, 26, 0.18);
+  }
+  .platforms-arrow:focus-visible {
+    outline: 2px solid #E8251A;
+    outline-offset: 2px;
+  }
+  .platforms-arrow:disabled {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .platforms-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+  .platforms-dot {
+    width: 24px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: rgba(13, 27, 42, 0.18);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.25s ease, width 0.25s ease;
+  }
+  .platforms-dot:hover {
+    background-color: rgba(13, 27, 42, 0.35);
+  }
+  .platforms-dot.is-active {
+    background-color: #0D1B2A;
+    width: 32px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .platforms-track { transition: none; }
+    .platforms-logo img { transition: none; }
+    .platforms-arrow { transition: none; }
+  }
+</style>

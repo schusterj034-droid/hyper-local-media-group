@@ -1,0 +1,158 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import HeroHomeStatic from "@/components/sections/HeroHomeStatic.astro";
+import HeroPage from "@/components/sections/HeroPage.astro";
+import FeaturesSection from "@/components/sections/FeaturesSection.astro";
+import ContentSection from "@/components/sections/ContentSection.astro";
+import CTASection from "@/components/sections/CTASection.astro";
+import FAQSection from "@/components/sections/FAQSection.astro";
+import LocationsSection from "@/components/sections/LocationsSection.astro";
+import ValueCardsSection from "@/components/sections/ValueCardsSection.astro";
+import ContactSection from "@/components/sections/ContactSection.astro";
+import PlatformsSection from "@/components/sections/PlatformsSection.astro";
+import { localizeData } from "@/config/site";
+import { buildPageMeta } from "@/lib/pageMeta";
+
+export const prerender = true;
+
+// Service slug → schema serviceType
+const SERVICE_TYPE: Record<string, string> = {
+  "indoor-billboards/screen-advertising": "Indoor Digital Billboard Advertising",
+  "indoor-billboards/become-a-venue-partner": "Venue Partner Network",
+  "solutions/foundational/website-design": "Web Design and Development",
+  "solutions/foundational/google-business-profile": "Local SEO",
+  "solutions/foundational/social-media-management": "Social Media Marketing",
+  "solutions/foundational/design-services": "Graphic Design",
+  "solutions/lead-gen/pay-per-click": "Pay Per Click Advertising",
+  "solutions/lead-gen/social-media-advertising": "Social Media Advertising",
+  "solutions/branding-awareness/connected-tv": "Advertising",
+  "solutions/branding-awareness/display-geofencing": "Advertising",
+  "solutions/branding-awareness/streaming-audio": "Advertising",
+};
+
+export async function getStaticPaths() {
+  const pageModules = import.meta.glob("/src/content/pages/**/*.json", { eager: true });
+  const paths: { params: { slug: string | undefined }; props: { pageData: any; slugPath: string } }[] = [];
+
+  for (const [filePath, module] of Object.entries(pageModules)) {
+    const pageData = module as any;
+    const slug = filePath
+      .replace("/src/content/pages/", "")
+      .replace(".json", "");
+
+    if (slug === "home") {
+      paths.push({ params: { slug: undefined }, props: { pageData, slugPath: "/" } });
+    } else {
+      paths.push({ params: { slug }, props: { pageData, slugPath: `/${slug}` } });
+    }
+  }
+
+  return paths;
+}
+
+const { pageData: rawPageData, slugPath } = Astro.props;
+const isLocationPage = slugPath.startsWith("/locations/");
+const locName = rawPageData.location || rawPageData.city || "";
+
+// Localize {city}/{state}/{business} tokens
+let pageData = localizeData(rawPageData);
+
+// On location pages, also swap {location}
+if (isLocationPage && locName) {
+  const swapLocation = (v: any): any => {
+    if (typeof v === "string") return v.replaceAll("{location}", locName);
+    if (Array.isArray(v)) return v.map(swapLocation);
+    if (v && typeof v === "object") {
+      return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, swapLocation(x)]));
+    }
+    return v;
+  };
+  pageData = swapLocation(pageData);
+}
+
+const sections = pageData.sections || [];
+const isHomepage = slugPath === "/";
+const isPrivacyOrTerms = slugPath === "/privacy" || slugPath === "/terms";
+
+// Build metadata + extraSchemas
+const serviceSlug = slugPath.replace(/^\//, "");
+let metaOpts: any = {};
+if (isLocationPage && locName) {
+  metaOpts = {
+    city: { city: locName, url: slugPath },
+    extras: { location: locName },
+  };
+} else if (SERVICE_TYPE[serviceSlug]) {
+  metaOpts = {
+    service: { url: slugPath, serviceType: SERVICE_TYPE[serviceSlug] },
+  };
+}
+const { metadata, extraSchemas } = buildPageMeta(pageData, metaOpts);
+
+// Hero image for LCP preload
+const heroSection = sections.find((s: any) => s.type === "hero");
+const heroImage = heroSection?.image;
+
+// Self-filter helper for location pages' Map section
+const filterSelf = (locs: any[]) =>
+  (locs || []).filter((loc: any) => {
+    const n = typeof loc === "string" ? loc : loc?.name;
+    return n && n.toLowerCase() !== locName.toLowerCase();
+  });
+---
+
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  keywords={metadata.keywords}
+  preloadImage={heroImage}
+  noindex={isPrivacyOrTerms}
+  extraSchemas={extraSchemas}
+>
+  {sections.map((section: any) => {
+    const { type, ...props } = section;
+
+    if (type === "hero") {
+      // HeroPage renders its own overlay breadcrumbs; homepage has none.
+      // Location pages get a short breadcrumb label (the city) instead of the
+      // long hero headline ("Local Advertising … Pros in Aurora, CO").
+      return isHomepage
+        ? <HeroHomeStatic {...props} />
+        : <HeroPage {...props} breadcrumbLabel={isLocationPage && locName ? locName : undefined} />;
+    }
+
+    if (type === "features") return <FeaturesSection {...props} />;
+    if (type === "content") return <ContentSection {...props} />;
+    if (type === "cta") return <CTASection {...props} />;
+    if (type === "faq") return <FAQSection {...props} />;
+    if (type === "valueCards") return <ValueCardsSection {...props} />;
+    if (type === "locations") {
+      const propsWithFilter = isLocationPage
+        ? { ...props, locations: filterSelf(props.locations) }
+        : props;
+      return <LocationsSection {...propsWithFilter} />;
+    }
+    if (type === "contact") return <ContactSection {...props} />;
+    if (type === "platforms") return <PlatformsSection {...props} />;
+
+    return null;
+  })}
+
+  {pageData.legalSections && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4 max-w-4xl">
+        {pageData.legalSections.map((section: any) => (
+          <div class="mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-gray-900">{section.title}</h2>
+            {section.content && <p class="text-gray-600 mb-4" set:html={section.content} />}
+            {section.items && (
+              <ul class="list-disc list-inside text-gray-600 space-y-2 ml-4">
+                {section.items.map((item: string) => <li set:html={item} />)}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>

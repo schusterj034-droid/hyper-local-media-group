@@ -1,0 +1,160 @@
+{
+  "title": "Creative Design Services | Branding That Stands Out",
+  "description": "Elevate your brand with custom design solutions tailored to your business goals and needs.",
+  "keywords": "graphic design {city}, logo design {city}, brand design services, flyer design {city}, marketing materials design, professional graphic designer {city}, branding services {city}",
+  "sections": [
+    {
+      "type": "hero",
+      "badge": "Foundational",
+      "title": "Design Services",
+      "description": "From logos to flyers and product packaging, our team can create what you need to make your business stand out.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us",
+      "image": "/images/design-services.avif",
+      "imageAlt": "Professional graphic design services and branding"
+    },
+    {
+      "type": "content",
+      "variant": "dark",
+      "title": "Graphic Design",
+      "description": "Graphic design holds a pivotal role in shaping your company's identity and marketing strategy, so it's crucial not to entrust it to just anyone. Whether it's a dazzling new logo, a complete rebrand, or captivating flyers, our experienced in-house designers are prepared to transform your vision into reality with exceptional services.",
+      "image": "/images/graphic-design.avif",
+      "imageAlt": "Creative graphic design and branding work",
+      "imagePosition": "left"
+    },
+    {
+      "type": "cta",
+      "variant": "card",
+      "title": "Professional Graphic Design for Your Brand",
+      "description": "Graphic design services shape how customers perceive your brand. Whether you're exploring <a class='underline font-bold' href='/solutions/lead-gen/social-media-advertising'>social media ads</a>, <a class='underline font-bold' href='/solutions/branding-awareness/connected-tv'>video content</a>, a <a class='underline font-bold' href='/solutions/foundational/website-design'>new website</a>, or rebranding, we're here to seamlessly manage your design needs across all channels.",
+      "buttonText": "Learn More",
+      "buttonHref": "/contact-us"
+    },
+    {
+      "type": "features",
+      "title": "Explore Our Graphic Design Services — Concept to Reality",
+      "columns": 4,
+      "features": [
+        {
+          "icon": "palette",
+          "title": "Idea Execution",
+          "description": "From concept to creation, we'll build visually appealing designs aligned with your vision and brand identity."
+        },
+        {
+          "icon": "target",
+          "title": "Project Based Services",
+          "description": "Top talent and expertise to meet your specific needs without long-term commitments or added payroll costs — a flexible solution optimizing value."
+        },
+        {
+          "icon": "users",
+          "title": "Access to Experts",
+          "description": "Tap into a varied pool of skilled designers, each offering unique styles, experiences, and perspectives to tackle any project you encounter."
+        },
+        {
+          "icon": "award",
+          "title": "Competitive Advantage",
+          "description": "Professionally designed materials stand out from the crowd, giving you an edge and attracting more attention from potential customers."
+        }
+      ]
+    },
+    {
+      "type": "valueCards",
+      "title": "Design Skills for All Your Needs",
+      "variant": "overlay",
+      "cards": [
+        {
+          "icon": "palette",
+          "title": "Brand Identity",
+          "description": "Create memorable logos and cohesive brand guidelines that define your business identity.",
+          "image": "/images/brand-image.avif"
+        },
+        {
+          "icon": "award",
+          "title": "Product Packaging",
+          "description": "Eye-catching packaging designs that make your products stand out on shelves.",
+          "image": "/images/product-packaging.avif",
+          "imageFit": "contain"
+        },
+        {
+          "icon": "trending",
+          "title": "Infographics",
+          "description": "Visual storytelling that transforms complex data into engaging, easy-to-understand graphics.",
+          "image": "/images/infographics.avif"
+        },
+        {
+          "icon": "target",
+          "title": "Business Card",
+          "description": "Professional business cards that make a lasting first impression.",
+          "image": "/images/business-card.avif"
+        },
+        {
+          "icon": "zap",
+          "title": "Flyers",
+          "description": "Compelling promotional flyers that drive action and boost event attendance.",
+          "image": "/images/flyers.avif",
+          "imageFit": "contain"
+        },
+        {
+          "icon": "share",
+          "title": "Social Media Creative",
+          "description": "Scroll-stopping social media graphics optimized for maximum engagement.",
+          "image": "/images/social-media-creative.avif"
+        },
+        {
+          "icon": "settings",
+          "title": "Menu",
+          "description": "Beautiful menu designs that enhance dining experiences and showcase your offerings.",
+          "image": "/images/menu.avif"
+        },
+        {
+          "icon": "message",
+          "title": "Brochures",
+          "description": "Informative brochures that effectively communicate your services and value proposition.",
+          "image": "/images/brochures.avif"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "title": "Design Service Common Questions",
+      "faqs": [
+        {
+          "question": "How much do the services cost?",
+          "answer": "Costs may fluctuate based on the required service and the extent of the project, as well as the materials provided. To tailor the best approach to your specific needs, we recommend scheduling a consultation."
+        },
+        {
+          "question": "What if I do not have my original working design files?",
+          "answer": "If you do not have the file, no worries. We can still proceed with the project; however, it may require additional time. Upon completion, you'll receive the final working files."
+        },
+        {
+          "question": "Can you design a website too?",
+          "answer": "Absolutely! Our <a class='underline font-bold' href='/solutions/foundational/website-design'>website design team</a> builds custom sites that perfectly match your brand identity."
+        },
+        {
+          "question": "What if I need services off and on throughout the year?",
+          "answer": "We offer design services year round. From holiday graphics to seasonal menus, we can accommodate your needs for every season."
+        }
+      ]
+    },
+    {
+      "type": "locations",
+      "title": "We Put Local Brands on the Map",
+      "description": "Our <strong>network</strong> spans across Denver's most popular neighborhoods and venues",
+      "variant": "overlay-titled",
+      "locations": [
+        { "name": "Aurora", "href": "/locations/aurora", "description": "East Denver Metro" },
+        { "name": "Lakewood", "href": "/locations/lakewood", "description": "West Denver Metro" },
+        { "name": "Arvada", "href": "/locations/arvada", "description": "Northwest Denver" },
+        { "name": "Centennial", "href": "/locations/centennial", "description": "South Denver Metro" }
+      ]
+    },
+    {
+      "type": "cta",
+      "variant": "banner",
+      "title": "Ready to get started?",
+      "description": "Contact us today to learn how we can help grow your business.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us"
+    }
+  ]
+}

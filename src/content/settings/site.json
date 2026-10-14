@@ -1,0 +1,49 @@
+{
+  "business": {
+    "name": "Monochrome Glass",
+    "fullName": "Monochrome Glass",
+    "tagline": "Your trusted partner for comprehensive digital marketing solutions, from custom website design and SEO to indoor billboard advertising and targeted campaigns that deliver real results.",
+    "description": "We are a local marketing company in Denver, Colorado. Premium marketing solutions including website design, social media management, and indoor billboard advertising."
+  },
+  "location": {
+    "city": "Denver",
+    "state": "Colorado",
+    "address": "Denver, CO",
+    "fullAddress": "Denver, CO"
+  },
+  "contact": {
+    "email": "info@dealertemplate.com",
+    "phone": "5555555555",
+    "phoneFormatted": "555-555-5555"
+  },
+  "colors": {
+    "primary": "#0D2A63",
+    "secondary": "#F5BF3A",
+    "tertiary": "#DDAE05",
+    "quaternary": "#ffffff"
+  },
+  "logo": {
+    "src": "/logo/monochrome-glass.svg",
+    "whiteSrc": "/logo/monochrome-glass-white.svg",
+    "alt": "Monochrome Glass Logo"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/ntxbillboards/",
+    "instagram": "https://www.instagram.com/dealertemplate/",
+    "linkedin": "https://www.linkedin.com/company/ntx-indoor-digital-billboards/",
+    "youtube": "https://www.youtube.com/@ntxdigital",
+    "twitter": ""
+  },
+  "seo": {
+    "siteName": "Monochrome Glass",
+    "defaultTitle": "Denver Digital Signage & Marketing | Monochrome Glass",
+    "defaultDescription": "We connect businesses in Denver through digital signage, PPC, social media, SEO, and website design to keep brands visible and top of mind.",
+    "keywords": "Denver marketing agency, digital marketing Denver, marketing services Denver CO, indoor billboard advertising, social media management, website design Denver, PPC advertising, Google Business Profile, local marketing Denver",
+    "siteUrl": "https://ntv-template-1.vercel.app",
+    "ogImage": "/logo/monochrome-glass.svg",
+    "twitterHandle": "@monochromeglass"
+  },
+  "analytics": {
+    "googleAnalyticsId": ""
+  }
+}

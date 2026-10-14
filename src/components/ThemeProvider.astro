@@ -1,0 +1,7 @@
+---
+import { siteConfig } from "@/config/site"
+
+const { primary, secondary, tertiary, quaternary } = siteConfig.colors
+---
+
+<Fragment set:html={`<style>:root{--brand-primary:${primary};--brand-secondary:${secondary};--brand-tertiary:${tertiary};--brand-quaternary:${quaternary}}</style>`} />

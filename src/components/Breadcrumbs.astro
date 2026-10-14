@@ -1,0 +1,230 @@
+---
+// Breadcrumbs — visible trail shown on subpages, directly below the hero.
+//
+// Matches the template's look: light strip, navy #0D1B2A ink, red #C41C12
+// hover/active accent, Barlow, chevron `›` separators. The current (last)
+// crumb is bold and non-linked.
+//
+// Labels are resolved against the site navigation (navbar.json) so they read
+// like the menu ("Branding Awareness", "Streaming Audio Advertising") rather
+// than the raw slug. Callers may pass `currentLabel` to override the last
+// crumb with the page's real title (e.g. the hero heading) for an exact match.
+//
+// The JSON-LD BreadcrumbList is emitted separately in BaseLayout — this is the
+// visible UI only, so it uses aria markup without duplicating the schema.
+import { navItems } from "@/config/navigation";
+
+interface Props {
+  /** Overrides the label of the final (current-page) crumb. */
+  currentLabel?: string;
+  /** Extra classes on the wrapping element. */
+  class?: string;
+  /**
+   * "strip"  — standalone light-gray band (default, used on light pages).
+   * "overlay" — floating light text with no background, for placing over a
+   *             dark hero image. Skips its own container so the parent supplies
+   *             the horizontal alignment.
+   */
+  variant?: "strip" | "overlay";
+}
+
+const { currentLabel, class: className, variant = "strip" } = Astro.props;
+const isOverlay = variant === "overlay";
+
+// --- Build an href → label map from the navigation tree -----------------------
+// Any menu entry (link, dropdown top-level, dropdown item, megamenu top-level,
+// megamenu item) contributes a friendly label for its href.
+const hrefLabels = new Map<string, string>();
+const addHref = (href: string | undefined, title: string | undefined) => {
+  if (!href || !title) return;
+  const key = href.replace(/\/$/, "") || "/";
+  if (!hrefLabels.has(key)) hrefLabels.set(key, title);
+};
+
+for (const item of navItems) {
+  if (item.type === "link") {
+    addHref(item.href, item.title);
+  } else if (item.type === "dropdown") {
+    addHref(item.href, item.title);
+    item.items.forEach((i) => addHref(i.href, i.title));
+  } else if (item.type === "megamenu") {
+    addHref(item.href, item.title);
+    item.sections.forEach((s) => s.items.forEach((i) => addHref(i.href, i.title)));
+  }
+}
+
+// --- Compute crumbs from the current path -------------------------------------
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const segments = pathname === "/" ? [] : pathname.split("/").filter(Boolean);
+
+const titleCase = (seg: string) =>
+  seg
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+
+interface Crumb {
+  name: string;
+  url: string;
+  isCurrent: boolean;
+  /** Whether a real navigable page exists for this crumb. */
+  linkable: boolean;
+}
+
+const crumbs: Crumb[] = [
+  { name: "Home", url: "/", isCurrent: false, linkable: true },
+];
+
+segments.forEach((seg, i) => {
+  const url = "/" + segments.slice(0, i + 1).join("/");
+  const isCurrent = i === segments.length - 1;
+  const navLabel = hrefLabels.get(url);
+  // The navigation label is authoritative for pages that exist in the menu
+  // (e.g. /solutions → "Solutions"), so it wins over the hero heading — which
+  // can differ from the page name ("Digital Marketing Services" vs "Solutions").
+  // `currentLabel` (the hero title) is only the fallback for pages not in the
+  // nav (location pages, case-study index, etc.).
+  const name = isCurrent
+    ? navLabel ?? currentLabel ?? titleCase(seg)
+    : navLabel ?? titleCase(seg);
+  // Intermediate segments that map to no menu entry are grouping paths (e.g.
+  // /solutions/branding-awareness) with no page of their own — render as text.
+  const linkable = !isCurrent && hrefLabels.has(url);
+  crumbs.push({ name, url, isCurrent, linkable });
+});
+
+const showBreadcrumbs = crumbs.length > 1;
+---
+
+{showBreadcrumbs && (
+  <nav
+    class:list={[
+      "conztru-breadcrumbs",
+      isOverlay ? "conztru-breadcrumbs--overlay" : "conztru-breadcrumbs--strip",
+      className,
+    ]}
+    aria-label="Breadcrumb"
+  >
+    <div class:list={[!isOverlay && "container mx-auto px-4 sm:px-6 lg:px-8"]}>
+      <ol class="conztru-crumb-list">
+        {crumbs.map((crumb, i) => (
+          <li class="conztru-crumb-item">
+            {crumb.isCurrent ? (
+              <span class="conztru-crumb-current" aria-current="page">{crumb.name}</span>
+            ) : crumb.linkable ? (
+              <a class="conztru-crumb-link" href={crumb.url}>{crumb.name}</a>
+            ) : (
+              <span class="conztru-crumb-plain">{crumb.name}</span>
+            )}
+            {i < crumbs.length - 1 && (
+              <span class="conztru-crumb-sep" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </nav>
+)}
+
+<style>
+  /* Strip variant — standalone light-gray band on light pages. */
+  .conztru-breadcrumbs--strip {
+    background-color: #f6f7f9;
+    border-bottom: 1px solid rgba(13, 27, 42, 0.07);
+  }
+
+  .conztru-crumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0.85rem 0;
+  }
+  /* Overlay sits inside the hero content flow — no vertical padding of its own. */
+  .conztru-breadcrumbs--overlay .conztru-crumb-list {
+    padding: 0;
+  }
+
+  .conztru-crumb-item {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+  @media (min-width: 640px) {
+    .conztru-crumb-item {
+      font-size: 0.9rem;
+    }
+  }
+
+  .conztru-crumb-link {
+    color: #4b5563;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 2px 2px;
+    border-radius: 4px;
+    transition: color 0.2s ease;
+  }
+  .conztru-crumb-link:hover {
+    color: #C41C12;
+  }
+
+  .conztru-crumb-plain {
+    color: #4b5563;
+    font-weight: 600;
+    padding: 2px 2px;
+  }
+
+  .conztru-crumb-current {
+    color: #0D1B2A;
+    font-weight: 800;
+    padding: 2px 2px;
+  }
+
+  .conztru-crumb-sep {
+    display: inline-flex;
+    align-items: center;
+    color: #9aa4b0;
+    margin: 0 2px;
+  }
+  .conztru-crumb-sep svg {
+    width: 12px;
+    height: 12px;
+  }
+  @media (min-width: 640px) {
+    .conztru-crumb-sep {
+      margin: 0 4px;
+    }
+    .conztru-crumb-sep svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  /* Overlay variant — floating light text over the dark hero image, no strip. */
+  .conztru-breadcrumbs--overlay .conztru-crumb-link {
+    color: rgba(255, 255, 255, 0.78);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+  }
+  .conztru-breadcrumbs--overlay .conztru-crumb-link:hover {
+    color: #ffffff;
+  }
+  .conztru-breadcrumbs--overlay .conztru-crumb-plain {
+    color: rgba(255, 255, 255, 0.78);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+  }
+  .conztru-breadcrumbs--overlay .conztru-crumb-current {
+    color: #ffffff;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+  }
+  .conztru-breadcrumbs--overlay .conztru-crumb-sep {
+    color: rgba(255, 255, 255, 0.5);
+  }
+</style>

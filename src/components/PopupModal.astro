@@ -1,0 +1,550 @@
+---
+import popupSettings from '../content/settings/popup.json';
+import { siteConfig } from '@/config/site';
+
+interface Props {
+  triggerId?: string; // ID of button that will trigger the popup
+  showOnce?: boolean; // Only show once per session
+}
+
+const {
+  triggerId = "",
+  showOnce = true,
+} = Astro.props;
+
+// Read from CMS settings
+const isEnabled = popupSettings.enabled ?? false;
+const title = popupSettings.title || "Get Your Free Marketing Consultation";
+const description = popupSettings.description || "Let us help you grow your business.";
+const ctaText = popupSettings.buttonText || "Schedule Free Consultation";
+const ctaLink = popupSettings.buttonHref || "/contact-us";
+const popupImage = popupSettings.image || "/images/home.avif";
+const delay = (popupSettings.delay || 3) * 1000; // Convert seconds to ms
+
+// Split title for two-tone treatment (white + italic red), matching site style
+const splitTitle = (t: string) => {
+  if (t.includes("\n")) {
+    const [a, ...rest] = t.split("\n")
+    return { head: a.trim(), tail: rest.join(" ").trim() }
+  }
+  const words = t.split(" ")
+  if (words.length < 3) return { head: t, tail: "" }
+  const mid = Math.ceil(words.length / 2)
+  return { head: words.slice(0, mid).join(" "), tail: words.slice(mid).join(" ") }
+}
+const { head: titleHead, tail: titleTail } = splitTitle(title)
+
+const logoSrc = siteConfig.logo.src
+const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
+---
+
+{isEnabled && (
+<div
+  id="popup-modal"
+  class="conztru-popup fixed inset-0 z-50 hidden items-center justify-center px-4 py-6"
+  data-delay={delay}
+  data-show-once={showOnce}
+  data-trigger-id={triggerId}
+>
+  <!-- Backdrop -->
+  <div id="popup-backdrop" class="conztru-popup-backdrop absolute inset-0" aria-hidden="true"></div>
+
+  <!-- Modal Container -->
+  <div class="conztru-popup-card relative w-full max-w-md md:max-w-4xl">
+    <!-- Close Button -->
+    <button
+      id="close-popup"
+      class="conztru-popup-close"
+      aria-label="Close popup"
+      type="button"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18"/>
+        <path d="m6 6 12 12"/>
+      </svg>
+    </button>
+
+    <div class="grid md:grid-cols-2">
+      <!-- Left — Image / Brand panel -->
+      <div class="conztru-popup-media relative hidden md:flex">
+        <img
+          src={popupImage}
+          alt="Marketing consultation"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+          width="600"
+          height="800"
+        />
+        <div class="conztru-popup-media-overlay absolute inset-0" aria-hidden="true"></div>
+        <div class="conztru-popup-media-rule" aria-hidden="true"></div>
+
+        <div class="relative z-10 flex flex-col justify-between p-10 lg:p-12 w-full">
+          <div class="mt-auto pt-10">
+            <h3 class="conztru-popup-media-title text-balance">
+              <span class="block text-white">Get Your Free</span>
+              <span class="block text-white">Marketing</span>
+              <span class="block text-white">Consultation</span>
+            </h3>
+            <div class="conztru-popup-media-divider mt-6"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right — Content panel -->
+      <div class="conztru-popup-body p-8 sm:p-10 lg:px-10 lg:py-12 flex flex-col justify-center">
+        <!-- Logo -->
+        <div class="conztru-popup-logo mb-8">
+          <img
+            src={logoSrc}
+            alt={logoAlt}
+            class="conztru-popup-logo-img"
+            loading="lazy"
+            decoding="async"
+            width="160"
+            height="40"
+          />
+        </div>
+
+        <h2 class="conztru-popup-title text-balance">
+          <span class="block">{titleHead}</span>
+          {titleTail && <span class="block conztru-italic-red">{titleTail}</span>}
+        </h2>
+
+        <p class="conztru-popup-desc mt-5 text-base leading-relaxed">
+          {description}
+        </p>
+
+        <!-- Benefits List -->
+        <ul class="conztru-popup-benefits space-y-4">
+          <li class="conztru-popup-benefit">
+            <span class="conztru-popup-benefit-marker" aria-hidden="true"></span>
+            <span class="conztru-popup-benefit-text">Free 30-minute strategy session</span>
+          </li>
+          <li class="conztru-popup-benefit">
+            <span class="conztru-popup-benefit-marker" aria-hidden="true"></span>
+            <span class="conztru-popup-benefit-text">Custom campaign recommendations</span>
+          </li>
+          <li class="conztru-popup-benefit">
+            <span class="conztru-popup-benefit-marker" aria-hidden="true"></span>
+            <span class="conztru-popup-benefit-text">No commitment or pressure</span>
+          </li>
+        </ul>
+
+        <!-- CTA Row -->
+        <div class="mt-9 flex items-center gap-3">
+          <a
+            href={ctaLink}
+            class="conztru-popup-cta inline-flex items-center gap-2 h-12 pl-6 pr-1.5 rounded-full"
+          >
+            <span class="text-sm font-semibold tracking-wide">{ctaText}</span>
+            <span class="conztru-popup-cta-arrow inline-flex items-center justify-center w-9 h-9 rounded-full">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17 17 7"/>
+                <path d="M7 7h10v10"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+
+        <!-- Trust row -->
+        <div class="conztru-popup-trust mt-9 flex flex-wrap items-center gap-x-6 gap-y-2">
+          <div class="conztru-popup-trust-item">
+            <span class="conztru-popup-trust-dot" aria-hidden="true"></span>
+            <span class="text-xs font-bold tracking-[0.15em] uppercase">Trusted Experts</span>
+          </div>
+          <div class="conztru-popup-trust-item">
+            <span class="conztru-popup-trust-dot" aria-hidden="true"></span>
+            <span class="text-xs font-bold tracking-[0.15em] uppercase">Proven Results</span>
+          </div>
+        </div>
+
+        <!-- Secondary dismiss -->
+        <button
+          id="close-popup-bottom"
+          class="conztru-popup-dismiss mt-5 self-start text-xs font-semibold tracking-[0.15em] uppercase"
+          type="button"
+        >
+          No thanks, I'll browse first
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+)}
+
+<script>
+  // Track if listeners have been initialized (outside the function so it persists)
+  let escapeListenerAdded = false;
+
+  function showPopup() {
+    const popup = document.getElementById("popup-modal");
+    if (!popup) return;
+
+    popup.classList.remove("hidden");
+    popup.classList.add("flex");
+    document.body.style.overflow = "hidden";
+
+    const showOnce = popup.getAttribute("data-show-once") === "true";
+    if (showOnce) {
+      sessionStorage.setItem("popup-shown", "true");
+    }
+  }
+
+  function closePopup() {
+    const popup = document.getElementById("popup-modal");
+    if (!popup) return;
+
+    popup.classList.add("hidden");
+    popup.classList.remove("flex");
+    document.body.style.overflow = "";
+  }
+
+  function initPopup() {
+    const popup = document.getElementById("popup-modal");
+    if (!popup) return;
+
+    const showOnce = popup.getAttribute("data-show-once") === "true";
+    const storageKey = "popup-shown";
+    const triggerId = popup.getAttribute("data-trigger-id");
+    const alreadyShown = showOnce && sessionStorage.getItem(storageKey);
+
+    const closeBtn = document.getElementById("close-popup");
+    const closeBottomBtn = document.getElementById("close-popup-bottom");
+
+    if (closeBtn && !closeBtn.hasAttribute('data-listener-attached')) {
+      closeBtn.addEventListener("click", closePopup);
+      closeBtn.setAttribute('data-listener-attached', 'true');
+    }
+
+    if (closeBottomBtn && !closeBottomBtn.hasAttribute('data-listener-attached')) {
+      closeBottomBtn.addEventListener("click", closePopup);
+      closeBottomBtn.setAttribute('data-listener-attached', 'true');
+    }
+
+    if (!popup.hasAttribute('data-backdrop-listener')) {
+      popup.addEventListener("click", function (e) {
+        const card = popup.querySelector('.conztru-popup-card');
+        if (!card) return;
+        if (!card.contains(e.target as Node)) {
+          closePopup();
+        }
+      });
+      popup.setAttribute('data-backdrop-listener', 'true');
+    }
+
+    if (!escapeListenerAdded) {
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !popup.classList.contains("hidden")) {
+          closePopup();
+        }
+      });
+      escapeListenerAdded = true;
+    }
+
+    if (triggerId) {
+      const triggerBtn = document.getElementById(triggerId);
+      if (triggerBtn && !triggerBtn.hasAttribute('data-popup-trigger')) {
+        triggerBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          showPopup();
+        });
+        triggerBtn.setAttribute('data-popup-trigger', 'true');
+      }
+    }
+
+    const delay = parseInt(popup.getAttribute("data-delay") || "0") || 0;
+    const isDesktop = window.innerWidth >= 768;
+
+    if (delay > 0 && isDesktop && !alreadyShown && !popup.hasAttribute('data-scheduled')) {
+      popup.setAttribute('data-scheduled', 'true');
+      setTimeout(function () {
+        if (window.innerWidth >= 768 && !sessionStorage.getItem(storageKey)) {
+          showPopup();
+        }
+      }, delay);
+    }
+  }
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(initPopup, { timeout: 2000 });
+  } else if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPopup);
+  } else {
+    initPopup();
+  }
+
+</script>
+
+<style>
+  /* ===== Backdrop ===== */
+  .conztru-popup-backdrop {
+    background-color: rgba(13, 27, 42, 0.72);
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
+    animation: conztru-fade-in 0.25s ease-out;
+  }
+
+  /* ===== Card shell ===== */
+  .conztru-popup-card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow:
+      0 24px 64px rgba(13, 27, 42, 0.35),
+      0 8px 24px rgba(13, 27, 42, 0.18),
+      inset 0 0 0 1px rgba(13, 27, 42, 0.04);
+    animation: conztru-pop-in 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Keep the card within the viewport on short screens (landscape tablets) */
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ===== Close ===== */
+  .conztru-popup-close {
+    position: absolute !important;
+    top: 1rem;
+    right: 1rem;
+    z-index: 20;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.92);
+    color: #0D1B2A;
+    border: 1px solid rgba(13, 27, 42, 0.08);
+    box-shadow: 0 4px 12px rgba(13, 27, 42, 0.18);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: visible !important;
+    transform: none !important;
+  }
+  .conztru-popup-close:hover {
+    background-color: #E8251A;
+    color: #ffffff;
+    border-color: #E8251A;
+    transform: rotate(90deg) !important;
+  }
+  .conztru-popup-close:active {
+    transform: rotate(90deg) scale(0.94) !important;
+  }
+
+  /* ===== Media (left panel) ===== */
+  .conztru-popup-media {
+    background-color: #0D1B2A;
+    min-height: 480px;
+    isolation: isolate;
+  }
+  .conztru-popup-media-overlay {
+    background: linear-gradient(180deg, rgba(13, 27, 42, 0.45) 0%, rgba(13, 27, 42, 0.78) 60%, rgba(13, 27, 42, 0.95) 100%);
+  }
+  /* Red accent rail on the right edge */
+  .conztru-popup-media-rule {
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    right: 0;
+    width: 2px;
+    background-color: #E8251A;
+    z-index: 1;
+  }
+  .conztru-popup-media-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.75rem, 2.4vw, 2.4rem);
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+    margin: 0;
+  }
+  .conztru-popup-media-divider {
+    width: 56px;
+    height: 2px;
+    background-color: #E8251A;
+  }
+  .conztru-popup-media-sub {
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 28ch;
+  }
+
+  /* ===== Badge ===== */
+  .conztru-popup-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+    align-self: flex-start;
+  }
+  .conztru-popup-badge::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background-color: #E8251A;
+  }
+  .conztru-popup-badge--navy {
+    color: #E8251A;
+    text-shadow: none;
+  }
+
+  /* ===== Body (right panel) ===== */
+  .conztru-popup-body {
+    background-color: #ffffff;
+  }
+
+  /* ===== Logo ===== */
+  .conztru-popup-logo {
+    display: flex;
+    align-items: center;
+  }
+  .conztru-popup-logo-img {
+    height: 36px;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
+    display: block;
+  }
+  @media (min-width: 1024px) {
+    .conztru-popup-logo-img {
+      height: 40px;
+      max-width: 200px;
+    }
+  }
+
+  .conztru-popup-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    color: #0D1B2A;
+    margin: 0;
+  }
+
+  .conztru-popup-desc {
+    color: #4B5563;
+    max-width: 48ch;
+  }
+
+  /* ===== Benefits ===== */
+  .conztru-popup-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0 0;
+  }
+  @media (min-width: 768px) {
+    .conztru-popup-benefits {
+      margin-top: 2.5rem;
+    }
+  }
+  .conztru-popup-benefit {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+  .conztru-popup-benefit-marker {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 2px;
+    background-color: #E8251A;
+    border-radius: 2px;
+  }
+  .conztru-popup-benefit-text {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #0D1B2A;
+    letter-spacing: -0.005em;
+  }
+
+  /* ===== CTA — matches HeroPage CTA pattern ===== */
+  .conztru-popup-cta {
+    background-color: #E8251A;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 24px rgba(232, 37, 26, 0.32);
+    font-family: 'Barlow', sans-serif;
+  }
+  .conztru-popup-cta:hover {
+    background-color: #C41C12;
+    box-shadow: 0 12px 32px rgba(232, 37, 26, 0.42);
+  }
+  .conztru-popup-cta-arrow {
+    background-color: #ffffff;
+    color: #0D1B2A;
+    transition: all 0.25s ease;
+  }
+  .conztru-popup-cta:hover .conztru-popup-cta-arrow {
+    background-color: #0D1B2A;
+    color: #ffffff;
+    transform: rotate(45deg);
+  }
+
+  /* ===== Trust row ===== */
+  .conztru-popup-trust {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(13, 27, 42, 0.08);
+  }
+  .conztru-popup-trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #0D1B2A;
+    font-family: 'Barlow', sans-serif;
+  }
+  .conztru-popup-trust-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background-color: #E8251A;
+  }
+
+  /* ===== Dismiss ===== */
+  .conztru-popup-dismiss {
+    position: static !important;
+    transform: none !important;
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-family: 'Barlow', sans-serif;
+    padding: 0;
+    transition: color 0.2s ease;
+  }
+  .conztru-popup-dismiss:hover {
+    color: #E8251A;
+  }
+
+  /* ===== Animations ===== */
+  @keyframes conztru-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes conztru-pop-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .conztru-popup-backdrop,
+    .conztru-popup-card {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,188 @@
+{
+  "title": "Pay Per Click Advertising | Drive Traffic & Sales",
+  "description": "Drive more conversions with expert PPC services. Google Ads, retargeting & optimization on every click to boost exposure and eliminate wasted ad spend.",
+  "keywords": "pay per click {city}, PPC advertising {city}, Google Ads {city}, PPC management {city}, best PPC agency {city}, top PPC services {city}, paid search advertising, PPC campaign management, {city} PPC services",
+  "sections": [
+    {
+      "type": "hero",
+      "badge": "Lead Generation",
+      "title": "Pay-Per-Click (PPC)",
+      "description": "Driving Targeted Traffic to Your Website",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us",
+      "image": "/images/ppc.avif",
+      "imageAlt": "Pay-per-click advertising campaign dashboard"
+    },
+    {
+      "type": "content",
+      "variant": "dark",
+      "title": "Pay-Per-Click (PPC)",
+      "description": "Google Pay-Per-Click (PPC) Advertising is key to remaining top-of-mind and at the top of search channels. With PPC, you're not just casting a wide net; you're strategically targeting individuals who are actively seeking products or services like yours. This focused approach maximizes the chances of engaging with high-intent users, leading to more efficient spending and greater exposure for your advertising budget.",
+      "image": "/images/ppc-content.avif",
+      "imageAlt": "Google Ads PPC campaign management",
+      "imagePosition": "left"
+    },
+    {
+      "type": "cta",
+      "variant": "card",
+      "title": "Optimize Your Marketing Strategy with PPC Integration",
+      "description": "Incorporating Pay-Per-Click (PPC) advertising into a marketing strategy offers your business immediate visibility and potential conversions. By leveraging keywords, audience interest, and more, you can be certain your business is appearing as a top choice for prospective leads. Combine PPC with <a class='underline font-bold' href='/solutions/foundational/google-business-profile'>Google Business Profile</a> optimization and <a class='underline font-bold' href='/solutions/foundational/website-design'>website design</a> for maximum results.",
+      "buttonText": "Learn More",
+      "buttonHref": "/contact-us"
+    },
+    {
+      "type": "features",
+      "title": "Generate Leads With Pay-Per-Click Advertising",
+      "columns": 4,
+      "features": [
+        {
+          "icon": "target",
+          "title": "Search Optimization",
+          "description": "From optimizing your ad copy to managing your budget to maximize conversions, the skilled PPC team will take your campaign to the next level."
+        },
+        {
+          "icon": "globe",
+          "title": "Superior Targeting",
+          "description": "We conduct thorough research on your competitors, keywords, and geographical data to develop a targeted, data-driven keyword list. We ensure your PPC ads are retargeted at the most opportune times and places."
+        },
+        {
+          "icon": "monitor",
+          "title": "Reporting",
+          "description": "Throughout your campaign, we will be consistently optimizing your campaign to maximize exposure. Following your campaign's conclusion, we'll provide detailed reports showcasing your campaign's performance, highlighting key metrics, and outlining strategies for improvement."
+        },
+        {
+          "icon": "dollar",
+          "title": "Cost Effective",
+          "description": "Unlike traditional advertising, PPC ensures that you only pay when your ad generates clicks or other desired actions. Your budget is allocated directly to reaching potential customers who are actively interested in your offerings."
+        }
+      ]
+    },
+    {
+      "type": "valueCards",
+      "title": "Steps on PPC",
+      "variant": "cards",
+      "cards": [
+        {
+          "icon": "message",
+          "title": "Step 1: On-Boarding Meeting",
+          "description": "During our initial correspondence we'll discuss your goals, target audience, and brand. From there we'll begin building your strategy.",
+          "image": "/images/on-boarding.avif"
+        },
+        {
+          "icon": "target",
+          "title": "Step 2: Keyword Research",
+          "description": "We will conduct thorough keyword and audience research to ensure success of your PPC campaigns, ensuring that your ads are seen by the right audience at the right time.",
+          "image": "/images/keyword.avif"
+        },
+        {
+          "icon": "rocket",
+          "title": "Step 3: Implementation",
+          "description": "With careful implementation of the identified keywords and audience targeting strategies, we will optimize your PPC campaigns for maximum exposure.",
+          "image": "/images/implementation.avif"
+        },
+        {
+          "icon": "wrench",
+          "title": "Step 4: Reporting",
+          "description": "We will provide transparent insights for your campaign performance, equipping you with valuable data and actionable strategies for continuous improvement.",
+          "image": "/images/reporting.avif"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "title": "Our Marketing Service Approach is Simple",
+      "description": "We believe great marketing shouldn't be complicated. Here's how we help businesses grow.",
+      "columns": 3,
+      "features": [
+        {
+          "icon": "message",
+          "title": "We Listen",
+          "description": "We take time to understand your business, goals, and challenges before recommending solutions."
+        },
+        {
+          "icon": "target",
+          "title": "We Strategize",
+          "description": "Every business is different. We create custom strategies tailored to your unique needs and budget."
+        },
+        {
+          "icon": "rocket",
+          "title": "We Execute",
+          "description": "From design to launch, we handle everything so you can focus on running your business."
+        },
+        {
+          "icon": "trending",
+          "title": "We Measure",
+          "description": "We track results and provide clear reports so you always know what's working."
+        },
+        {
+          "icon": "settings",
+          "title": "We Optimize",
+          "description": "Marketing isn't set-it-and-forget-it. We continuously improve to maximize your exposure."
+        },
+        {
+          "icon": "users",
+          "title": "We Support",
+          "description": "Questions? Updates? We're here whenever you need us with friendly, responsive support."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "title": "PPC Common Questions",
+      "faqs": [
+        {
+          "question": "How much should I spend on PPC?",
+          "answer": "The cost can vary according to a business's needs, goals, and the overall scope of the project. You can find out more about how we can address your specific needs by <a class='underline font-bold' href='/contact-us'>contacting us</a>."
+        },
+        {
+          "question": "What factors influence PPC prices?",
+          "answer": "Keyword pricing fluctuates based on a variety of factors, including quality score, seasonality, competitiveness, click-through-rate, and ad rank/position."
+        },
+        {
+          "question": "How do you determine which keywords to use?",
+          "answer": "In order to identify effective keywords, we leverage tools that assess factors such as search volume, relevance to the business, competition level, and user intent."
+        },
+        {
+          "question": "What happens after someone clicks my ad?",
+          "answer": "They land on your website — that's why having a well-designed <a class='underline font-bold' href='/solutions/foundational/website-design'>custom website</a> is essential for converting PPC traffic. We also recommend optimizing your <a class='underline font-bold' href='/solutions/foundational/google-business-profile'>Google Business Profile</a> to build trust with local searchers."
+        }
+      ]
+    },
+    {
+      "type": "locations",
+      "title": "We Put Local Brands on the Map",
+      "description": "Our <strong>network</strong> spans across Denver's most popular neighborhoods and venues",
+      "variant": "overlay-titled",
+      "locations": [
+        {
+          "name": "Aurora",
+          "href": "/locations/aurora",
+          "description": "East Denver Metro"
+        },
+        {
+          "name": "Lakewood",
+          "href": "/locations/lakewood",
+          "description": "West Denver Metro"
+        },
+        {
+          "name": "Arvada",
+          "href": "/locations/arvada",
+          "description": "Northwest Denver"
+        },
+        {
+          "name": "Centennial",
+          "href": "/locations/centennial",
+          "description": "South Denver Metro"
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "variant": "banner",
+      "title": "Ready to get started?",
+      "description": "Contact us today to learn how we can help grow your business.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us"
+    }
+  ]
+}

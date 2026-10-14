@@ -1,0 +1,25 @@
+# Git
+.git
+.gitignore
+
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+.astro
+
+# Development
+.vscode
+.kiro
+
+# Documentation
+*.md
+!README.md
+
+# Config files not needed for deployment
+tsconfig.json
+components.json
+
+# Vercel
+.vercel

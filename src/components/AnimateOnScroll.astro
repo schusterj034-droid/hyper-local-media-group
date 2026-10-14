@@ -1,0 +1,64 @@
+---
+type Animation = "fade-up" | "fade-down" | "fade-left" | "fade-right" | "fade" | "zoom"
+
+interface Props {
+  animation?: Animation
+  delay?: number
+  duration?: number
+  class?: string
+  once?: boolean
+}
+
+const { 
+  animation = "fade-up", 
+  delay = 0, 
+  duration = 600, 
+  class: className = "", 
+  once = true 
+} = Astro.props
+
+const transforms: Record<Animation, string> = {
+  "fade-up": "translateY(30px)",
+  "fade-down": "translateY(-30px)",
+  "fade-left": "translateX(30px)",
+  "fade-right": "translateX(-30px)",
+  "zoom": "scale(0.95)",
+  "fade": "none",
+}
+
+const transform = transforms[animation]
+---
+
+<div
+  class={`aos-wrap ${className}`}
+  x-data="{ visible: false }"
+  x-init={`
+    if (window.matchMedia('(max-width: 767px)').matches) { visible = true; return; }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        visible = true;
+        if (${once}) observer.unobserve($el);
+      } else if (!${once}) {
+        visible = false;
+      }
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    observer.observe($el);
+  `}
+  x-bind:style={`
+    \`
+      opacity: \${visible ? 1 : 0};
+      transform: \${visible ? 'none' : '${transform}'};
+      transition: opacity ${duration}ms ease-out, transform ${duration}ms ease-out;
+      transition-delay: ${delay}ms;
+    \`
+  `}
+>
+  <slot />
+</div>
+
+<style>
+  /* Mobile: skip animation entirely — no Alpine eval needed for opacity */
+  @media (max-width: 767px) {
+    .aos-wrap { opacity: 1 !important; transform: none !important; }
+  }
+</style>

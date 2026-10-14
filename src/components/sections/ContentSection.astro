@@ -1,0 +1,638 @@
+---
+import ButtonLink from "@/components/ui/ButtonLink.astro"
+import { getLocationText } from "@/config/site"
+import AnimateOnScroll from "@/components/AnimateOnScroll.astro"
+import {
+  Check, MapPin, Clock, Target, Zap, Globe, Palette, TrendingUp, Megaphone, Search,
+  ChevronLeft, ChevronRight, ArrowRight
+} from "lucide-react"
+import { cn } from "@/lib/utils"
+
+const iconMap: Record<string, any> = {
+  check: Check, mappin: MapPin, clock: Clock, target: Target, zap: Zap,
+  globe: Globe, palette: Palette, trending: TrendingUp, megaphone: Megaphone, google: Search,
+}
+
+interface Feature {
+  text: string
+  icon?: string
+}
+
+interface Slide {
+  title: string
+  description: string
+}
+
+interface Props {
+  badge?: string
+  title?: string
+  description?: string
+  secondaryDescription?: string
+  slides?: Slide[]
+  features?: (string | Feature)[]
+  buttonText?: string
+  buttonHref?: string
+  image: string
+  imageAlt?: string
+  imagePosition?: "left" | "right"
+  variant?: "simple" | "card" | "dark" | "gradient" | "minimal"
+}
+
+const {
+  badge,
+  title = "",
+  description = "",
+  secondaryDescription,
+  slides,
+  features,
+  buttonText,
+  buttonHref,
+  image,
+  imageAlt = "Section illustration",
+  imagePosition = "right",
+  variant = "simple",
+} = Astro.props
+
+const processedTitle = getLocationText(title)
+const processedDescription = getLocationText(description)
+const processedSecondaryDescription = secondaryDescription ? getLocationText(secondaryDescription) : undefined
+const processedBadge = badge ? getLocationText(badge) : undefined
+
+const hasSlides = slides && slides.length > 0
+
+// Two-tone heading split
+const splitTitle = (t: string) => {
+  if (!t) return { head: "", tail: "" }
+  if (t.includes("\n")) {
+    const [a, ...rest] = t.split("\n")
+    return { head: a.trim(), tail: rest.join(" ").trim() }
+  }
+  const words = t.split(" ")
+  if (words.length < 3) return { head: t, tail: "" }
+  const mid = Math.ceil(words.length / 2)
+  return { head: words.slice(0, mid).join(" "), tail: words.slice(mid).join(" ") }
+}
+const { head, tail } = splitTitle(processedTitle)
+---
+
+<section class={cn("py-14 sm:py-20 md:py-28", variant === "card" ? "bg-[#F5F4F0]" : "bg-white")}>
+  {variant === "card" ? (
+    <div class="container mx-auto px-4">
+      <AnimateOnScroll animation="fade-up">
+        <div class="conztru-showcase relative overflow-hidden rounded-[20px] sm:rounded-[28px] md:rounded-[36px]">
+          <!-- Full-bleed image background — desktop only -->
+          <div class="conztru-showcase-media absolute inset-0 hidden md:block">
+            <img src={image} srcset={`${image.replace(/(\.[^.]+)$/, '-800$1')} 800w, ${image} 1600w`} alt={imageAlt} class="w-full h-full object-cover" width={1600} height={900} loading="lazy" decoding="async" sizes="100vw" />
+            <div class="conztru-showcase-overlay" aria-hidden="true"></div>
+          </div>
+
+          <div class={cn(
+            "relative grid lg:grid-cols-12 gap-0 min-h-[420px] md:min-h-[560px]"
+          )}>
+            <!-- Left: image breathing room with subtle decorative accent -->
+            <div class={cn(
+              "relative lg:col-span-5 hidden lg:block",
+              imagePosition === "left" ? "lg:order-1" : "lg:order-1"
+            )}>
+              <span class="conztru-showcase-accent" aria-hidden="true"></span>
+            </div>
+
+            <!-- Right: glass content card -->
+            <div class={cn(
+              "relative lg:col-span-7 p-3 sm:p-5 md:p-10 lg:p-12 flex items-center",
+              imagePosition === "left" ? "lg:order-2" : "lg:order-2"
+            )}>
+              <div class="conztru-showcase-card w-full">
+                {processedBadge && <span class="conztru-showcase-badge mb-5">{processedBadge}</span>}
+
+                <h2 class="conztru-showcase-title text-balance">
+                  <span class="conztru-showcase-title-head">{head}</span>
+                  {tail && <span class="conztru-showcase-title-tail">{tail}</span>}
+                </h2>
+
+                <p class="conztru-showcase-desc mt-3 sm:mt-4 mb-5 sm:mb-6" set:html={processedDescription} />
+                {processedSecondaryDescription && (
+                  <p class="text-white/70 mb-6 text-sm md:text-base">{processedSecondaryDescription}</p>
+                )}
+
+                {features && features.length > 0 && (
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 mb-6 sm:mb-7">
+                    {features.map((feature) => {
+                      const isObject = typeof feature === 'object'
+                      const featureText = isObject ? feature.text : feature
+                      const iconName = isObject && feature.icon ? feature.icon : 'check'
+                      const Icon = iconMap[iconName] || Check
+                      return (
+                        <div class="conztru-showcase-feature flex items-center gap-2.5 sm:gap-3">
+                          <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0" style="background-color:#E8251A;">
+                            <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                          </div>
+                          <span class="text-xs sm:text-sm font-medium text-white/90 leading-snug" set:html={getLocationText(featureText)} />
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+
+                {buttonText && buttonHref && (
+                  <a href={buttonHref} class="conztru-showcase-cta inline-flex items-center gap-2 h-12 pl-6 pr-1.5 rounded-full">
+                    <span class="text-sm font-semibold tracking-wide">{buttonText}</span>
+                    <span class="conztru-showcase-cta-arrow inline-flex items-center justify-center w-9 h-9 rounded-full">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 17 17 7"/>
+                        <path d="M7 7h10v10"/>
+                      </svg>
+                    </span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </AnimateOnScroll>
+    </div>
+  ) : variant === "dark" ? (
+    <div class="container mx-auto px-4">
+      <AnimateOnScroll animation="fade-up">
+        <div class="conztru-dark-glass rounded-[2rem] overflow-hidden relative backdrop-blur-2xl border border-white/15 shadow-2xl">
+          <div class="grid md:grid-cols-2 relative">
+            <div class={cn(
+              "p-10 md:p-14 lg:p-20 flex flex-col justify-center relative z-10",
+              imagePosition === "left" ? "order-2" : "order-1"
+            )}>
+              {processedBadge && <span class="conztru-badge mb-5">{processedBadge}</span>}
+
+              <h2 class="text-3xl md:text-4xl lg:text-5xl mb-6 text-white text-balance leading-tight" style="font-family:'Barlow',sans-serif; font-weight:800;">
+                <span class="block">{head}</span>
+                {tail && <span class="block conztru-italic-red">{tail}</span>}
+              </h2>
+              <p class="on-dark text-lg md:text-xl text-white/75 leading-relaxed mb-6" set:html={processedDescription} />
+              {processedSecondaryDescription && (
+                <p class="on-dark text-white/55 mb-8">{processedSecondaryDescription}</p>
+              )}
+
+              {buttonText && buttonHref && (
+                <div class="flex items-center gap-4">
+                  <ButtonLink href={buttonHref} size="lg" class="conztru-cta w-fit rounded-full text-white shadow-xl">
+                    {buttonText}
+                  </ButtonLink>
+                  <a href={buttonHref} aria-label="Open link" class="w-12 h-12 rounded-full flex items-center justify-center bg-white text-[#0D1B2A] hover:bg-[#E8251A] hover:text-white transition-colors">
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+              )}
+            </div>
+
+            <div class={cn(
+              "relative hidden md:block md:min-h-[550px]",
+              imagePosition === "left" ? "order-1" : "order-2"
+            )}>
+              <img src={image} alt={imageAlt} class="absolute inset-0 w-full h-full object-cover" width={665} height={550} loading="lazy" decoding="async" sizes="50vw" />
+              <div class={cn(
+                "absolute inset-0",
+                imagePosition === "left"
+                  ? "bg-gradient-to-l from-[#0D1B2A]/70 to-transparent"
+                  : "bg-gradient-to-r from-[#0D1B2A]/70 to-transparent"
+              )} />
+            </div>
+          </div>
+        </div>
+      </AnimateOnScroll>
+    </div>
+  ) : (
+    <div class="container mx-auto px-4">
+      <div class={cn(
+        "conztru-editorial relative grid lg:grid-cols-12 gap-10 lg:gap-16 items-start",
+        imagePosition === "left" && "lg:[&>*:first-child]:order-2"
+      )}>
+        <!-- Decorative outline number behind title -->
+        <span class="conztru-editorial-bignum" aria-hidden="true">02</span>
+
+        <AnimateOnScroll animation={imagePosition === "left" ? "fade-left" : "fade-right"} delay={variant === "simple" ? 150 : 0} class="lg:col-span-7 relative z-10">
+          <div x-data={hasSlides ? `{ currentSlide: 0, slideCount: ${slides?.length || 0} }` : "{}"}>
+            <!-- Vertical accent + small index label -->
+            <div class="flex items-center gap-3 mb-6">
+              <span class="block w-10 h-px bg-[#E8251A]" aria-hidden="true"></span>
+              {processedBadge ? (
+                <span class="text-xs font-bold tracking-[0.22em] uppercase" style="color:#C41C12;">{processedBadge}</span>
+              ) : (
+                <span class="text-xs font-bold tracking-[0.22em] uppercase" style="color:#C41C12;">Our Approach</span>
+              )}
+            </div>
+
+            {hasSlides ? (
+              <>
+                <div class="relative min-h-[200px]">
+                  {slides?.map((slide, index) => {
+                    const s = splitTitle(getLocationText(slide.title))
+                    return (
+                      <div
+                        x-show={`currentSlide === ${index}`}
+                        x-transition:enter="transition ease-out duration-500"
+                        x-transition:enter-start="opacity-0 translate-y-4"
+                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-transition:leave="transition ease-in duration-300"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0 absolute inset-0"
+                        class={index === 0 ? "" : "absolute inset-0"}
+                      >
+                        <h2 class="conztru-editorial-title text-balance">
+                          <span class="conztru-editorial-title-head">{s.head}</span>
+                          {s.tail && <span class="conztru-editorial-title-tail">{s.tail}</span>}
+                        </h2>
+                        <p class="text-base md:text-lg text-gray-600 leading-relaxed mt-5">
+                          {getLocationText(slide.description)}
+                        </p>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div class="flex items-center gap-4 mt-8">
+                  <div class="flex gap-2">
+                    <button
+                      @click="currentSlide = (currentSlide - 1 + slideCount) % slideCount"
+                      class="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 bg-gray-100 hover:bg-[#E8251A] hover:text-white text-gray-700"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      @click="currentSlide = (currentSlide + 1) % slideCount"
+                      class="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 text-white"
+                      style="background-color:#E8251A;"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
+                  <div class="flex gap-2">
+                    {slides?.map((_, index) => (
+                      <button
+                        @click={`currentSlide = ${index}`}
+                        :class={`currentSlide === ${index} ? 'bg-[#E8251A] w-8' : 'bg-gray-300 w-2 hover:bg-gray-400'`}
+                        class="h-2 rounded-full transition-all duration-300"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <h2 class="conztru-editorial-title text-balance">
+                  <span class="conztru-editorial-title-head">{head}</span>
+                  {tail && <span class="conztru-editorial-title-tail">{tail}</span>}
+                </h2>
+                <p class="text-lg md:text-xl text-gray-600 leading-relaxed mt-5 mb-6 max-w-xl" set:html={processedDescription} />
+                {processedSecondaryDescription && (
+                  <p class="text-gray-500 mb-6 max-w-xl">{processedSecondaryDescription}</p>
+                )}
+              </>
+            )}
+
+            {features && features.length > 0 && (
+              <ul class="conztru-editorial-features divide-y divide-gray-200 border-t border-gray-200 mt-8 mb-8">
+                {features.map((feature) => {
+                  const isObject = typeof feature === 'object'
+                  const featureText = isObject ? feature.text : feature
+                  const iconName = isObject && feature.icon ? feature.icon : 'check'
+                  const Icon = iconMap[iconName] || Check
+                  return (
+                    <li class="conztru-editorial-feature group flex items-start gap-5 py-4">
+                      <span class="conztru-editorial-feature-icon shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-colors" style="background-color:rgba(232,37,26,0.10);">
+                        <Icon className="w-4 h-4" style={{ color: "#E8251A" }} />
+                      </span>
+                      <span class="text-sm md:text-base text-gray-700 leading-relaxed pt-1" set:html={getLocationText(featureText)} />
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+
+            {buttonText && buttonHref && (
+              <a href={buttonHref} class="conztru-editorial-cta inline-flex items-center gap-2 h-12 pl-6 pr-1.5 rounded-full">
+                <span class="text-sm font-semibold tracking-wide">{buttonText}</span>
+                <span class="conztru-editorial-cta-arrow inline-flex items-center justify-center w-9 h-9 rounded-full">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17 17 7"/>
+                    <path d="M7 7h10v10"/>
+                  </svg>
+                </span>
+              </a>
+            )}
+          </div>
+        </AnimateOnScroll>
+
+        <AnimateOnScroll animation={imagePosition === "left" ? "fade-right" : "fade-left"} delay={variant === "gradient" ? 200 : 0} class="lg:col-span-5 relative z-10">
+          <div class="relative hidden md:block conztru-editorial-frame">
+            <!-- Decorative offset block behind image -->
+            <span class="conztru-editorial-frame-bg" aria-hidden="true"></span>
+            <div class="relative rounded-[28px] overflow-hidden shadow-2xl ring-1 ring-black/5">
+              <img src={image} alt={imageAlt} class="w-full aspect-[4/3] object-cover" width={520} height={390} loading="lazy" decoding="async" sizes="40vw" />
+              <!-- Corner brand mark -->
+              <span class="conztru-editorial-frame-mark" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7"/>
+                  <path d="M7 7h10v10"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </AnimateOnScroll>
+      </div>
+    </div>
+  )}
+</section>
+
+<style>
+  /* Showcase variant — mirrors hero design language with a different layout */
+  .conztru-showcase {
+    background-color: #0D1B2A;
+    box-shadow: 0 30px 80px -30px rgba(13, 27, 42, 0.45);
+    isolation: isolate;
+  }
+  .conztru-showcase-media img {
+    transition: transform 0.8s ease;
+  }
+  .conztru-showcase:hover .conztru-showcase-media img {
+    transform: scale(1.03);
+  }
+  .conztru-showcase-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(115deg, rgba(13, 27, 42, 0.55) 0%, rgba(13, 27, 42, 0.35) 45%, rgba(13, 27, 42, 0.10) 100%);
+  }
+
+  .conztru-showcase-num {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Subtle decorative accent in the image-only column */
+  .conztru-showcase-accent {
+    position: absolute;
+    left: 32px;
+    bottom: 32px;
+    width: 64px;
+    height: 2px;
+    background-color: #E8251A;
+    box-shadow: 0 0 24px rgba(232, 37, 26, 0.6);
+  }
+
+  /* Glass content card */
+  .conztru-showcase-card {
+    background-color: rgba(13, 27, 42, 0.55);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 20px 18px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+  @media (min-width: 640px) {
+    .conztru-showcase-card { padding: 28px 28px; border-radius: 22px; }
+  }
+  @media (min-width: 768px) {
+    .conztru-showcase-card { padding: 36px 40px; }
+  }
+
+  .conztru-showcase-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+  }
+  .conztru-showcase-badge::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background-color: #E8251A;
+  }
+
+  .conztru-showcase-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.5rem, 6vw, 2.75rem);
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+    margin: 0;
+    text-wrap: balance;
+  }
+  .conztru-showcase-title-head {
+    display: block;
+    color: #ffffff;
+    font-weight: 800;
+  }
+  .conztru-showcase-title-tail {
+    display: block;
+    color: #E8251A;
+    font-style: italic;
+    font-weight: 800;
+  }
+
+  .conztru-showcase-desc {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  @media (min-width: 640px) {
+    .conztru-showcase-desc { font-size: 1rem; line-height: 1.65; }
+  }
+  /* Inline links on the dark showcase card: white, no underline (any state) */
+  .conztru-showcase-desc :global(a),
+  .conztru-showcase-desc :global(a:hover),
+  .conztru-showcase-desc :global(a:focus),
+  .conztru-showcase-desc :global(a:focus-visible),
+  .conztru-showcase-desc :global(a:active) {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .conztru-showcase-feature span {
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  }
+
+  /* CTA — same look as hero */
+  .conztru-showcase-cta {
+    background-color: #ffffff;
+    color: #0D1B2A;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+  .conztru-showcase-cta:hover {
+    background-color: #f4f4f4;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.30);
+  }
+  .conztru-showcase-cta-arrow {
+    background-color: #0D1B2A;
+    color: #ffffff;
+    transition: all 0.25s ease;
+  }
+  .conztru-showcase-cta:hover .conztru-showcase-cta-arrow {
+    background-color: #E8251A;
+    transform: rotate(45deg);
+  }
+
+  @media (max-width: 1023px) {
+    .conztru-showcase-card {
+      background-color: rgba(13, 27, 42, 0.72);
+    }
+    .conztru-showcase-overlay {
+      background:
+        linear-gradient(115deg, rgba(13, 27, 42, 0.45) 0%, rgba(13, 27, 42, 0.30) 60%, rgba(13, 27, 42, 0.15) 100%);
+    }
+  }
+
+  /* Dark variant — glass panel (matches CTA "bold" card) */
+  .conztru-dark-glass {
+    background: linear-gradient(135deg, rgba(13, 27, 42, 0.92) 0%, rgba(13, 27, 42, 0.78) 100%);
+    box-shadow:
+      0 8px 32px 0 rgba(13, 27, 42, 0.37),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  }
+
+  /* ---------- Editorial variant (default / simple) ---------- */
+  .conztru-editorial {
+    position: relative;
+    isolation: isolate;
+    /* Clip decorative offsets (frame-bg translate, bignum) so they never spill
+       past the viewport and create sideways page scroll — notably at the md
+       breakpoint where the image column is visible but the grid is still 1-col.
+       `clip` (not `hidden`) avoids creating a scroll container / breaking sticky. */
+    overflow-x: clip;
+  }
+
+  .conztru-editorial-bignum {
+    position: absolute;
+    top: -40px;
+    right: -10px;
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(7rem, 14vw, 12rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(13, 27, 42, 0.08);
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+  }
+  @media (max-width: 767px) {
+    .conztru-editorial-bignum { display: none; }
+  }
+
+  .conztru-editorial-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    margin: 0;
+  }
+  .conztru-editorial-title-head {
+    display: block;
+    color: #0D1B2A;
+    font-weight: 800;
+  }
+  .conztru-editorial-title-tail {
+    display: block;
+    color: #E8251A;
+    font-style: italic;
+    font-weight: 800;
+  }
+
+  /* Feature list — numbered, divided rows. Inline links: navy, no underline
+     (any state) to match the sitewide internal-link treatment. */
+  .conztru-editorial-features :global(a),
+  .conztru-editorial-features :global(a:hover),
+  .conztru-editorial-features :global(a:focus),
+  .conztru-editorial-features :global(a:focus-visible),
+  .conztru-editorial-features :global(a:active) {
+    color: #0D1B2A;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .conztru-editorial-feature {
+    transition: padding-left 0.25s ease;
+  }
+  .conztru-editorial-feature:hover {
+    padding-left: 6px;
+  }
+  .conztru-editorial-feature:hover .conztru-editorial-feature-icon {
+    background-color: #E8251A !important;
+  }
+  .conztru-editorial-feature:hover .conztru-editorial-feature-icon :global(svg) {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+  }
+  .conztru-editorial-feature:hover .conztru-editorial-feature-num {
+    color: #E8251A;
+  }
+
+  /* CTA — dark navy pill with red rotating arrow circle */
+  .conztru-editorial-cta {
+    background-color: #0D1B2A;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 10px 28px rgba(13, 27, 42, 0.25);
+  }
+  .conztru-editorial-cta:hover {
+    background-color: #142436;
+    box-shadow: 0 14px 36px rgba(13, 27, 42, 0.35);
+  }
+  .conztru-editorial-cta-arrow {
+    background-color: #E8251A;
+    color: #ffffff;
+    transition: all 0.25s ease;
+  }
+  .conztru-editorial-cta:hover .conztru-editorial-cta-arrow {
+    transform: rotate(45deg);
+  }
+
+  /* Image frame with offset color block + corner mark.
+     The offset block below is translated 18px right/down. The parent grid uses
+     `overflow-x: clip`, so without room reserved on the right the block's edge
+     gets shaved off. Reserving 18px of right padding keeps the block inside the
+     frame's own box — the frame's outer width is unchanged (padding is internal
+     to the grid cell), so this can't reintroduce horizontal page scroll. `inset`
+     still targets the padded box, so the block lands in that reserved space. */
+  .conztru-editorial-frame {
+    padding-top: 28px;
+    padding-right: 18px;
+  }
+  .conztru-editorial-frame-bg {
+    position: absolute;
+    inset: 0;
+    transform: translate(18px, 18px);
+    border-radius: 28px;
+    background-color: rgba(13, 27, 42, 0.55);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    z-index: -1;
+  }
+  .conztru-editorial-frame-mark {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #0D1B2A;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  }
+</style>

@@ -1,0 +1,123 @@
+{
+  "title": "Lakewood CO Digital Signage & Marketing | {business}",
+  "description": "We connect businesses in Lakewood CO through digital signage, PPC, social media, SEO, and website design to keep brands visible and top of mind.",
+  "keywords": "marketing agency Lakewood CO, digital marketing Lakewood, Lakewood marketing services, social media management Lakewood, website design Lakewood, SEO Lakewood, PPC advertising Lakewood, local marketing Lakewood Colorado",
+  "location": "Lakewood",
+  "sections": [
+    {
+      "type": "hero",
+      "badge": "Premium Marketing Solutions",
+      "title": "Local Advertising and Digital Marketing Pros in Lakewood, CO",
+      "description": "Helping Lakewood Businesses Get Noticed, On Screens and Online",
+      "buttonText": "Contact Our Advertising Experts",
+      "buttonHref": "/contact-us",
+      "image": "/images/lakewood.avif",
+      "imageAlt": "Lakewood Colorado digital marketing"
+    },
+    {
+      "type": "content",
+      "variant": "dark",
+      "title": "Your Local Marketing Partner in Lakewood",
+      "description": "We're a full-service digital marketing agency dedicated to helping Lakewood businesses succeed online. Whether you need a new website, social media management, or advertising campaigns, we provide personalized strategies that deliver real results. We understand the local market and know what it takes to stand out in Lakewood and the greater Denver area.",
+      "image": "/images/lakewood.avif",
+      "imageAlt": "Lakewood local marketing partner",
+      "imagePosition": "left"
+    },
+    {
+      "type": "valueCards",
+      "badge": "Why Lakewood",
+      "title": "Digital Marketing Experts Near You Serving Lakewood",
+      "description": "Looking to grow your business in Lakewood? Our local digital marketing agency specializes in helping businesses stand out through targeted strategies that drive results.",
+      "variant": "overlay",
+      "cards": [
+        { "icon": "pin", "title": "Increased Foot Traffic", "description": "Drive more visitors to your storefronts through indoor digital signage and targeted local promotions.", "image": "/images/local-marketing-experts.avif" },
+        { "icon": "award", "title": "Higher Brand Visibility", "description": "Get seen in high-traffic venues and across digital platforms with consistent, strategic messaging.", "image": "/images/community-advertising.avif" },
+        { "icon": "share", "title": "Stronger Online Presence", "description": "Strengthen your digital footprint with professionally managed social media profiles.", "image": "/images/social-media-creative.avif" },
+        { "icon": "target", "title": "More Qualified Leads", "description": "Attract high-intent customers actively searching for your products or services.", "image": "/images/keyword.avif" },
+        { "icon": "google", "title": "Enhanced Credibility", "description": "Optimize your Google Business Profile to boost customer confidence and drive actions.", "image": "/images/management.avif" },
+        { "icon": "trending", "title": "Better Local Rankings", "description": "Dominate local search with optimized GBP management and location-focused content.", "image": "/images/track-record.avif" }
+      ]
+    },
+    {
+      "type": "cta",
+      "variant": "card",
+      "title": "Ready to Grow Your Lakewood Business?",
+      "description": "Whether you're a startup or an established business, we have the marketing solutions to help you reach more customers and increase sales.",
+      "buttonText": "Schedule a Free Consultation",
+      "buttonHref": "/contact-us"
+    },
+    {
+      "type": "features",
+      "title": "Marketing Services for Lakewood Businesses",
+      "description": "Comprehensive digital marketing solutions tailored to your business needs.",
+      "columns": 3,
+      "features": [
+        { "icon": "globe", "title": "Website Design & Development", "description": "Custom websites built to attract customers and drive conversions. Mobile-friendly, fast, and optimized for search engines.", "href": "/solutions/foundational/website-design" },
+        { "icon": "share", "title": "Social Media Marketing", "description": "Engage your audience and build your brand on Facebook, Instagram, LinkedIn, and more with strategic content and management.", "href": "/solutions/foundational/social-media-management" },
+        { "icon": "dollar", "title": "Pay-Per-Click Advertising", "description": "Get immediate results with targeted Google Ads and social media advertising campaigns that maximize your exposure.", "href": "/solutions/lead-gen/pay-per-click" },
+        { "icon": "target", "title": "SEO & Local Search", "description": "Rank higher in Google search results and attract more local customers searching for your services in Lakewood.", "href": "/solutions/foundational/google-business-profile" },
+        { "icon": "monitor", "title": "Indoor Billboard Advertising", "description": "High-impact advertising in premium indoor locations across the Denver metro.", "href": "/indoor-billboards/screen-advertising" },
+        { "icon": "megaphone", "title": "Display & Geofencing", "description": "Location-based display advertising that targets customers where they spend time.", "href": "/solutions/branding-awareness/display-geofencing" }
+      ]
+    },
+    {
+      "type": "valueCards",
+      "title": "How We Work With Lakewood Businesses",
+      "description": "Our proven process ensures you get results without the hassle.",
+      "variant": "cards",
+      "cards": [
+        { "icon": "message", "title": "Step 1: Discovery Call", "description": "We start with a free consultation to understand your business, goals, and challenges.", "image": "/images/discovery-call.avif" },
+        { "icon": "target", "title": "Step 2: Custom Strategy", "description": "We create a tailored marketing plan designed specifically for your business and budget.", "image": "/images/custom-strategy.avif" },
+        { "icon": "rocket", "title": "Step 3: Execution & Launch", "description": "Our team handles all the work, from design and content to setup and launch.", "image": "/images/campaign-launch.avif" },
+        { "icon": "wrench", "title": "Step 4: Ongoing Optimization", "description": "We monitor performance, provide regular reports, and continuously improve your results.", "image": "/images/report-optimization.avif" }
+      ]
+    },
+    {
+      "type": "features",
+      "title": "Why Lakewood Businesses Choose Us",
+      "description": "We're more than just a marketing agency, we're your partner in growth.",
+      "columns": 3,
+      "features": [
+        { "icon": "pin", "title": "Local Expertise", "description": "We understand the Lakewood market and know what it takes to reach local customers effectively." },
+        { "icon": "trending", "title": "Proven Results", "description": "Our strategies are backed by data and designed to deliver measurable growth for your business." },
+        { "icon": "dollar", "title": "Transparent Pricing", "description": "No hidden fees or surprises. We provide clear pricing and work within your budget." },
+        { "icon": "users", "title": "Personalized Service", "description": "You're not just a number. We provide dedicated support and treat your business like our own." },
+        { "icon": "settings", "title": "Full-Service Solutions", "description": "From websites to social media to advertising, we handle all your marketing needs under one roof." },
+        { "icon": "clock", "title": "Fast Response Times", "description": "Questions? Updates? We're here when you need us with quick, friendly support." }
+      ]
+    },
+    {
+      "type": "faq",
+      "title": "Common Questions About Our Services",
+      "description": "Get answers to the most common questions Lakewood businesses ask us.",
+      "faqs": [
+        { "question": "Do you only work with businesses in Lakewood?", "answer": "While we specialize in serving Lakewood businesses, we work with clients throughout the Denver metro area and beyond." },
+        { "question": "What types of businesses do you work with?", "answer": "We work with businesses of all sizes and industries, from local shops and restaurants to professional services and e-commerce stores." },
+        { "question": "How much do your services cost?", "answer": "Every business has different needs and budgets. We offer flexible packages and custom solutions. <a class='underline font-bold' href='/contact-us'>Contact us</a> for a free consultation and personalized quote." },
+        { "question": "Do I need to sign a long-term contract?", "answer": "We offer both project-based work and ongoing monthly services. Many clients start with a project and then continue with monthly marketing support." },
+        { "question": "How quickly can you get started?", "answer": "We can typically start within 1-2 weeks of our initial consultation, depending on the scope of work and our current schedule." },
+        { "question": "Will I have a dedicated contact person?", "answer": "Yes! You'll work directly with our team and have a main point of contact who knows your business and goals." }
+      ]
+    },
+    {
+      "type": "locations",
+      "title": "We Put Local Brands on the Map",
+      "description": "Our <strong>network</strong> spans across Denver's most popular neighborhoods and venues",
+      "overlayTitle": "Serving Lakewood and Surrounding Areas",
+      "variant": "overlay-titled",
+      "locations": [
+        { "name": "Aurora", "href": "/locations/aurora", "description": "East Denver Metro" },
+        { "name": "Arvada", "href": "/locations/arvada", "description": "Northwest Denver" },
+        { "name": "Centennial", "href": "/locations/centennial", "description": "South Denver Metro" }
+      ]
+    },
+    {
+      "type": "cta",
+      "variant": "banner",
+      "title": "Ready to grow your Lakewood business?",
+      "description": "Contact us today to learn how we can help.",
+      "buttonText": "Get In Touch",
+      "buttonHref": "/contact-us"
+    }
+  ]
+}

@@ -1,0 +1,1172 @@
+---
+import { navItems, ctaButton } from "@/config/navigation"
+import { siteConfig } from "@/config/site"
+import { Menu, X, ChevronDown, Play, ArrowUpRight, Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react"
+
+const featuredIndices: Record<number, number> = {}
+navItems.forEach((item, i) => {
+  if (item.type === 'megamenu' && item.featured && item.featured.length > 0) {
+    featuredIndices[i] = Math.floor(Math.random() * item.featured.length)
+  }
+})
+
+const socialIcons = {
+  facebook: Facebook,
+  instagram: Instagram,
+  linkedin: Linkedin,
+  twitter: Twitter,
+  youtube: Youtube,
+}
+const socialLinks = Object.entries(siteConfig.social || {}).filter(([_, url]) => url)
+---
+
+<!-- Floating Navbar -->
+<header
+  id="conztru-header"
+  class="conztru-floating-nav fixed top-4 md:top-6 left-0 right-0 z-50 w-full px-4"
+  x-data="{ mobileOpen: false }"
+  x-effect="document.body.style.overflow = mobileOpen ? 'hidden' : ''"
+  @keydown.escape.window="mobileOpen = false"
+>
+  <div class="max-w-[1600px] mx-auto flex items-center justify-between gap-3 px-2 sm:px-4 lg:px-8">
+
+    <!-- Logo (white pill container fades in on scroll) -->
+    <a href="/" class="conztru-logo grid place-items-center h-14 px-4 rounded-full">
+      <img
+        src="/logo/monochrome-glass-white.svg"
+        alt="Monochrome Glass"
+        class="conztru-logo-img conztru-logo-light h-10 md:h-12 w-auto object-contain"
+        width="161"
+        height="48"
+        decoding="async"
+        loading="eager"
+      />
+      <img
+        src="/logo/monochrome-glass.svg"
+        alt="Monochrome Glass"
+        class="conztru-logo-img conztru-logo-dark h-10 md:h-12 w-auto object-contain"
+        width="161"
+        height="48"
+        decoding="async"
+        loading="eager"
+        aria-hidden="true"
+      />
+    </a>
+
+    <!-- Center navigation pill -->
+    <nav class="conztru-nav-pill hidden lg:flex items-center h-14 px-2 rounded-full">
+      {navItems.map((navItem, index) => {
+        const hasFeatured =
+          navItem.type === 'megamenu' && navItem.featured && navItem.featured.length > 0
+        const fi = featuredIndices[index] ?? 0
+        const isLast = index === navItems.length - 1
+
+        return (
+          <div class="relative group/nav flex items-center" x-data="{ open: false }">
+            {navItem.type === 'link' && (
+              <a
+                href={navItem.href}
+                class="conztru-nav-link inline-flex items-center justify-center whitespace-nowrap text-sm font-medium tracking-wide transition-colors h-10 px-5"
+              >
+                {navItem.title}
+              </a>
+            )}
+
+            {navItem.type === 'dropdown' && (
+              <>
+                <button
+                  @mouseenter="open = true"
+                  @mouseleave="open = false"
+                  @click={navItem.href ? `window.location.href='${navItem.href}'` : undefined}
+                  class:list={["conztru-nav-link inline-flex items-center justify-center whitespace-nowrap text-sm font-medium tracking-wide transition-colors h-10 px-5 group", navItem.href && "cursor-pointer"]}
+                >
+                  {navItem.title}
+                  <ChevronDown className="relative top-[1px] ml-1.5 h-3.5 w-3.5 transition duration-300 group-hover:translate-y-0.5" aria-hidden="true" />
+                </button>
+                <div
+                  x-show="open"
+                  @mouseenter="open = true"
+                  @mouseleave="open = false"
+                  x-transition:enter="transition ease-out duration-150"
+                  x-transition:enter-start="opacity-0 translate-y-1"
+                  x-transition:enter-end="opacity-100 translate-y-0"
+                  x-transition:leave="transition ease-in duration-100"
+                  x-transition:leave-start="opacity-100 translate-y-0"
+                  x-transition:leave-end="opacity-0 translate-y-1"
+                  class="absolute left-1/2 top-full z-50 pt-4 -translate-x-1/2"
+                  style="display: none;"
+                >
+                  <span class="conztru-mega-arrow" aria-hidden="true"></span>
+                  <div class="conztru-mega-panel relative w-[360px] rounded-2xl bg-white p-2 text-gray-900">
+                    <ul class="grid gap-0">
+                      {navItem.items.map((item) => {
+                        const IconComponent = item.icon
+                        return (
+                          <li>
+                            <a
+                              href={item.href}
+                              class="conztru-mega-item group/item block select-none rounded-lg py-2 px-2.5 no-underline outline-none"
+                            >
+                              <div class="flex items-start gap-2.5">
+                                {IconComponent && (
+                                  <span class="conztru-mega-icon shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-md mt-0.5">
+                                    <IconComponent className="size-3.5" strokeWidth={1.75} />
+                                  </span>
+                                )}
+                                <div class="min-w-0 flex-1">
+                                  <div class="conztru-mega-item-title text-[15px] font-semibold leading-tight">{item.title}</div>
+                                  {item.description && (
+                                    <p class="conztru-mega-item-desc text-[12.5px] leading-snug mt-1 line-clamp-2">
+                                      {item.description}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </a>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {navItem.type === 'megamenu' && (
+              <>
+                <button
+                  @mouseenter="open = true"
+                  @mouseleave="open = false"
+                  @click={navItem.href ? `window.location.href='${navItem.href}'` : undefined}
+                  class="conztru-nav-link inline-flex items-center justify-center whitespace-nowrap text-sm font-medium tracking-wide transition-colors h-10 px-5 group cursor-pointer"
+                >
+                  {navItem.title}
+                  <ChevronDown className="relative top-[1px] ml-1.5 h-3.5 w-3.5 transition duration-300 group-hover:translate-y-0.5" aria-hidden="true" />
+                </button>
+                <div
+                  x-show="open"
+                  @mouseenter="open = true"
+                  @mouseleave="open = false"
+                  x-transition:enter="transition ease-out duration-150"
+                  x-transition:enter-start="opacity-0 translate-y-1"
+                  x-transition:enter-end="opacity-100 translate-y-0"
+                  x-transition:leave="transition ease-in duration-100"
+                  x-transition:leave-start="opacity-100 translate-y-0"
+                  x-transition:leave-end="opacity-0 translate-y-1"
+                  class="absolute left-1/2 top-full z-50 pt-4 -translate-x-1/2"
+                  style="display: none;"
+                >
+                  <span class="conztru-mega-arrow" aria-hidden="true"></span>
+                  <div class={`conztru-mega-panel relative rounded-2xl bg-white text-gray-900 flex ${hasFeatured ? 'w-[640px]' : 'w-[400px]'}`}>
+                    <div class="conztru-mega-scroll flex-1 min-w-0 max-h-[440px] overflow-y-auto p-3">
+                      {navItem.sections.map((section, sIdx) => (
+                        <div class={sIdx > 0 ? 'mt-3 pt-3 conztru-mega-section-divider' : ''}>
+                          <h4 class="conztru-mega-label px-2">{section.label}</h4>
+                          <ul class="mt-1.5 space-y-0">
+                            {section.items.map((item) => {
+                              const IconComponent = item.icon
+                              return (
+                                <li>
+                                  <a
+                                    href={item.href}
+                                    class="conztru-mega-item group/item block select-none rounded-lg py-2 px-2 no-underline outline-none"
+                                  >
+                                    <div class="flex items-start gap-2.5">
+                                      {IconComponent && (
+                                        <span class="conztru-mega-icon shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-md mt-0.5">
+                                          <IconComponent className="size-3.5" strokeWidth={1.75} />
+                                        </span>
+                                      )}
+                                      <div class="min-w-0 flex-1">
+                                        <div class="conztru-mega-item-title text-[15px] font-semibold leading-tight">{item.title}</div>
+                                        {item.description && (
+                                          <p class="conztru-mega-item-desc text-[13px] leading-snug mt-1 line-clamp-2">
+                                            {item.description}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </a>
+                                </li>
+                              )
+                            })}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+
+                    {hasFeatured && navItem.featured && (
+                      <div class="conztru-mega-featured conztru-mega-col-border w-[240px] shrink-0 p-4">
+                        <h4 class="conztru-mega-label conztru-mega-featured-label">Featured</h4>
+                        <a href={navItem.featured[fi].href} class="conztru-mega-featured-card group/feat block rounded-xl">
+                          <div class="conztru-mega-featured-media aspect-video relative overflow-hidden">
+                            {navItem.featured[fi].image ? (
+                              <img
+                                src={navItem.featured[fi].image}
+                                alt={navItem.featured[fi].title}
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover/feat:scale-110"
+                                width="240"
+                                height="135"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            ) : (
+                              <div class="w-full h-full flex items-center justify-center relative" style="background: linear-gradient(135deg,#0D1B2A 0%,#1a2a3f 60%,#E8251A 180%);">
+                                <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.4) 0%, transparent 40%);"></div>
+                                <span class="conztru-mega-play-btn inline-flex items-center justify-center w-12 h-12 rounded-full">
+                                  <Play className="size-5 text-white ml-0.5" strokeWidth={2} fill="currentColor" />
+                                </span>
+                              </div>
+                            )}
+                            <div class="conztru-mega-featured-overlay absolute inset-0"></div>
+                          </div>
+                          <div class="pt-3">
+                            <h5 class="conztru-mega-featured-title text-sm font-semibold leading-snug">{navItem.featured[fi].title}</h5>
+                            <p class="text-xs text-gray-500 leading-snug mt-1.5 line-clamp-2">{navItem.featured[fi].description}</p>
+                            <span class="conztru-mega-featured-cta inline-flex items-center gap-1 mt-3 text-xs font-bold uppercase tracking-wider">
+                              Learn More
+                              <span class="conztru-mega-featured-arrow">→</span>
+                            </span>
+                          </div>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
+
+            {!isLast && <span class="conztru-nav-divider" aria-hidden="true"></span>}
+          </div>
+        )
+      })}
+    </nav>
+
+    <!-- CTA pill with arrow icon -->
+    <a
+      href={ctaButton.href}
+      class="conztru-cta-pill hidden lg:inline-flex items-center gap-2 h-14 pl-6 pr-2 rounded-full"
+    >
+      <span class="text-sm font-semibold tracking-wide whitespace-nowrap">{ctaButton.text}</span>
+      <span class="conztru-cta-arrow inline-flex items-center justify-center w-10 h-10 rounded-full">
+        <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
+      </span>
+    </a>
+
+    <!-- Mobile Menu Button (toggles the dropdown) -->
+    <button
+      @click="mobileOpen = !mobileOpen"
+      :aria-expanded="mobileOpen"
+      class="conztru-mobile-btn lg:hidden inline-flex items-center justify-center rounded-full h-12 w-12"
+      aria-label="Toggle menu"
+      aria-controls="conztru-mobile-drawer"
+    >
+      <span x-show="!mobileOpen" class="inline-flex"><Menu className="h-6 w-6" /></span>
+      <span x-show="mobileOpen" class="inline-flex" style="display:none;"><X className="h-6 w-6" /></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Backdrop (dims page below the dropdown) -->
+  <div
+    x-show="mobileOpen"
+    @click="mobileOpen = false"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    class="conztru-mobile-backdrop fixed inset-0 z-40 lg:hidden"
+    style="display: none;"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Mobile Menu Panel — full-width, attached to the top edge, overlays the
+       page. Pinned to top-0 so it reads as one solid connected bar (no side
+       gaps, no floating card). -->
+  <div
+    id="conztru-mobile-drawer"
+    x-show="mobileOpen"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0 -translate-y-6"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100 translate-y-0"
+    x-transition:leave-end="opacity-0 -translate-y-6"
+    class="conztru-mobile-drawer fixed top-0 left-0 right-0 z-50 lg:hidden flex flex-col overflow-hidden"
+    style="display: none;"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Site menu"
+  >
+    <!-- Panel header: logo + close, mirrors the top bar so it feels attached -->
+    <div class="conztru-mobile-panel-head flex items-center justify-between h-[76px] px-5 shrink-0">
+      <a href="/" @click="mobileOpen = false" class="flex items-center h-10">
+        <img
+          src="/logo/monochrome-glass.svg"
+          alt="Monochrome Glass"
+          class="h-9 w-auto object-contain"
+          width="121"
+          height="36"
+          decoding="async"
+        />
+      </a>
+      <button
+        @click="mobileOpen = false"
+        class="conztru-mobile-close inline-flex items-center justify-center rounded-full h-11 w-11"
+        aria-label="Close menu"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.25" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <!-- Dropdown Scrollable Body -->
+    <nav class="conztru-mobile-scroll flex-1 min-h-0 overflow-y-auto px-4 py-4">
+      <ul class="flex flex-col gap-1">
+        {navItems.map((navItem) => (
+          <li x-data="{ expanded: false, openSection: null }">
+            {navItem.type === 'link' && (
+              <a
+                href={navItem.href}
+                @click="mobileOpen = false"
+                class="conztru-mobile-link group flex items-center justify-between w-full py-3.5 px-4 rounded-xl"
+              >
+                <span class="conztru-mobile-link-text">{navItem.title}</span>
+                <ArrowUpRight className="conztru-mobile-link-arrow h-4 w-4" strokeWidth={2} aria-hidden="true" />
+              </a>
+            )}
+
+            {navItem.type === 'dropdown' && (
+              <>
+                <button
+                  @click="expanded = !expanded"
+                  :aria-expanded="expanded"
+                  :class="expanded && 'is-expanded'"
+                  class="conztru-mobile-link flex items-center justify-between w-full py-3.5 px-4 rounded-xl text-left"
+                >
+                  <span class="conztru-mobile-link-text">{navItem.title}</span>
+                  <span class="conztru-mobile-chev inline-flex items-center justify-center w-7 h-7 rounded-full">
+                    <ChevronDown
+                      className="h-4 w-4 transition-transform duration-300"
+                      x-bind:class="expanded && 'rotate-180'"
+                    />
+                  </span>
+                </button>
+                <div x-show="expanded" x-collapse style="display: none;">
+                  <ul class="conztru-mobile-sublist mt-1 ml-3 pl-3 py-1 space-y-0.5">
+                    {navItem.href && (
+                      <li>
+                        <a
+                          href={navItem.href}
+                          @click="mobileOpen = false"
+                          class="conztru-mobile-subitem group flex items-center gap-3 py-2.5 px-3 rounded-lg"
+                        >
+                          <span class="conztru-mobile-subtext text-sm font-medium">Overview</span>
+                        </a>
+                      </li>
+                    )}
+                    {navItem.items.map((item) => {
+                      const IconComponent = item.icon
+                      return (
+                        <li>
+                          <a
+                            href={item.href}
+                            @click="mobileOpen = false"
+                            class="conztru-mobile-subitem group flex items-center gap-3 py-2.5 px-3 rounded-lg"
+                          >
+                            {IconComponent && (
+                              <span class="conztru-mobile-subicon shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-md">
+                                <IconComponent className="size-3.5" strokeWidth={1.75} />
+                              </span>
+                            )}
+                            <span class="conztru-mobile-subtext text-sm font-medium">{item.title}</span>
+                          </a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              </>
+            )}
+
+            {navItem.type === 'megamenu' && (
+              <>
+                <button
+                  @click="expanded = !expanded"
+                  :aria-expanded="expanded"
+                  :class="expanded && 'is-expanded'"
+                  class="conztru-mobile-link flex items-center justify-between w-full py-3.5 px-4 rounded-xl text-left"
+                >
+                  <span class="conztru-mobile-link-text">{navItem.title}</span>
+                  <span class="conztru-mobile-chev inline-flex items-center justify-center w-7 h-7 rounded-full">
+                    <ChevronDown
+                      className="h-4 w-4 transition-transform duration-300"
+                      x-bind:class="expanded && 'rotate-180'"
+                    />
+                  </span>
+                </button>
+                <div x-show="expanded" x-collapse style="display: none;">
+                  <div class="conztru-mobile-sublist mt-1 ml-3 pl-3 py-2 space-y-1">
+                    {navItem.href && (
+                      <a
+                        href={navItem.href}
+                        @click="mobileOpen = false"
+                        class="conztru-mobile-subitem group flex items-center gap-3 py-2.5 px-3 rounded-lg"
+                      >
+                        <span class="conztru-mobile-subtext text-sm font-medium">Overview</span>
+                      </a>
+                    )}
+                    {navItem.sections.map((section, si) => (
+                      <div>
+                        <button
+                          @click={`openSection = openSection === ${si} ? null : ${si}`}
+                          :aria-expanded={`openSection === ${si}`}
+                          :class={`openSection === ${si} && 'is-expanded'`}
+                          class="conztru-mobile-section-btn flex items-center justify-between w-full py-2.5 px-3 rounded-lg text-left"
+                        >
+                          <span class="conztru-mobile-label">{section.label}</span>
+                          <span class="conztru-mobile-chev inline-flex items-center justify-center w-6 h-6 rounded-full">
+                            <ChevronDown
+                              className="h-3.5 w-3.5 transition-transform duration-300"
+                              x-bind:class={`openSection === ${si} && 'rotate-180'`}
+                            />
+                          </span>
+                        </button>
+                        <ul class="space-y-0.5 pl-1" x-show={`openSection === ${si}`} x-collapse style="display: none;">
+                          {section.items.map((item) => {
+                            const IconComponent = item.icon
+                            return (
+                              <li>
+                                <a
+                                  href={item.href}
+                                  @click="mobileOpen = false"
+                                  class="conztru-mobile-subitem group flex items-center gap-3 py-2.5 px-3 rounded-lg"
+                                >
+                                  {IconComponent && (
+                                    <span class="conztru-mobile-subicon shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-md">
+                                      <IconComponent className="size-3.5" strokeWidth={1.75} />
+                                    </span>
+                                  )}
+                                  <span class="conztru-mobile-subtext text-sm font-medium">{item.title}</span>
+                                </a>
+                              </li>
+                            )
+                          })}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Drawer Footer (sticky CTA + socials) -->
+    <div class="conztru-mobile-footer shrink-0 px-5 pt-4 pb-6">
+      <a
+        href={ctaButton.href}
+        @click="mobileOpen = false"
+        class="conztru-mobile-cta group inline-flex items-center justify-between w-full pl-6 pr-2 py-2 rounded-full"
+      >
+        <span class="text-sm font-semibold tracking-wide">{ctaButton.text}</span>
+        <span class="conztru-mobile-cta-arrow inline-flex items-center justify-center w-10 h-10 rounded-full">
+          <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
+        </span>
+      </a>
+
+      {socialLinks.length > 0 && (
+        <div class="flex items-center justify-center gap-2.5 mt-5">
+          {socialLinks.map(([platform, url]) => {
+            const Icon = socialIcons[platform as keyof typeof socialIcons]
+            if (!Icon) return null
+            return (
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={platform}
+                class="conztru-mobile-social w-9 h-9 rounded-full flex items-center justify-center"
+              >
+                <Icon className="w-4 h-4" />
+              </a>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  </div>
+</header>
+
+<style is:global>
+  :root {
+    --conztru-red: #D81E13;
+    --conztru-red-dark: #C41C12;
+    --conztru-navy: #0D1B2A;
+    --conztru-navy-soft: #142436;
+    --conztru-gray: #6b7280;
+  }
+
+  html, body {
+    font-family: 'Barlow', 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'kern' 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Barlow', 'Inter', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .conztru-italic-red {
+    font-style: italic;
+    color: var(--conztru-red);
+    font-weight: 800;
+  }
+
+  .conztru-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--conztru-red-dark);
+  }
+  .conztru-badge::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background-color: var(--conztru-red);
+  }
+  /* Light-red badge variant for dark/navy backgrounds (AA contrast) */
+  .conztru-badge--light { color: #FF7468; }
+
+  .conztru-cta {
+    background-color: var(--conztru-red);
+  }
+  .conztru-cta:hover {
+    background-color: var(--conztru-red-dark);
+  }
+
+  .conztru-arrow-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    background-color: var(--conztru-navy);
+    color: white;
+    transition: transform .2s ease, background-color .2s ease;
+  }
+  .conztru-arrow-btn:hover {
+    transform: translateX(2px);
+    background-color: var(--conztru-red);
+  }
+</style>
+
+<style>
+  .conztru-floating-nav {
+    pointer-events: none;
+  }
+  .conztru-floating-nav > div {
+    pointer-events: auto;
+  }
+
+  .conztru-nav-pill,
+  .conztru-mobile-btn {
+    /* Solid navy background so navigation stays clearly readable over the
+       hero image (and everywhere else) rather than blending into it. */
+    background-color: var(--conztru-navy);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transition: all 0.25s ease;
+  }
+
+  .conztru-nav-pill:hover,
+  .conztru-mobile-btn:hover {
+    background-color: var(--conztru-navy-soft);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .conztru-logo {
+    position: relative;
+    /* Solid navy pill (matches the nav pill) so the logo reads clearly over
+       the hero image from the start rather than sitting on transparency. */
+    background-color: var(--conztru-navy);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transition: opacity 0.2s ease, background-color 0.25s ease,
+      border-color 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+  .conztru-logo:hover {
+    opacity: 0.85;
+  }
+  /* Stack both logo variants in the same grid cell so they overlap
+     and stay centered; crossfade between them via opacity. */
+  .conztru-logo-img {
+    grid-area: 1 / 1;
+    transition: opacity 0.25s ease;
+  }
+  .conztru-logo-dark {
+    opacity: 0;
+  }
+  /* Logo pill stays solid navy on scroll (matching the nav pill), so keep
+     the LIGHT logo throughout — no white-pill / dark-logo swap. */
+  .conztru-floating-nav.is-scrolled .conztru-logo {
+    background-color: var(--conztru-navy);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  }
+  .conztru-floating-nav.is-scrolled .conztru-logo:hover {
+    opacity: 0.85;
+    background-color: var(--conztru-navy-soft);
+  }
+
+  .conztru-cta-pill {
+    background-color: #ffffff;
+    color: #0D1B2A;
+    border: 1px solid #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .conztru-cta-pill:hover {
+    background-color: #f4f4f4;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  }
+  .conztru-cta-arrow {
+    background-color: #0D1B2A;
+    color: #ffffff;
+    transition: all 0.25s ease;
+  }
+  .conztru-cta-pill:hover .conztru-cta-arrow {
+    background-color: #E8251A;
+    color: #ffffff;
+    transform: rotate(45deg);
+  }
+
+  .conztru-nav-link {
+    color: #ffffff;
+    position: relative;
+    text-decoration: none;
+  }
+  .conztru-nav-link:hover {
+    color: #ffffff;
+    opacity: 0.75;
+  }
+
+  .conztru-nav-divider {
+    width: 1px;
+    height: 18px;
+    background-color: rgba(255, 255, 255, 0.28);
+    display: inline-block;
+  }
+
+  .conztru-mobile-btn {
+    color: #ffffff;
+  }
+
+  /* Scrolled state — kicks in after the hero is out of view */
+  .conztru-floating-nav.is-scrolled .conztru-nav-pill,
+  .conztru-floating-nav.is-scrolled .conztru-mobile-btn {
+    background-color: rgba(13, 27, 42, 0.85);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  }
+  .conztru-floating-nav.is-scrolled .conztru-nav-pill:hover,
+  .conztru-floating-nav.is-scrolled .conztru-mobile-btn:hover {
+    background-color: rgba(13, 27, 42, 0.95);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .conztru-floating-nav.is-scrolled .conztru-nav-divider {
+    background-color: rgba(255, 255, 255, 0.18);
+  }
+  .conztru-floating-nav.is-scrolled .conztru-cta-pill {
+    background-color: #ffffff;
+    color: #0D1B2A;
+    border-color: #ffffff;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  /* ===== Megamenu / Dropdown panel ===== */
+  .conztru-mega-panel {
+    border: 1px solid rgba(13, 27, 42, 0.06);
+    box-shadow:
+      0 24px 64px rgba(13, 27, 42, 0.18),
+      0 8px 24px rgba(13, 27, 42, 0.10),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    overflow: hidden;
+  }
+
+  /* Pointer arrow connecting nav pill to dropdown */
+  .conztru-mega-arrow {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-top: 1px solid rgba(13, 27, 42, 0.06);
+    border-left: 1px solid rgba(13, 27, 42, 0.06);
+    border-radius: 2px 0 0 0;
+    z-index: 0;
+  }
+
+  /* Section column borders */
+  .conztru-mega-col-border {
+    border-left: 1px solid rgba(13, 27, 42, 0.06);
+  }
+  .conztru-mega-section-divider {
+    border-top: 1px solid rgba(13, 27, 42, 0.06);
+  }
+
+  /* Section label */
+  .conztru-mega-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #E8251A;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+  }
+  /* Featured column label sits above the thumbnail — give it breathing room.
+     Scoped to this instance so the section-column labels keep margin: 0. */
+  .conztru-mega-featured-label {
+    margin-bottom: 1.25rem;
+  }
+  .conztru-mega-label::before {
+    content: '';
+    width: 18px;
+    height: 2px;
+    background-color: #E8251A;
+    border-radius: 2px;
+  }
+
+  /* Item card */
+  .conztru-mega-item {
+    position: relative;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .conztru-mega-item:hover {
+    background-color: rgba(232, 37, 26, 0.04);
+  }
+  .conztru-mega-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) scaleY(0.2);
+    width: 3px;
+    height: 60%;
+    background-color: #E8251A;
+    border-radius: 0 2px 2px 0;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .conztru-mega-item:hover::before {
+    opacity: 1;
+    transform: translateY(-50%) scaleY(1);
+  }
+
+  .conztru-mega-item-title {
+    font-family: 'Barlow', sans-serif;
+    color: #0D1B2A;
+    letter-spacing: -0.005em;
+    transition: color 0.2s ease;
+  }
+  .conztru-mega-item:hover .conztru-mega-item-title {
+    color: #E8251A;
+  }
+  .conztru-mega-item-desc {
+    color: #6b7280;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  /* Icon chip */
+  .conztru-mega-icon {
+    background-color: rgba(232, 37, 26, 0.08);
+    color: #E8251A;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .conztru-mega-item:hover .conztru-mega-icon {
+    background-color: #E8251A;
+    color: #ffffff;
+    transform: scale(1.05);
+  }
+
+  /* Scrollable items column — clean thin scrollbar */
+  .conztru-mega-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(13, 27, 42, 0.18) transparent;
+    scrollbar-gutter: stable;
+  }
+  .conztru-mega-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .conztru-mega-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .conztru-mega-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(13, 27, 42, 0.18);
+    border-radius: 999px;
+  }
+  .conztru-mega-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(13, 27, 42, 0.32);
+  }
+
+  /* Featured card — subtle glass accent */
+  .conztru-mega-featured {
+    position: relative;
+    background:
+      linear-gradient(
+        160deg,
+        rgba(232, 37, 26, 0.06) 0%,
+        rgba(255, 255, 255, 0.55) 45%,
+        rgba(13, 27, 42, 0.04) 100%
+      );
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.6);
+  }
+  .conztru-mega-featured::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 60% at 100% 0%, rgba(232, 37, 26, 0.10) 0%, transparent 55%),
+      radial-gradient(80% 50% at 0% 100%, rgba(13, 27, 42, 0.06) 0%, transparent 60%);
+  }
+  .conztru-mega-featured > * {
+    position: relative;
+    z-index: 1;
+  }
+  .conztru-mega-featured-card {
+    transition: transform 0.25s ease;
+  }
+  .conztru-mega-featured-card:hover {
+    transform: translateY(-2px);
+  }
+  .conztru-mega-featured-media {
+    background-color: #0D1B2A;
+    border-radius: 12px;
+  }
+  .conztru-mega-featured-overlay {
+    background: linear-gradient(180deg, transparent 60%, rgba(13, 27, 42, 0.35) 100%);
+    pointer-events: none;
+  }
+  .conztru-mega-play-btn {
+    background-color: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transition: transform 0.25s ease, background-color 0.25s ease;
+  }
+  .conztru-mega-featured-card:hover .conztru-mega-play-btn {
+    background-color: #E8251A;
+    border-color: #E8251A;
+    transform: scale(1.08);
+  }
+  .conztru-mega-featured-title {
+    color: #0D1B2A;
+    font-family: 'Barlow', sans-serif;
+    transition: color 0.2s ease;
+  }
+  .conztru-mega-featured-card:hover .conztru-mega-featured-title {
+    color: #E8251A;
+  }
+  .conztru-mega-featured-cta {
+    color: #E8251A;
+    font-family: 'Barlow', sans-serif;
+  }
+  .conztru-mega-featured-arrow {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+  .conztru-mega-featured-card:hover .conztru-mega-featured-arrow {
+    transform: translateX(4px);
+  }
+
+  /* ============================== */
+  /* ===== Mobile Drawer ========= */
+  /* ============================== */
+
+  .conztru-mobile-backdrop {
+    background: radial-gradient(120% 80% at 100% 0%, rgba(232, 37, 26, 0.18) 0%, transparent 55%),
+                rgba(13, 27, 42, 0.55);
+    backdrop-filter: blur(6px) saturate(140%);
+    -webkit-backdrop-filter: blur(6px) saturate(140%);
+  }
+
+  /* Full-width attached panel — pinned to the top edge, overlays the page */
+  .conztru-mobile-drawer {
+    position: fixed;
+    background:
+      radial-gradient(120% 40% at 100% 0%, rgba(232, 37, 26, 0.07) 0%, transparent 55%),
+      linear-gradient(180deg, #ffffff 0%, #f7f8fa 100%);
+    box-shadow: 0 18px 48px rgba(13, 27, 42, 0.24),
+                0 6px 18px rgba(13, 27, 42, 0.10);
+    border-bottom: 1px solid rgba(13, 27, 42, 0.08);
+    border-radius: 0 0 24px 24px;
+    max-height: 100dvh;
+  }
+  .conztru-mobile-drawer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--conztru-red) 0%, #E8251A 100%);
+    opacity: 0.9;
+  }
+
+  /* Panel header — solid bar mirroring the top nav so the panel feels attached */
+  .conztru-mobile-panel-head {
+    border-bottom: 1px solid rgba(13, 27, 42, 0.07);
+  }
+
+  /* Scrollable body */
+  .conztru-mobile-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(13, 27, 42, 0.18) transparent;
+  }
+  .conztru-mobile-scroll::-webkit-scrollbar { width: 6px; }
+  .conztru-mobile-scroll::-webkit-scrollbar-track { background: transparent; }
+  .conztru-mobile-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(13, 27, 42, 0.18);
+    border-radius: 999px;
+  }
+
+  /* Top-level link / button */
+  .conztru-mobile-link {
+    color: var(--conztru-navy);
+    background-color: transparent;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.005em;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+    position: relative;
+  }
+  .conztru-mobile-link:hover,
+  .conztru-mobile-link:focus-visible,
+  .conztru-mobile-link.is-expanded {
+    background-color: rgba(232, 37, 26, 0.06);
+    color: var(--conztru-red);
+  }
+  .conztru-mobile-link-text { display: inline-block; }
+  .conztru-mobile-link-arrow {
+    opacity: 0.4;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .conztru-mobile-link:hover .conztru-mobile-link-arrow {
+    opacity: 1;
+    transform: translate(2px, -2px);
+    color: var(--conztru-red);
+  }
+
+  .conztru-mobile-chev-btn {
+    color: var(--conztru-navy);
+    background-color: transparent;
+    transition: color 0.2s ease;
+  }
+  .conztru-mobile-chev-btn:hover,
+  .conztru-mobile-chev-btn.is-expanded {
+    color: var(--conztru-red);
+  }
+
+  /* Chevron chip */
+  .conztru-mobile-chev {
+    background-color: rgba(13, 27, 42, 0.06);
+    color: inherit;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .conztru-mobile-link.is-expanded .conztru-mobile-chev,
+  .conztru-mobile-chev-btn.is-expanded .conztru-mobile-chev,
+  .conztru-mobile-link:hover .conztru-mobile-chev,
+  .conztru-mobile-chev-btn:hover .conztru-mobile-chev {
+    background-color: var(--conztru-red);
+    color: #ffffff;
+  }
+
+  /* Expanded sublist — accent left border */
+  .conztru-mobile-sublist {
+    border-left: 2px solid rgba(232, 37, 26, 0.25);
+  }
+
+  /* Section label inside megamenu expand */
+  .conztru-mobile-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--conztru-red);
+  }
+
+  /* Collapsible category toggle inside megamenu (Foundational, Lead Gen, …) */
+  .conztru-mobile-section-btn {
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+  }
+  .conztru-mobile-section-btn:hover,
+  .conztru-mobile-section-btn.is-expanded {
+    background-color: rgba(232, 37, 26, 0.05);
+  }
+  .conztru-mobile-section-btn .conztru-mobile-chev {
+    color: var(--conztru-red);
+    background-color: rgba(232, 37, 26, 0.10);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .conztru-mobile-section-btn:hover .conztru-mobile-chev,
+  .conztru-mobile-section-btn.is-expanded .conztru-mobile-chev {
+    background-color: var(--conztru-red);
+    color: #ffffff;
+  }
+
+  /* Sub-item */
+  .conztru-mobile-subitem {
+    color: #4b5563;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  }
+  .conztru-mobile-subitem:hover {
+    background-color: rgba(232, 37, 26, 0.05);
+    color: var(--conztru-red);
+    transform: translateX(2px);
+  }
+  .conztru-mobile-subicon {
+    background-color: rgba(232, 37, 26, 0.08);
+    color: var(--conztru-red);
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .conztru-mobile-subitem:hover .conztru-mobile-subicon {
+    background-color: var(--conztru-red);
+    color: #ffffff;
+    transform: scale(1.05);
+  }
+  .conztru-mobile-subtext {
+    font-family: 'Barlow', sans-serif;
+  }
+
+  /* Sticky footer area */
+  .conztru-mobile-footer {
+    background:
+      linear-gradient(180deg, rgba(247, 248, 250, 0) 0%, rgba(247, 248, 250, 0.85) 35%, #f7f8fa 100%);
+    border-top: 1px solid rgba(13, 27, 42, 0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Mobile CTA — mirrors desktop pill */
+  .conztru-mobile-cta {
+    background-color: var(--conztru-navy);
+    color: #ffffff;
+    text-decoration: none;
+    box-shadow: 0 10px 24px rgba(13, 27, 42, 0.18);
+    transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .conztru-mobile-cta:hover {
+    background-color: #142436;
+    box-shadow: 0 14px 32px rgba(13, 27, 42, 0.28);
+  }
+  .conztru-mobile-cta-arrow {
+    background-color: var(--conztru-red);
+    color: #ffffff;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+  }
+  .conztru-mobile-cta:hover .conztru-mobile-cta-arrow {
+    background-color: #ffffff;
+    color: var(--conztru-red);
+    transform: rotate(45deg);
+  }
+
+  /* Socials */
+  .conztru-mobile-social {
+    background-color: rgba(13, 27, 42, 0.06);
+    color: var(--conztru-navy);
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .conztru-mobile-social:hover {
+    background-color: var(--conztru-red);
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .conztru-mobile-subitem,
+    .conztru-mobile-cta,
+    .conztru-mobile-cta-arrow,
+    .conztru-mobile-social,
+    .conztru-mobile-link-arrow {
+      transition: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const init = () => {
+      const header = document.getElementById('conztru-header');
+      if (!header) return;
+
+      const getThreshold = () => {
+        const hero = document.querySelector('[data-hero], .hero, #hero, section[data-section="hero"]');
+        if (hero) {
+          const rect = hero.getBoundingClientRect();
+          return rect.height + rect.top + window.scrollY - 80;
+        }
+        return window.innerHeight * 0.6;
+      };
+
+      let threshold = getThreshold();
+      let ticking = false;
+
+      const update = () => {
+        if (window.scrollY > threshold) {
+          header.classList.add('is-scrolled');
+        } else {
+          header.classList.remove('is-scrolled');
+        }
+        ticking = false;
+      };
+
+      const onScroll = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => { threshold = getThreshold(); update(); });
+      update();
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(init, { timeout: 2000 });
+    } else if (document.readyState === 'complete') {
+      setTimeout(init, 0);
+    } else {
+      window.addEventListener('load', () => setTimeout(init, 0));
+    }
+  })();
+</script>
+</content>
+</invoke>

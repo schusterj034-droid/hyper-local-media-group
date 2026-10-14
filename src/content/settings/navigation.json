@@ -1,0 +1,171 @@
+{
+  "header": {
+    "links": [
+      {
+        "text": "Home",
+        "href": "/"
+      },
+      {
+        "text": "About Us",
+        "href": "/about-us"
+      }
+    ],
+    "dropdowns": [
+      {
+        "title": "Indoor Billboards",
+        "items": [
+          {
+            "text": "Become a Venue Partner",
+            "href": "/indoor-billboards/become-a-venue-partner",
+            "description": "Join our network of premium venues"
+          },
+          {
+            "text": "Locations",
+            "href": "/indoor-billboards/locations",
+            "description": "Our network locations"
+          },
+          {
+            "text": "Screen Advertising",
+            "href": "/indoor-billboards/screen-advertising",
+            "description": "Advertise on screens"
+          }
+        ]
+      },
+      {
+        "title": "Solutions",
+        "href": "/solutions",
+        "sections": [
+          {
+            "label": "Foundational",
+            "items": [
+              {
+                "text": "Website Design",
+                "href": "/solutions/foundational/website-design",
+                "description": "Custom website design & development"
+              },
+              {
+                "text": "Google Business Profile",
+                "href": "/solutions/foundational/google-business-profile",
+                "description": "Optimize your local presence"
+              },
+              {
+                "text": "Social Media Management",
+                "href": "/solutions/foundational/social-media-management",
+                "description": "Build and engage your audience"
+              },
+              {
+                "text": "Design Services",
+                "href": "/solutions/foundational/design-services",
+                "description": "Professional design services"
+              }
+            ]
+          },
+          {
+            "label": "Lead Gen",
+            "items": [
+              {
+                "text": "Social Media Advertising",
+                "href": "/solutions/lead-gen/social-media-advertising",
+                "description": "Drive targeted traffic"
+              },
+              {
+                "text": "Pay Per Click",
+                "href": "/solutions/lead-gen/pay-per-click",
+                "description": "PPC advertising services"
+              }
+            ]
+          },
+          {
+            "label": "Branding & Awareness",
+            "items": [
+              {
+                "text": "Connected TV (OTT Ads)",
+                "href": "/solutions/branding-awareness/connected-tv",
+                "description": "Reach streaming audiences"
+              },
+              {
+                "text": "Display (Geofencing)",
+                "href": "/solutions/branding-awareness/display-geofencing",
+                "description": "Location-based advertising"
+              },
+              {
+                "text": "Streaming Audio",
+                "href": "/solutions/branding-awareness/streaming-audio",
+                "description": "Audio ads on music platforms"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ctaButton": {
+      "text": "Contact Us",
+      "href": "/contact-us"
+    }
+  },
+  "footer": {
+    "columns": [
+      {
+        "title": "Solutions",
+        "links": [
+          {
+            "text": "Website Design",
+            "href": "/solutions/foundational/website-design"
+          },
+          {
+            "text": "Google Business",
+            "href": "/solutions/foundational/google-business-profile"
+          },
+          {
+            "text": "Social Media",
+            "href": "/solutions/foundational/social-media-management"
+          },
+          {
+            "text": "PPC Advertising",
+            "href": "/solutions/lead-gen/pay-per-click"
+          }
+        ]
+      },
+      {
+        "title": "Indoor Billboards",
+        "links": [
+          {
+            "text": "Become a Venue Partner",
+            "href": "/indoor-billboards/become-a-venue-partner"
+          },
+          {
+            "text": "Locations",
+            "href": "/indoor-billboards/locations"
+          },
+          {
+            "text": "Screen Advertising",
+            "href": "/indoor-billboards/screen-advertising"
+          }
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          {
+            "text": "About Us",
+            "href": "/about-us"
+          },
+          {
+            "text": "Contact",
+            "href": "/contact-us"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "/terms"
+          }
+        ]
+      }
+    ],
+    "copyright": "© 2025 Acme Inc. All rights reserved.",
+    "madeBy": "Made by <a href='https://ntv360.com' target='_blank' rel='noopener'>NTV360</a>"
+  }
+}

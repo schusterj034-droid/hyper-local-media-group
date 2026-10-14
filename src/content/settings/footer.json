@@ -1,0 +1,105 @@
+{
+  "description": "Full-service local marketing team offering custom website design, SEO, indoor billboard advertising, and targeted campaigns that deliver real results.",
+  "columns": [
+    {
+      "type": "accordion",
+      "title": "Solutions",
+      "href": "/solutions",
+      "sections": [
+        {
+          "label": "Foundational",
+          "items": [
+            {
+              "label": "Website Design",
+              "href": "/solutions/foundational/website-design"
+            },
+            {
+              "label": "Google Business Profile",
+              "href": "/solutions/foundational/google-business-profile"
+            },
+            {
+              "label": "Social Media Management",
+              "href": "/solutions/foundational/social-media-management"
+            },
+            {
+              "label": "Design Services",
+              "href": "/solutions/foundational/design-services"
+            }
+          ]
+        },
+        {
+          "label": "Lead Gen",
+          "items": [
+            {
+              "label": "Social Media Advertising",
+              "href": "/solutions/lead-gen/social-media-advertising"
+            },
+            {
+              "label": "Pay Per Click",
+              "href": "/solutions/lead-gen/pay-per-click"
+            }
+          ]
+        },
+        {
+          "label": "Branding & Awareness",
+          "items": [
+            {
+              "label": "Connected TV (OTT Ads)",
+              "href": "/solutions/branding-awareness/connected-tv"
+            },
+            {
+              "label": "Display (Geofencing)",
+              "href": "/solutions/branding-awareness/display-geofencing"
+            },
+            {
+              "label": "Streaming Audio",
+              "href": "/solutions/branding-awareness/streaming-audio"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "links",
+      "title": "Indoor Billboards",
+      "links": [
+        {
+          "label": "Screen Advertising",
+          "href": "/indoor-billboards/screen-advertising"
+        },
+        {
+          "label": "Become a Venue Partner",
+          "href": "/indoor-billboards/become-a-venue-partner"
+        },
+        {
+          "label": "Locations",
+          "href": "/indoor-billboards/locations"
+        }
+      ]
+    },
+    {
+      "type": "links",
+      "title": "Company",
+      "links": [
+        {
+          "label": "About",
+          "href": "/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact-us"
+        }
+      ]
+    }
+  ],
+  "bottomLinks": [
+    {
+      "label": "Terms",
+      "href": "/terms"
+    },
+    {
+      "label": "Privacy Policy",
+      "href": "/privacy"
+    }
+  ]
+}

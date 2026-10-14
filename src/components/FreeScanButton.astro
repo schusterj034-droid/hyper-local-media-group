@@ -1,0 +1,102 @@
+---
+// Floating Free Scan button that triggers the popup modal
+// Only visible on desktop (md and up)
+---
+
+<button
+  id="free-scan-trigger"
+  class="hidden md:flex fixed bottom-8 right-8 z-40 items-center gap-2 h-12 px-6 py-3 text-white font-medium text-sm rounded-full backdrop-blur-2xl border border-white/20 hover:scale-105 transition-all duration-300 group is-hidden"
+  style="background: linear-gradient(135deg, rgba(13,27,42,0.92) 0%, rgba(13,27,42,0.78) 100%); box-shadow: 0 8px 32px 0 rgba(13,27,42,0.5), inset 0 1px 0 0 rgba(255,255,255,0.12);"
+  aria-label="Ask for a Free Scan"
+  aria-hidden="true"
+>
+  <svg
+    class="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+    ></path>
+  </svg>
+  <span>Ask for a Free Scan</span>
+</button>
+
+<style>
+  /* Pulse animation for attention */
+  @keyframes pulse-shadow {
+    0%, 100% {
+      box-shadow: 0 8px 32px 0 rgba(13, 27, 42, 0.37), inset 0 1px 0 0 rgba(255,255,255,0.15), 0 0 0 0 rgba(232, 37, 26, 0.45);
+    }
+    50% {
+      box-shadow: 0 8px 32px 0 rgba(13, 27, 42, 0.37), inset 0 1px 0 0 rgba(255,255,255,0.15), 0 0 0 10px rgba(232, 37, 26, 0);
+    }
+  }
+
+  #free-scan-trigger {
+    animation: pulse-shadow 2s infinite;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  #free-scan-trigger:hover {
+    animation: none;
+  }
+
+  /* Hidden state — used over the hero, then revealed on scroll */
+  #free-scan-trigger.is-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const init = () => {
+      const btn = document.getElementById('free-scan-trigger');
+      if (!btn) return;
+      const hero = document.querySelector('.conztru-hero') || document.querySelector('section');
+
+      const reveal = () => {
+        btn.classList.remove('is-hidden');
+        btn.setAttribute('aria-hidden', 'false');
+      };
+      const hide = () => {
+        btn.classList.add('is-hidden');
+        btn.setAttribute('aria-hidden', 'true');
+      };
+
+      if (hero && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.intersectionRatio < 0.15) reveal();
+              else hide();
+            }
+          },
+          { threshold: [0, 0.15, 0.5, 1] }
+        );
+        io.observe(hero);
+      } else {
+        const onScroll = () => {
+          if (window.scrollY > window.innerHeight * 0.7) reveal();
+          else hide();
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(init, { timeout: 2000 });
+    } else if (document.readyState === 'complete') {
+      setTimeout(init, 0);
+    } else {
+      window.addEventListener('load', () => setTimeout(init, 0));
+    }
+  })();
+</script>

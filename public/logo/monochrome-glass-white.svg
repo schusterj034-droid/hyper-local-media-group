@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188 56" fill="none">
+  <g>
+    <rect x="6" y="8" width="14" height="14" rx="3" fill="#E8251A"/>
+    <rect x="22" y="8" width="14" height="14" rx="3" fill="#ffffff" fill-opacity="0.95"/>
+    <rect x="22" y="24" width="14" height="14" rx="3" fill="#ffffff" fill-opacity="0.65"/>
+    <rect x="6" y="40" width="14" height="14" rx="3" fill="#ffffff" fill-opacity="0.95"/>
+    <rect x="22" y="40" width="14" height="14" rx="3" fill="#E8251A"/>
+  </g>
+  <g font-family="Barlow, Inter, system-ui, -apple-system, Segoe UI, Arial, sans-serif" fill="#ffffff">
+    <text x="52" y="28" font-size="18" font-weight="500" letter-spacing="-0.5">MONOCHROME</text>
+    <text x="52" y="48" font-size="13" font-weight="600" letter-spacing="2" opacity="0.85">GLASS</text>
+  </g>
+</svg>

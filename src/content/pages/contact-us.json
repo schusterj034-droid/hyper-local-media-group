@@ -1,0 +1,22 @@
+{
+  "title": "Contact Us | {business}",
+  "description": "Contact {business} to learn how our digital signage, SEO, PPC, social media, and website solutions help businesses stay visible and top of mind.",
+  "keywords": "contact {city} marketing agency, marketing agency {city} contact, get in touch marketing services, free marketing consultation {city}, {city} marketing agency phone",
+  "sections": [
+    {
+      "type": "hero",
+      "badge": "Let's Work Together",
+      "title": "Get Started Today",
+      "description": "Contact Us to Get Started!",
+      "image": "/images/contact-us-hero.jpg",
+      "imageAlt": "Customer support contact center"
+    },
+    {
+      "type": "contact",
+      "variant": "split",
+      "title": "Contact Us",
+      "description": "Ready to take your marketing to the next level? We'd love to hear from you. Whether you're looking for a complete marketing strategy, need help with a specific project, or just have questions about our services, our team is here to help. Fill out the form below and we'll get back to you within 24 hours.",
+      "submitText": "SUBMIT FORM"
+    }
+  ]
+}
