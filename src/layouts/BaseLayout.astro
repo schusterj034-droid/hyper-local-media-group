@@ -220,10 +220,10 @@ if (isHome) {
          paint at final size without waiting on the render-blocking stylesheet. -->
     <style is:inline>
       html{font-family:'Barlow',system-ui,-apple-system,sans-serif}body{margin:0;min-height:100vh}*{box-sizing:border-box}
-      .conztru-hero{position:relative;min-height:100vh;background-color:#0D1B2A;overflow:hidden;border-radius:0 0 24px 24px}
+      .conztru-hero{position:relative;min-height:100vh;background-color:var(--brand-primary);overflow:hidden;border-radius:0 0 24px 24px}
       .conztru-hero>div:first-child,.conztru-hero-media{position:absolute;inset:0;z-index:0}
       .conztru-hero>div:first-child img,.conztru-hero-media img,.conztru-hero-media picture{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-      .conztru-hero-overlay{position:absolute;inset:0;background:rgba(13,27,42,.6)}
+      .conztru-hero-overlay{position:absolute;inset:0;background:color-mix(in srgb, var(--brand-primary) 60%, transparent)}
       .conztru-hero-content{position:relative;display:flex;flex-direction:column;min-height:100vh}
       .conztru-hero-headline{color:#fff;max-width:56rem}
       .conztru-hero-title{font-family:'Barlow',sans-serif;font-weight:700;line-height:1.05;letter-spacing:-.02em;font-size:clamp(2.5rem,6vw,5rem);margin:0}

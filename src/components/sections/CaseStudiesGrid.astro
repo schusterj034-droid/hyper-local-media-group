@@ -59,7 +59,7 @@ const filterHref = (cat: string) =>
     <div class="max-w-3xl mb-10 md:mb-12 animate-fade-up">
       {eyebrow && <span class="conztru-badge mb-4">{eyebrow}</span>}
       <h2 class="text-3xl md:text-4xl lg:text-5xl mb-5 leading-tight text-balance" style="font-family:'Barlow',sans-serif; font-weight:800;">
-        <span style="color:#0D1B2A;">{head} </span>
+        <span style="color:var(--brand-primary);">{head} </span>
         {tail && <span class="conztru-italic-red">{tail}</span>}
       </h2>
       {description && <p class="text-lg md:text-xl text-gray-600 leading-relaxed">{description}</p>}
@@ -179,7 +179,7 @@ const filterHref = (cat: string) =>
     content: '';
     width: 18px;
     height: 2px;
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
     border-radius: 2px;
   }
   .cs-pill {
@@ -189,8 +189,8 @@ const filterHref = (cat: string) =>
     letter-spacing: 0.01em;
     padding: 10px 20px;
     border-radius: 999px;
-    border: 1.5px solid rgba(13, 27, 42, 0.14);
-    color: #0D1B2A;
+    border: 1.5px solid color-mix(in srgb, var(--brand-primary) 14%, transparent);
+    color: var(--brand-primary);
     background: #ffffff;
     text-decoration: none;
     white-space: nowrap;
@@ -198,19 +198,19 @@ const filterHref = (cat: string) =>
       background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
   .cs-pill:hover {
-    border-color: #0D1B2A;
+    border-color: var(--brand-primary);
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(13, 27, 42, 0.1);
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--brand-primary) 10%, transparent);
   }
   .cs-pill.is-active {
-    background-color: #0D1B2A;
-    border-color: #0D1B2A;
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
     color: #ffffff;
-    box-shadow: 0 8px 20px rgba(13, 27, 42, 0.22);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--brand-primary) 22%, transparent);
   }
   .cs-pill.is-active:hover {
-    background-color: #E8251A;
-    border-color: #E8251A;
+    background-color: var(--brand-secondary);
+    border-color: var(--brand-secondary);
   }
 
   /* ===== Card — extends the template's .sb-card DNA ===== */
@@ -219,8 +219,8 @@ const filterHref = (cat: string) =>
     background-color: #ffffff;
     border-radius: 18px;
     overflow: hidden;
-    border: 1px solid rgba(13, 27, 42, 0.06);
-    box-shadow: 0 3px 6px rgba(13, 27, 42, 0.05), 0 10px 24px rgba(13, 27, 42, 0.12);
+    border: 1px solid color-mix(in srgb, var(--brand-primary) 6%, transparent);
+    box-shadow: 0 3px 6px color-mix(in srgb, var(--brand-primary) 5%, transparent), 0 10px 24px color-mix(in srgb, var(--brand-primary) 12%, transparent);
     transition: transform .35s ease, box-shadow .35s ease;
     isolation: isolate;
     text-decoration: none;
@@ -228,14 +228,14 @@ const filterHref = (cat: string) =>
   }
   .cs-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 5px 10px rgba(13, 27, 42, 0.07), 0 22px 48px rgba(13, 27, 42, 0.18);
+    box-shadow: 0 5px 10px color-mix(in srgb, var(--brand-primary) 7%, transparent), 0 22px 48px color-mix(in srgb, var(--brand-primary) 18%, transparent);
   }
 
   .cs-card-media {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 10;
-    background-color: #0D1B2A;
+    background-color: var(--brand-primary);
     overflow: hidden;
   }
   .cs-card-media img {
@@ -250,8 +250,8 @@ const filterHref = (cat: string) =>
     place-items: center;
     color: rgba(255, 255, 255, 0.35);
     background:
-      radial-gradient(circle at 30% 20%, rgba(232, 37, 26, 0.4), transparent 55%),
-      linear-gradient(135deg, #0D1B2A 0%, #1a2a3f 100%);
+      radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--brand-secondary) 40%, transparent), transparent 55%),
+      linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-soft) 100%);
   }
   .cs-card-media--empty svg {
     width: 52px;
@@ -265,21 +265,21 @@ const filterHref = (cat: string) =>
     width: 64px;
     height: 64px;
     border-radius: 9999px;
-    background-color: rgba(13, 27, 42, 0.45);
+    background-color: color-mix(in srgb, var(--brand-primary) 45%, transparent);
     backdrop-filter: blur(14px) saturate(160%);
     -webkit-backdrop-filter: blur(14px) saturate(160%);
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow:
-      0 8px 20px rgba(13, 27, 42, 0.25),
+      0 8px 20px color-mix(in srgb, var(--brand-primary) 25%, transparent),
       inset 0 1px 0 rgba(255, 255, 255, 0.35);
     border: 1px solid rgba(255, 255, 255, 0.25);
     z-index: 2;
     transition: background-color .3s ease, transform .3s ease, border-color .3s ease;
   }
   .cs-card:hover .cs-card-icon {
-    background-color: rgba(232, 37, 26, 0.55);
+    background-color: color-mix(in srgb, var(--brand-secondary) 55%, transparent);
     border-color: rgba(255, 255, 255, 0.35);
     transform: scale(1.05);
   }
@@ -297,13 +297,13 @@ const filterHref = (cat: string) =>
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #C41C12;
+    color: var(--brand-secondary-dark);
   }
 
   .cs-card-title {
     font-family: 'Barlow', sans-serif;
     font-weight: 800;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     font-size: 1.15rem;
     line-height: 1.25;
     margin: 10px 0 10px;
@@ -315,7 +315,7 @@ const filterHref = (cat: string) =>
     overflow: hidden;
   }
   .cs-card:hover .cs-card-title {
-    color: #C41C12;
+    color: var(--brand-secondary-dark);
   }
 
   .cs-card-desc {
@@ -338,7 +338,7 @@ const filterHref = (cat: string) =>
     font-family: 'Barlow', sans-serif;
     font-size: 0.85rem;
     font-weight: 700;
-    color: #C41C12;
+    color: var(--brand-secondary-dark);
   }
   .cs-card-link-arrow {
     transition: transform .25s ease;
@@ -354,7 +354,7 @@ const filterHref = (cat: string) =>
     left: 0;
     right: 0;
     height: 3px;
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform .4s ease;

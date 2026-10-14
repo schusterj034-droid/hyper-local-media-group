@@ -6,7 +6,7 @@
 <button
   id="free-scan-trigger"
   class="hidden md:flex fixed bottom-8 right-8 z-40 items-center gap-2 h-12 px-6 py-3 text-white font-medium text-sm rounded-full backdrop-blur-2xl border border-white/20 hover:scale-105 transition-all duration-300 group is-hidden"
-  style="background: linear-gradient(135deg, rgba(13,27,42,0.92) 0%, rgba(13,27,42,0.78) 100%); box-shadow: 0 8px 32px 0 rgba(13,27,42,0.5), inset 0 1px 0 0 rgba(255,255,255,0.12);"
+  style="background: linear-gradient(135deg, color-mix(in srgb, var(--brand-primary) 92%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 78%, transparent) 100%); box-shadow: 0 8px 32px 0 color-mix(in srgb, var(--brand-primary) 50%, transparent), inset 0 1px 0 0 rgba(255,255,255,0.12);"
   aria-label="Ask for a Free Scan"
   aria-hidden="true"
 >
@@ -30,10 +30,10 @@
   /* Pulse animation for attention */
   @keyframes pulse-shadow {
     0%, 100% {
-      box-shadow: 0 8px 32px 0 rgba(13, 27, 42, 0.37), inset 0 1px 0 0 rgba(255,255,255,0.15), 0 0 0 0 rgba(232, 37, 26, 0.45);
+      box-shadow: 0 8px 32px 0 color-mix(in srgb, var(--brand-primary) 37%, transparent), inset 0 1px 0 0 rgba(255,255,255,0.15), 0 0 0 0 color-mix(in srgb, var(--brand-secondary) 45%, transparent);
     }
     50% {
-      box-shadow: 0 8px 32px 0 rgba(13, 27, 42, 0.37), inset 0 1px 0 0 rgba(255,255,255,0.15), 0 0 0 10px rgba(232, 37, 26, 0);
+      box-shadow: 0 8px 32px 0 color-mix(in srgb, var(--brand-primary) 37%, transparent), inset 0 1px 0 0 rgba(255,255,255,0.15), 0 0 0 10px color-mix(in srgb, var(--brand-secondary) 0%, transparent);
     }
   }
 

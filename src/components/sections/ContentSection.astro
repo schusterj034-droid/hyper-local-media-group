@@ -124,7 +124,7 @@ const { head, tail } = splitTitle(processedTitle)
                       const Icon = iconMap[iconName] || Check
                       return (
                         <div class="conztru-showcase-feature flex items-center gap-2.5 sm:gap-3">
-                          <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0" style="background-color:#E8251A;">
+                          <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0" style="background-color:var(--brand-secondary);">
                             <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                           </div>
                           <span class="text-xs sm:text-sm font-medium text-white/90 leading-snug" set:html={getLocationText(featureText)} />
@@ -176,7 +176,7 @@ const { head, tail } = splitTitle(processedTitle)
                   <ButtonLink href={buttonHref} size="lg" class="conztru-cta w-fit rounded-full text-white shadow-xl">
                     {buttonText}
                   </ButtonLink>
-                  <a href={buttonHref} aria-label="Open link" class="w-12 h-12 rounded-full flex items-center justify-center bg-white text-[#0D1B2A] hover:bg-[#E8251A] hover:text-white transition-colors">
+                  <a href={buttonHref} aria-label="Open link" class="w-12 h-12 rounded-full flex items-center justify-center bg-white text-[var(--brand-primary)] hover:bg-[var(--brand-secondary)] hover:text-white transition-colors">
                     <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
@@ -191,8 +191,8 @@ const { head, tail } = splitTitle(processedTitle)
               <div class={cn(
                 "absolute inset-0",
                 imagePosition === "left"
-                  ? "bg-gradient-to-l from-[#0D1B2A]/70 to-transparent"
-                  : "bg-gradient-to-r from-[#0D1B2A]/70 to-transparent"
+                  ? "bg-gradient-to-l from-[var(--brand-primary)]/70 to-transparent"
+                  : "bg-gradient-to-r from-[var(--brand-primary)]/70 to-transparent"
               )} />
             </div>
           </div>
@@ -212,11 +212,11 @@ const { head, tail } = splitTitle(processedTitle)
           <div x-data={hasSlides ? `{ currentSlide: 0, slideCount: ${slides?.length || 0} }` : "{}"}>
             <!-- Vertical accent + small index label -->
             <div class="flex items-center gap-3 mb-6">
-              <span class="block w-10 h-px bg-[#E8251A]" aria-hidden="true"></span>
+              <span class="block w-10 h-px bg-[var(--brand-secondary)]" aria-hidden="true"></span>
               {processedBadge ? (
-                <span class="text-xs font-bold tracking-[0.22em] uppercase" style="color:#C41C12;">{processedBadge}</span>
+                <span class="text-xs font-bold tracking-[0.22em] uppercase" style="color:var(--brand-secondary-dark);">{processedBadge}</span>
               ) : (
-                <span class="text-xs font-bold tracking-[0.22em] uppercase" style="color:#C41C12;">Our Approach</span>
+                <span class="text-xs font-bold tracking-[0.22em] uppercase" style="color:var(--brand-secondary-dark);">Our Approach</span>
               )}
             </div>
 
@@ -251,14 +251,14 @@ const { head, tail } = splitTitle(processedTitle)
                   <div class="flex gap-2">
                     <button
                       @click="currentSlide = (currentSlide - 1 + slideCount) % slideCount"
-                      class="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 bg-gray-100 hover:bg-[#E8251A] hover:text-white text-gray-700"
+                      class="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 bg-gray-100 hover:bg-[var(--brand-secondary)] hover:text-white text-gray-700"
                     >
                       <ChevronLeft className="w-5 h-5" />
                     </button>
                     <button
                       @click="currentSlide = (currentSlide + 1) % slideCount"
                       class="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 text-white"
-                      style="background-color:#E8251A;"
+                      style="background-color:var(--brand-secondary);"
                     >
                       <ChevronRight className="w-5 h-5" />
                     </button>
@@ -267,7 +267,7 @@ const { head, tail } = splitTitle(processedTitle)
                     {slides?.map((_, index) => (
                       <button
                         @click={`currentSlide = ${index}`}
-                        :class={`currentSlide === ${index} ? 'bg-[#E8251A] w-8' : 'bg-gray-300 w-2 hover:bg-gray-400'`}
+                        :class={`currentSlide === ${index} ? 'bg-[var(--brand-secondary)] w-8' : 'bg-gray-300 w-2 hover:bg-gray-400'`}
                         class="h-2 rounded-full transition-all duration-300"
                       />
                     ))}
@@ -296,8 +296,8 @@ const { head, tail } = splitTitle(processedTitle)
                   const Icon = iconMap[iconName] || Check
                   return (
                     <li class="conztru-editorial-feature group flex items-start gap-5 py-4">
-                      <span class="conztru-editorial-feature-icon shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-colors" style="background-color:rgba(232,37,26,0.10);">
-                        <Icon className="w-4 h-4" style={{ color: "#E8251A" }} />
+                      <span class="conztru-editorial-feature-icon shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-colors" style="background-color:color-mix(in srgb, var(--brand-secondary) 10%, transparent);">
+                        <Icon className="w-4 h-4" style={{ color: "var(--brand-secondary)" }} />
                       </span>
                       <span class="text-sm md:text-base text-gray-700 leading-relaxed pt-1" set:html={getLocationText(featureText)} />
                     </li>
@@ -344,8 +344,8 @@ const { head, tail } = splitTitle(processedTitle)
 <style>
   /* Showcase variant — mirrors hero design language with a different layout */
   .conztru-showcase {
-    background-color: #0D1B2A;
-    box-shadow: 0 30px 80px -30px rgba(13, 27, 42, 0.45);
+    background-color: var(--brand-primary);
+    box-shadow: 0 30px 80px -30px color-mix(in srgb, var(--brand-primary) 45%, transparent);
     isolation: isolate;
   }
   .conztru-showcase-media img {
@@ -358,7 +358,7 @@ const { head, tail } = splitTitle(processedTitle)
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(115deg, rgba(13, 27, 42, 0.55) 0%, rgba(13, 27, 42, 0.35) 45%, rgba(13, 27, 42, 0.10) 100%);
+      linear-gradient(115deg, color-mix(in srgb, var(--brand-primary) 55%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 35%, transparent) 45%, color-mix(in srgb, var(--brand-primary) 10%, transparent) 100%);
   }
 
   .conztru-showcase-num {
@@ -373,13 +373,13 @@ const { head, tail } = splitTitle(processedTitle)
     bottom: 32px;
     width: 64px;
     height: 2px;
-    background-color: #E8251A;
-    box-shadow: 0 0 24px rgba(232, 37, 26, 0.6);
+    background-color: var(--brand-secondary);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--brand-secondary) 60%, transparent);
   }
 
   /* Glass content card */
   .conztru-showcase-card {
-    background-color: rgba(13, 27, 42, 0.55);
+    background-color: color-mix(in srgb, var(--brand-primary) 55%, transparent);
     backdrop-filter: blur(18px) saturate(160%);
     -webkit-backdrop-filter: blur(18px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -409,7 +409,7 @@ const { head, tail } = splitTitle(processedTitle)
     content: '';
     width: 28px;
     height: 2px;
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
   }
 
   .conztru-showcase-title {
@@ -429,7 +429,7 @@ const { head, tail } = splitTitle(processedTitle)
   }
   .conztru-showcase-title-tail {
     display: block;
-    color: #E8251A;
+    color: var(--brand-secondary);
     font-style: italic;
     font-weight: 800;
   }
@@ -460,7 +460,7 @@ const { head, tail } = splitTitle(processedTitle)
   /* CTA — same look as hero */
   .conztru-showcase-cta {
     background-color: #ffffff;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     text-decoration: none;
     transition: all 0.25s ease;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
@@ -470,30 +470,30 @@ const { head, tail } = splitTitle(processedTitle)
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.30);
   }
   .conztru-showcase-cta-arrow {
-    background-color: #0D1B2A;
+    background-color: var(--brand-primary);
     color: #ffffff;
     transition: all 0.25s ease;
   }
   .conztru-showcase-cta:hover .conztru-showcase-cta-arrow {
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
     transform: rotate(45deg);
   }
 
   @media (max-width: 1023px) {
     .conztru-showcase-card {
-      background-color: rgba(13, 27, 42, 0.72);
+      background-color: color-mix(in srgb, var(--brand-primary) 72%, transparent);
     }
     .conztru-showcase-overlay {
       background:
-        linear-gradient(115deg, rgba(13, 27, 42, 0.45) 0%, rgba(13, 27, 42, 0.30) 60%, rgba(13, 27, 42, 0.15) 100%);
+        linear-gradient(115deg, color-mix(in srgb, var(--brand-primary) 45%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 30%, transparent) 60%, color-mix(in srgb, var(--brand-primary) 15%, transparent) 100%);
     }
   }
 
   /* Dark variant — glass panel (matches CTA "bold" card) */
   .conztru-dark-glass {
-    background: linear-gradient(135deg, rgba(13, 27, 42, 0.92) 0%, rgba(13, 27, 42, 0.78) 100%);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--brand-primary) 92%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 78%, transparent) 100%);
     box-shadow:
-      0 8px 32px 0 rgba(13, 27, 42, 0.37),
+      0 8px 32px 0 color-mix(in srgb, var(--brand-primary) 37%, transparent),
       inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
   }
 
@@ -518,7 +518,7 @@ const { head, tail } = splitTitle(processedTitle)
     line-height: 1;
     letter-spacing: -0.04em;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(13, 27, 42, 0.08);
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--brand-primary) 8%, transparent);
     pointer-events: none;
     z-index: 0;
     user-select: none;
@@ -537,12 +537,12 @@ const { head, tail } = splitTitle(processedTitle)
   }
   .conztru-editorial-title-head {
     display: block;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     font-weight: 800;
   }
   .conztru-editorial-title-tail {
     display: block;
-    color: #E8251A;
+    color: var(--brand-secondary);
     font-style: italic;
     font-weight: 800;
   }
@@ -554,7 +554,7 @@ const { head, tail } = splitTitle(processedTitle)
   .conztru-editorial-features :global(a:focus),
   .conztru-editorial-features :global(a:focus-visible),
   .conztru-editorial-features :global(a:active) {
-    color: #0D1B2A;
+    color: var(--brand-primary);
     text-decoration: none;
     font-weight: 700;
   }
@@ -565,30 +565,30 @@ const { head, tail } = splitTitle(processedTitle)
     padding-left: 6px;
   }
   .conztru-editorial-feature:hover .conztru-editorial-feature-icon {
-    background-color: #E8251A !important;
+    background-color: var(--brand-secondary) !important;
   }
   .conztru-editorial-feature:hover .conztru-editorial-feature-icon :global(svg) {
     color: #ffffff !important;
     stroke: #ffffff !important;
   }
   .conztru-editorial-feature:hover .conztru-editorial-feature-num {
-    color: #E8251A;
+    color: var(--brand-secondary);
   }
 
   /* CTA — dark navy pill with red rotating arrow circle */
   .conztru-editorial-cta {
-    background-color: #0D1B2A;
+    background-color: var(--brand-primary);
     color: #ffffff;
     text-decoration: none;
     transition: all 0.25s ease;
-    box-shadow: 0 10px 28px rgba(13, 27, 42, 0.25);
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--brand-primary) 25%, transparent);
   }
   .conztru-editorial-cta:hover {
-    background-color: #142436;
-    box-shadow: 0 14px 36px rgba(13, 27, 42, 0.35);
+    background-color: var(--brand-primary-soft);
+    box-shadow: 0 14px 36px color-mix(in srgb, var(--brand-primary) 35%, transparent);
   }
   .conztru-editorial-cta-arrow {
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
     color: #ffffff;
     transition: all 0.25s ease;
   }
@@ -612,7 +612,7 @@ const { head, tail } = splitTitle(processedTitle)
     inset: 0;
     transform: translate(18px, 18px);
     border-radius: 28px;
-    background-color: rgba(13, 27, 42, 0.55);
+    background-color: color-mix(in srgb, var(--brand-primary) 55%, transparent);
     backdrop-filter: blur(18px) saturate(160%);
     -webkit-backdrop-filter: blur(18px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -629,7 +629,7 @@ const { head, tail } = splitTitle(processedTitle)
     background-color: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    color: #0D1B2A;
+    color: var(--brand-primary);
     display: inline-flex;
     align-items: center;
     justify-content: center;

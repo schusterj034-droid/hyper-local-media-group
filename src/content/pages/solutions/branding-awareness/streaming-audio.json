@@ -116,7 +116,7 @@
     {
       "type": "locations",
       "title": "We Put Local Brands on the Map",
-      "description": "Our <strong>network</strong> spans across Denver's most popular neighborhoods and venues",
+      "description": "Our network spans across Denver's most popular neighborhoods and venues",
       "variant": "overlay-titled",
       "locations": [
         { "name": "Aurora", "href": "/locations/aurora", "description": "East Denver Metro" },

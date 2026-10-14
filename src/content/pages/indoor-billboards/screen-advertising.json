@@ -159,19 +159,19 @@
         {
           "icon": "target",
           "title": "View Our Locations",
-          "description": "Curious where your ads will appear? <strong>Check out our network of high-traffic venues</strong> across {city} and see where your brand could be featured.",
+          "description": "Curious where your ads will appear? Check out our network of high-traffic venues across {city} and see where your brand could be featured.",
           "href": "/indoor-billboards/locations"
         },
         {
           "icon": "megaphone",
           "title": "Become a Venue Partner",
-          "description": "Own a high-traffic venue? <strong>Join our network and monetize your space</strong> while promoting your business across other locations.",
+          "description": "Own a high-traffic venue? Join our network and monetize your space while promoting your business across other locations.",
           "href": "/indoor-billboards/become-a-venue-partner"
         },
         {
           "icon": "share",
           "title": "Get Started Today",
-          "description": "Ready to launch your campaign? <strong>Contact our team for a free consultation</strong> and discover how screen advertising can transform your business.",
+          "description": "Ready to launch your campaign? Contact our team for a free consultation and discover how screen advertising can transform your business.",
           "href": "/contact-us"
         }
       ]
@@ -179,7 +179,7 @@
     {
       "type": "locations",
       "title": "We Put Local Brands on the Map",
-      "description": "Our <strong>network</strong> spans across {city}'s most popular neighborhoods and venues",
+      "description": "Our network spans across {city}'s most popular neighborhoods and venues",
       "variant": "overlay-titled",
       "locations": [
         { "name": "Aurora", "href": "/locations/aurora", "description": "East Denver Metro" },

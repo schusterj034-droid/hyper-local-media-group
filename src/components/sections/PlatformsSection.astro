@@ -62,7 +62,7 @@ const groupData = groups.map((g, gi) => {
           {processedBadge && <span class="conztru-badge mb-4 justify-center">{processedBadge}</span>}
           {processedTitle && (
             <h2 class="text-3xl md:text-4xl lg:text-5xl mb-4 leading-tight text-balance" style="font-family:'Barlow',sans-serif; font-weight:800;">
-              <span style="color:#0D1B2A;">{head} </span>
+              <span style="color:var(--brand-primary);">{head} </span>
               {tail && <span class="conztru-italic-red">{tail}</span>}
             </h2>
           )}
@@ -176,7 +176,7 @@ const groupData = groups.map((g, gi) => {
     font-family: 'Barlow', sans-serif;
     font-weight: 800;
     font-size: 0.95rem;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     text-transform: uppercase;
     margin-bottom: 1.75rem;
   }
@@ -261,13 +261,13 @@ const groupData = groups.map((g, gi) => {
     height: 44px;
     border-radius: 12px;
     background-color: #ffffff;
-    color: #0D1B2A;
-    border: 1px solid rgba(13, 27, 42, 0.08);
+    color: var(--brand-primary);
+    border: 1px solid color-mix(in srgb, var(--brand-primary) 8%, transparent);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(13, 27, 42, 0.06), 0 8px 18px rgba(13, 27, 42, 0.08);
+    box-shadow: 0 2px 4px color-mix(in srgb, var(--brand-primary) 6%, transparent), 0 8px 18px color-mix(in srgb, var(--brand-primary) 8%, transparent);
     transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   }
   @media (max-width: 640px) {
@@ -293,14 +293,14 @@ const groupData = groups.map((g, gi) => {
     }
   }
   .platforms-arrow:hover {
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
     color: #ffffff;
-    border-color: #E8251A;
+    border-color: var(--brand-secondary);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(232, 37, 26, 0.18), 0 12px 24px rgba(232, 37, 26, 0.18);
+    box-shadow: 0 4px 8px color-mix(in srgb, var(--brand-secondary) 18%, transparent), 0 12px 24px color-mix(in srgb, var(--brand-secondary) 18%, transparent);
   }
   .platforms-arrow:focus-visible {
-    outline: 2px solid #E8251A;
+    outline: 2px solid var(--brand-secondary);
     outline-offset: 2px;
   }
   .platforms-arrow:disabled {
@@ -319,17 +319,17 @@ const groupData = groups.map((g, gi) => {
     width: 24px;
     height: 4px;
     border-radius: 2px;
-    background-color: rgba(13, 27, 42, 0.18);
+    background-color: color-mix(in srgb, var(--brand-primary) 18%, transparent);
     border: none;
     cursor: pointer;
     padding: 0;
     transition: background-color 0.25s ease, width 0.25s ease;
   }
   .platforms-dot:hover {
-    background-color: rgba(13, 27, 42, 0.35);
+    background-color: color-mix(in srgb, var(--brand-primary) 35%, transparent);
   }
   .platforms-dot.is-active {
-    background-color: #0D1B2A;
+    background-color: var(--brand-primary);
     width: 32px;
   }
 

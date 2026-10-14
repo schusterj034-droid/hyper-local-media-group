@@ -279,7 +279,7 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
 <style>
   /* ===== Backdrop ===== */
   .conztru-popup-backdrop {
-    background-color: rgba(13, 27, 42, 0.72);
+    background-color: color-mix(in srgb, var(--brand-primary) 72%, transparent);
     backdrop-filter: blur(8px) saturate(140%);
     -webkit-backdrop-filter: blur(8px) saturate(140%);
     animation: conztru-fade-in 0.25s ease-out;
@@ -291,9 +291,9 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
     border-radius: 24px;
     overflow: hidden;
     box-shadow:
-      0 24px 64px rgba(13, 27, 42, 0.35),
-      0 8px 24px rgba(13, 27, 42, 0.18),
-      inset 0 0 0 1px rgba(13, 27, 42, 0.04);
+      0 24px 64px color-mix(in srgb, var(--brand-primary) 35%, transparent),
+      0 8px 24px color-mix(in srgb, var(--brand-primary) 18%, transparent),
+      inset 0 0 0 1px color-mix(in srgb, var(--brand-primary) 4%, transparent);
     animation: conztru-pop-in 0.32s cubic-bezier(0.16, 1, 0.3, 1);
     /* Keep the card within the viewport on short screens (landscape tablets) */
     max-height: calc(100dvh - 3rem);
@@ -314,18 +314,18 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
     justify-content: center;
     border-radius: 9999px;
     background-color: rgba(255, 255, 255, 0.92);
-    color: #0D1B2A;
-    border: 1px solid rgba(13, 27, 42, 0.08);
-    box-shadow: 0 4px 12px rgba(13, 27, 42, 0.18);
+    color: var(--brand-primary);
+    border: 1px solid color-mix(in srgb, var(--brand-primary) 8%, transparent);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--brand-primary) 18%, transparent);
     cursor: pointer;
     transition: all 0.2s ease;
     overflow: visible !important;
     transform: none !important;
   }
   .conztru-popup-close:hover {
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
     color: #ffffff;
-    border-color: #E8251A;
+    border-color: var(--brand-secondary);
     transform: rotate(90deg) !important;
   }
   .conztru-popup-close:active {
@@ -334,12 +334,12 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
 
   /* ===== Media (left panel) ===== */
   .conztru-popup-media {
-    background-color: #0D1B2A;
+    background-color: var(--brand-primary);
     min-height: 480px;
     isolation: isolate;
   }
   .conztru-popup-media-overlay {
-    background: linear-gradient(180deg, rgba(13, 27, 42, 0.45) 0%, rgba(13, 27, 42, 0.78) 60%, rgba(13, 27, 42, 0.95) 100%);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--brand-primary) 45%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 78%, transparent) 60%, color-mix(in srgb, var(--brand-primary) 95%, transparent) 100%);
   }
   /* Red accent rail on the right edge */
   .conztru-popup-media-rule {
@@ -348,7 +348,7 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
     bottom: 24px;
     right: 0;
     width: 2px;
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
     z-index: 1;
   }
   .conztru-popup-media-title {
@@ -363,7 +363,7 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
   .conztru-popup-media-divider {
     width: 56px;
     height: 2px;
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
   }
   .conztru-popup-media-sub {
     color: rgba(255, 255, 255, 0.78);
@@ -388,10 +388,10 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
     content: '';
     width: 28px;
     height: 2px;
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
   }
   .conztru-popup-badge--navy {
-    color: #E8251A;
+    color: var(--brand-secondary);
     text-shadow: none;
   }
 
@@ -425,7 +425,7 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
     line-height: 1.05;
     letter-spacing: -0.02em;
     font-size: clamp(1.75rem, 3.2vw, 2.5rem);
-    color: #0D1B2A;
+    color: var(--brand-primary);
     margin: 0;
   }
 
@@ -454,37 +454,37 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
     flex: 0 0 auto;
     width: 22px;
     height: 2px;
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
     border-radius: 2px;
   }
   .conztru-popup-benefit-text {
     font-family: 'Barlow', sans-serif;
     font-size: 0.95rem;
     font-weight: 600;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     letter-spacing: -0.005em;
   }
 
   /* ===== CTA — matches HeroPage CTA pattern ===== */
   .conztru-popup-cta {
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
     color: #ffffff;
     text-decoration: none;
     transition: all 0.25s ease;
-    box-shadow: 0 8px 24px rgba(232, 37, 26, 0.32);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--brand-secondary) 32%, transparent);
     font-family: 'Barlow', sans-serif;
   }
   .conztru-popup-cta:hover {
-    background-color: #C41C12;
-    box-shadow: 0 12px 32px rgba(232, 37, 26, 0.42);
+    background-color: var(--brand-secondary-dark);
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--brand-secondary) 42%, transparent);
   }
   .conztru-popup-cta-arrow {
     background-color: #ffffff;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     transition: all 0.25s ease;
   }
   .conztru-popup-cta:hover .conztru-popup-cta-arrow {
-    background-color: #0D1B2A;
+    background-color: var(--brand-primary);
     color: #ffffff;
     transform: rotate(45deg);
   }
@@ -492,20 +492,20 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
   /* ===== Trust row ===== */
   .conztru-popup-trust {
     padding-top: 1rem;
-    border-top: 1px solid rgba(13, 27, 42, 0.08);
+    border-top: 1px solid color-mix(in srgb, var(--brand-primary) 8%, transparent);
   }
   .conztru-popup-trust-item {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     font-family: 'Barlow', sans-serif;
   }
   .conztru-popup-trust-dot {
     width: 6px;
     height: 6px;
     border-radius: 9999px;
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
   }
 
   /* ===== Dismiss ===== */
@@ -521,7 +521,7 @@ const logoAlt = siteConfig.logo.alt || `${siteConfig.business.name} logo`
     transition: color 0.2s ease;
   }
   .conztru-popup-dismiss:hover {
-    color: #E8251A;
+    color: var(--brand-secondary);
   }
 
   /* ===== Animations ===== */

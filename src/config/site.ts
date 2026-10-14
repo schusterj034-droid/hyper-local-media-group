@@ -138,7 +138,7 @@ export const siteConfig = {
     keywords: siteData.seo?.keywords || defaults.seo.keywords,
     siteUrl: RESOLVED_SITE_URL,
     ogImage: siteData.seo?.ogImage || defaults.seo.ogImage,
-    twitterHandle: siteData.seo?.twitterHandle || defaults.seo.twitterHandle,
+    twitterHandle: siteData.seo?.twitterHandle ?? defaults.seo.twitterHandle,
   },
 
   analytics: {

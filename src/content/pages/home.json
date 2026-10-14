@@ -17,7 +17,7 @@
       "type": "features",
       "badge": "Explore Our Digital Marketing Services",
       "title": "Local Advertising Solutions for {city} Businesses",
-      "description": "As your trusted <strong>{city} marketing pros</strong>, our billboard network gives you access to high-traffic locations where your ideal customers spend time.",
+      "description": "As your trusted {city} marketing pros, our billboard network gives you access to high-traffic locations where your ideal customers spend time.",
       "columns": 4,
       "features": [
         {
@@ -55,7 +55,7 @@
       "variant": "card",
       "title": "{city}'s Premier Venue Partner Network",
       "badge": "Local Advertising That Reaches Your Audience",
-      "description": "Our <strong>digital marketing pros</strong> have built exclusive partnerships with {city}'s most popular venues and businesses. Our screen network reaches customers when they're relaxed, engaged, and ready to take action.",
+      "description": "Our digital marketing pros have built exclusive partnerships with {city}'s most popular venues and businesses. Our screen network reaches customers when they're relaxed, engaged, and ready to take action.",
       "image": "/images/screen-network-3.avif",
       "imageAlt": "{city} venue partners",
       "imagePosition": "left",
@@ -84,7 +84,7 @@
       "type": "content",
       "variant": "default",
       "title": "Full-Service Digital Marketing from {city} Pros",
-      "description": "Beyond screen ads, our <strong>{city} marketing pros</strong> provide full-scale digital marketing to help your business show up, stand out, and grow.",
+      "description": "Beyond screen ads, our {city} marketing pros provide full-scale digital marketing to help your business show up, stand out, and grow.",
       "image": "/images/boost-visibility.avif",
       "imageAlt": "Digital marketing services",
       "imagePosition": "right",
@@ -114,7 +114,7 @@
       "variant": "card",
       "badge": "Your Trusted {city} Marketing Partners",
       "title": "Why {city} Businesses Choose Our Marketing Pros",
-      "description": "We're not just another agency. We're <strong>{city} marketing pros</strong> and locals who understand the market, know the neighborhoods, and have the relationships that get results. From <a class='underline font-bold' href='/solutions/foundational/website-design'>web design</a> to <a class='underline font-bold' href='/solutions/lead-gen/pay-per-click'>PPC campaigns</a>, we've got you covered.",
+      "description": "We're not just another agency. We're {city} marketing pros and locals who understand the market, know the neighborhoods, and have the relationships that get results. From <a class='underline font-bold' href='/solutions/foundational/website-design'>web design</a> to <a class='underline font-bold' href='/solutions/lead-gen/pay-per-click'>PPC campaigns</a>, we've got you covered.",
       "image": "/images/marketing-partners.avif",
       "imageAlt": "{city} marketing partners",
       "imagePosition": "right",
@@ -153,7 +153,7 @@
     {
       "type": "locations",
       "title": "We Put Local Brands on the Map",
-      "description": "Our <strong>network</strong> spans across {city}'s most popular neighborhoods and venues",
+      "description": "Our network spans across {city}'s most popular neighborhoods and venues",
       "variant": "overlay-titled",
       "locations": [
         {

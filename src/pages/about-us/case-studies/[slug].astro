@@ -2,8 +2,8 @@
 // Case Study DETAIL route — /about-us/case-studies/<slug>.
 //
 // Static build (output: "static") → one page per published study via
-// getStaticPaths(). Restyled to this template's look: navy #0D1B2A ink, red
-// #E8251A / #C41C12 accents, Barlow display, rounded cards + soft shadows.
+// getStaticPaths(). Restyled to this template's look: navy var(--brand-primary) ink, red
+// var(--brand-secondary) / var(--brand-secondary-dark) accents, Barlow display, rounded cards + soft shadows.
 // Back-link and closing CTA point at /about-us/case-studies.
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
@@ -206,7 +206,7 @@ const metaDescription =
     padding: 6px 0;
     transition: color 0.2s ease;
   }
-  .cs-back:hover { color: #C41C12; }
+  .cs-back:hover { color: var(--brand-secondary-dark); }
 
   /* Title block */
   .cs-titleblock { margin: 22px 0 0; }
@@ -221,13 +221,13 @@ const metaDescription =
     font-size: 0.78rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     background: #f4f5f7;
-    border: 1px solid rgba(13, 27, 42, 0.08);
+    border: 1px solid color-mix(in srgb, var(--brand-primary) 8%, transparent);
     padding: 12px 16px;
     border-radius: 10px;
   }
-  .cs-logo-placeholder svg { color: #C41C12; }
+  .cs-logo-placeholder svg { color: var(--brand-secondary-dark); }
   .cs-title {
     font-family: 'Barlow', sans-serif;
     font-weight: 800;
@@ -235,7 +235,7 @@ const metaDescription =
     line-height: 1.05;
     letter-spacing: -0.02em;
     margin: 18px 0 0;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     max-width: 24ch;
     text-wrap: balance;
   }
@@ -255,7 +255,7 @@ const metaDescription =
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #ffffff;
-    background: #E8251A;
+    background: var(--brand-secondary);
     padding: 7px 14px;
     border-radius: 999px;
   }
@@ -275,13 +275,13 @@ const metaDescription =
     font-family: 'Barlow', sans-serif;
     font-size: 0.8rem;
     font-weight: 700;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     text-decoration: none;
-    border-bottom: 2px solid #E8251A;
+    border-bottom: 2px solid var(--brand-secondary);
     padding-bottom: 2px;
     transition: color 0.2s ease, border-color 0.2s ease;
   }
-  .cs-site a:hover { color: #C41C12; border-color: #C41C12; }
+  .cs-site a:hover { color: var(--brand-secondary-dark); border-color: var(--brand-secondary-dark); }
 
   /* Hero + ledger */
   .cs-hero {
@@ -291,7 +291,7 @@ const metaDescription =
     margin: 32px 0 0;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 5px 10px rgba(13, 27, 42, 0.07), 0 22px 50px rgba(13, 27, 42, 0.16);
+    box-shadow: 0 5px 10px color-mix(in srgb, var(--brand-primary) 7%, transparent), 0 22px 50px color-mix(in srgb, var(--brand-primary) 16%, transparent);
   }
   .cs-shot { background: #eef0f3; min-width: 0; }
   .cs-shot img { width: 100%; height: 100%; min-height: 340px; object-fit: cover; display: block; }
@@ -301,10 +301,10 @@ const metaDescription =
     min-height: 340px;
     height: 100%;
     color: rgba(255, 255, 255, 0.4);
-    background: linear-gradient(135deg, #0D1B2A 0%, #1a2a3f 100%);
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-soft) 100%);
   }
   .cs-ledger {
-    background: #0D1B2A;
+    background: var(--brand-primary);
     color: #fff;
     padding: 34px;
     min-width: 0;
@@ -318,14 +318,14 @@ const metaDescription =
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #FF7468;
+    color: var(--brand-secondary-light);
     margin: 0 0 5px;
   }
   .cs-ledger-v { margin: 0; font-size: 0.95rem; line-height: 1.55; color: #e9edf1; }
 
   /* Stat band */
   .cs-band {
-    background: #0D1B2A;
+    background: var(--brand-primary);
     margin: 56px 0;
     border-radius: 20px;
     padding: 44px 40px 48px;
@@ -336,7 +336,7 @@ const metaDescription =
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(120% 80% at 100% 0%, rgba(232, 37, 26, 0.16) 0%, transparent 55%);
+    background: radial-gradient(120% 80% at 100% 0%, color-mix(in srgb, var(--brand-secondary) 16%, transparent) 0%, transparent 55%);
     pointer-events: none;
   }
   .cs-band-cap {
@@ -346,7 +346,7 @@ const metaDescription =
     font-weight: 800;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #FF7468;
+    color: var(--brand-secondary-light);
     margin: 0 0 26px;
   }
   .cs-stats {
@@ -355,7 +355,7 @@ const metaDescription =
     grid-template-columns: repeat(var(--cols, 4), 1fr);
     gap: 24px 20px;
   }
-  .cs-stat { border-top: 3px solid #E8251A; padding-top: 16px; }
+  .cs-stat { border-top: 3px solid var(--brand-secondary); padding-top: 16px; }
   .cs-stat-num {
     font-family: 'Barlow', sans-serif;
     font-weight: 800;
@@ -391,7 +391,7 @@ const metaDescription =
     border-radius: 16px;
     object-fit: cover;
     background: #eef0f3;
-    box-shadow: 0 14px 40px rgba(13, 27, 42, 0.12);
+    box-shadow: 0 14px 40px color-mix(in srgb, var(--brand-primary) 12%, transparent);
   }
   .cs-gallery:has(img:only-child) img { min-height: 380px; }
 
@@ -401,7 +401,7 @@ const metaDescription =
     font-size: 1.6rem;
     letter-spacing: -0.01em;
     margin: 0 0 12px;
-    color: #0D1B2A;
+    color: var(--brand-primary);
   }
   .cs-body-p {
     color: #4b5563;
@@ -411,13 +411,13 @@ const metaDescription =
   }
 
   /* Numbered chapters */
-  .cs-chapters { border-top: 1px solid rgba(13, 27, 42, 0.1); margin-top: 8px; }
+  .cs-chapters { border-top: 1px solid color-mix(in srgb, var(--brand-primary) 10%, transparent); margin-top: 8px; }
   .cs-chapter {
     display: grid;
     grid-template-columns: 100px 1fr;
     gap: 20px 40px;
     padding: 44px 0;
-    border-bottom: 1px solid rgba(13, 27, 42, 0.1);
+    border-bottom: 1px solid color-mix(in srgb, var(--brand-primary) 10%, transparent);
   }
   .cs-chapter-num {
     display: block;
@@ -426,7 +426,7 @@ const metaDescription =
     font-size: 2.6rem;
     line-height: 1;
     letter-spacing: -0.02em;
-    color: #E8251A;
+    color: var(--brand-secondary);
   }
 
   /* Closer */
@@ -449,14 +449,14 @@ const metaDescription =
     font-weight: 700;
     font-size: 1rem;
     color: #fff;
-    background: #0D1B2A;
+    background: var(--brand-primary);
     padding: 8px 8px 8px 28px;
     border-radius: 999px;
     transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
   }
   .cs-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 34px rgba(13, 27, 42, 0.24);
+    box-shadow: 0 14px 34px color-mix(in srgb, var(--brand-primary) 24%, transparent);
   }
   .cs-cta-arrow {
     display: inline-flex;
@@ -465,7 +465,7 @@ const metaDescription =
     width: 38px;
     height: 38px;
     border-radius: 999px;
-    background: #E8251A;
+    background: var(--brand-secondary);
     color: #fff;
     transition: transform 0.25s ease;
   }
@@ -477,7 +477,7 @@ const metaDescription =
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: #C41C12;
+    color: var(--brand-secondary-dark);
     text-decoration: none;
   }
   .cs-more:hover { text-decoration: none; }

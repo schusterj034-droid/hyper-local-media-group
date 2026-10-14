@@ -151,7 +151,7 @@ body {
    hover and focus — and must use one consistent color sitewide.
 
    Color scheme, applied on every page:
-     • light backgrounds -> brand navy (#0D1B2A)   [default rule]
+     • light backgrounds -> --brand-primary         [default rule]
      • dark  backgrounds -> white                  [.on-dark override]
    `font-bold` (already on the links) keeps them distinguishable without an
    underline. The `.underline` utility that ships in the content classes is
@@ -169,7 +169,7 @@ a.underline:hover,
 a.underline:focus,
 a.underline:focus-visible,
 a.underline:active {
-  color: #0D1B2A;
+  color: var(--brand-primary);
   text-decoration: none;
 }
 .on-dark a.underline,
@@ -187,6 +187,14 @@ a.underline:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* Brand shades derived from site.json colors (injected by ThemeProvider), so
+   changing primary/secondary there recolors hovers, gradients and badges too. */
+:root {
+  --brand-primary-soft: color-mix(in srgb, var(--brand-primary) 88%, white);
+  --brand-secondary-dark: color-mix(in srgb, var(--brand-secondary) 85%, black);
+  --brand-secondary-light: color-mix(in srgb, var(--brand-secondary) 60%, white);
 }
 
 /* Brand color utilities with opacity support */

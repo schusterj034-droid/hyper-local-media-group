@@ -1,9 +1,9 @@
 {
   "business": {
-    "name": "Monochrome Glass",
-    "fullName": "Monochrome Glass",
+    "name": "Hyper Local Media Group",
+    "fullName": "Hyper Local Media Group",
     "tagline": "Your trusted partner for comprehensive digital marketing solutions, from custom website design and SEO to indoor billboard advertising and targeted campaigns that deliver real results.",
-    "description": "We are a local marketing company in Denver, Colorado. Premium marketing solutions including website design, social media management, and indoor billboard advertising."
+    "description": "Hyper Local Media Group is a local marketing company offering website design, social media management, digital advertising, and indoor billboard advertising."
   },
   "location": {
     "city": "Denver",
@@ -12,36 +12,36 @@
     "fullAddress": "Denver, CO"
   },
   "contact": {
-    "email": "info@dealertemplate.com",
-    "phone": "5555555555",
-    "phoneFormatted": "555-555-5555"
+    "email": "Jim@hyperlocalmediagrp.com",
+    "phone": "4702003475",
+    "phoneFormatted": "(470) 200-3475"
   },
   "colors": {
-    "primary": "#0D2A63",
-    "secondary": "#F5BF3A",
-    "tertiary": "#DDAE05",
+    "primary": "#141414",
+    "secondary": "#737373",
+    "tertiary": "#D4D4D4",
     "quaternary": "#ffffff"
   },
   "logo": {
-    "src": "/logo/monochrome-glass.svg",
-    "whiteSrc": "/logo/monochrome-glass-white.svg",
-    "alt": "Monochrome Glass Logo"
+    "src": "/logo/hyper-local-media-group.svg",
+    "whiteSrc": "/logo/hyper-local-media-group-white.svg",
+    "alt": "Hyper Local Media Group Logo"
   },
   "social": {
-    "facebook": "https://www.facebook.com/ntxbillboards/",
-    "instagram": "https://www.instagram.com/dealertemplate/",
-    "linkedin": "https://www.linkedin.com/company/ntx-indoor-digital-billboards/",
-    "youtube": "https://www.youtube.com/@ntxdigital",
+    "facebook": "",
+    "instagram": "",
+    "linkedin": "",
+    "youtube": "",
     "twitter": ""
   },
   "seo": {
-    "siteName": "Monochrome Glass",
-    "defaultTitle": "Denver Digital Signage & Marketing | Monochrome Glass",
-    "defaultDescription": "We connect businesses in Denver through digital signage, PPC, social media, SEO, and website design to keep brands visible and top of mind.",
-    "keywords": "Denver marketing agency, digital marketing Denver, marketing services Denver CO, indoor billboard advertising, social media management, website design Denver, PPC advertising, Google Business Profile, local marketing Denver",
-    "siteUrl": "https://ntv-template-1.vercel.app",
-    "ogImage": "/logo/monochrome-glass.svg",
-    "twitterHandle": "@monochromeglass"
+    "siteName": "Hyper Local Media Group",
+    "defaultTitle": "Local Digital Signage & Marketing | Hyper Local Media Group",
+    "defaultDescription": "We connect local businesses with their communities through digital signage, PPC, social media, SEO, and website design to keep brands visible and top of mind.",
+    "keywords": "local marketing agency, digital marketing, local marketing services, indoor billboard advertising, social media management, website design, PPC advertising, Google Business Profile, hyper local marketing",
+    "siteUrl": "https://hyperlocalmediagrp.com",
+    "ogImage": "/logo/hyper-local-media-group.svg",
+    "twitterHandle": ""
   },
   "analytics": {
     "googleAnalyticsId": ""

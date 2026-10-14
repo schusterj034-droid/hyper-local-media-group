@@ -223,7 +223,7 @@ const allFeatured = Object.entries(solutionModules)
        mobile browser chrome. */
     min-height: 100vh;
     min-height: 100dvh;
-    background-color: #0D1B2A;
+    background-color: var(--brand-primary);
     isolation: isolate;
     border-radius: 0 0 24px 24px;
     overflow: hidden;
@@ -243,7 +243,7 @@ const allFeatured = Object.entries(solutionModules)
   .conztru-hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(13, 27, 42, 0.60);
+    background: color-mix(in srgb, var(--brand-primary) 60%, transparent);
   }
 
   .conztru-hero-content {
@@ -279,7 +279,7 @@ const allFeatured = Object.entries(solutionModules)
     content: '';
     width: 28px;
     height: 2px;
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
   }
 
   .conztru-hero-title {
@@ -312,7 +312,7 @@ const allFeatured = Object.entries(solutionModules)
 
   .conztru-hero-cta {
     background-color: #ffffff;
-    color: #0D1B2A;
+    color: var(--brand-primary);
     text-decoration: none;
     transition: all 0.25s ease;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
@@ -322,12 +322,12 @@ const allFeatured = Object.entries(solutionModules)
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
   }
   .conztru-hero-cta-arrow {
-    background-color: #0D1B2A;
+    background-color: var(--brand-primary);
     color: #ffffff;
     transition: all 0.25s ease;
   }
   .conztru-hero-cta:hover .conztru-hero-cta-arrow {
-    background-color: #E8251A;
+    background-color: var(--brand-secondary);
     transform: rotate(45deg);
   }
 

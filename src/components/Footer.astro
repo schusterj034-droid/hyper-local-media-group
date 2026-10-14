@@ -23,7 +23,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
 ---
 
 {variant === "classic" && (
-  <footer class="text-white" style="background-color: #0D1B2A;">
+  <footer class="text-white" style="background-color: var(--brand-primary);">
     <div class="container mx-auto px-4">
       <!-- Top - logo + social -->
       <div class="py-14 flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 border-b" style="border-color: rgba(255,255,255,0.08);">
@@ -39,7 +39,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
         <div class="lg:text-right">
           {socialLinks.length > 0 && (
             <>
-              <p class="text-xs uppercase tracking-[0.2em] font-semibold mb-4" style="color: #FF7468;">Connect With Us</p>
+              <p class="text-xs uppercase tracking-[0.2em] font-semibold mb-4" style="color: var(--brand-secondary-light);">Connect With Us</p>
               <div class="flex lg:justify-end gap-3">
                 {socialLinks.map(([platform, url]) => {
                   const Icon = socialIcons[platform as keyof typeof socialIcons]
@@ -52,7 +52,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
                       aria-label={`${siteConfig.business.name} on ${platform.charAt(0).toUpperCase() + platform.slice(1)}`}
                       class="w-10 h-10 rounded-full flex items-center justify-center text-white hover:text-white transition-all"
                       style="background-color: rgba(255,255,255,0.08);"
-                      onmouseover="this.style.backgroundColor='#E8251A'"
+                      onmouseover="this.style.backgroundColor='var(--brand-secondary)'"
                       onmouseout="this.style.backgroundColor='rgba(255,255,255,0.08)'"
                     >
                       <Icon className="w-5 h-5" aria-hidden="true" />
@@ -72,7 +72,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
             {col.type === 'accordion' && (
               <>
                 {col.href ? (
-                  <a href={col.href} class="flex items-center gap-1 text-white font-bold mb-6 uppercase tracking-wider text-sm hover:text-[#E8251A] transition-colors">
+                  <a href={col.href} class="flex items-center gap-1 text-white font-bold mb-6 uppercase tracking-wider text-sm hover:text-[var(--brand-secondary)] transition-colors">
                     {col.title.toUpperCase()} <ChevronRight className="w-4 h-4" />
                   </a>
                 ) : (
@@ -85,7 +85,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
                         @click={`openSection = openSection === '${section.label}' ? null : '${section.label}'`}
                         :aria-expanded={`openSection === '${section.label}'`}
                         aria-label={`Toggle ${section.label} section`}
-                        class="flex items-center justify-between gap-2 w-full py-2 text-sm text-white/70 hover:text-[#E8251A] transition-colors text-left"
+                        class="flex items-center justify-between gap-2 w-full py-2 text-sm text-white/70 hover:text-[var(--brand-secondary)] transition-colors text-left"
                       >
                         <span class="uppercase tracking-wider text-xs font-semibold leading-tight">{section.label}</span>
                         <ChevronDown
@@ -107,7 +107,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
                         <ul class="space-y-2">
                           {section.items.map((item) => (
                             <li>
-                              <a href={item.href} class="text-sm text-white/60 hover:text-[#E8251A] transition-colors">
+                              <a href={item.href} class="text-sm text-white/60 hover:text-[var(--brand-secondary)] transition-colors">
                                 {item.label}
                               </a>
                             </li>
@@ -123,13 +123,13 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
             {col.type === 'links' && (
               <>
                 <p class="text-white font-bold mb-6 uppercase tracking-wider text-sm">
-                  <span class="inline-block w-6 h-[2px] mr-2 align-middle" style="background-color: #E8251A;"></span>
+                  <span class="inline-block w-6 h-[2px] mr-2 align-middle" style="background-color: var(--brand-secondary);"></span>
                   {col.title}
                 </p>
                 <ul class="space-y-3">
                   {col.links.map((link) => (
                     <li>
-                      <a href={link.href} class="text-sm text-white/70 hover:text-[#E8251A] transition-colors">
+                      <a href={link.href} class="text-sm text-white/70 hover:text-[var(--brand-secondary)] transition-colors">
                         {link.label}
                       </a>
                     </li>
@@ -142,21 +142,21 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
 
         <div>
           <p class="text-white font-bold mb-6 uppercase tracking-wider text-sm">
-            <span class="inline-block w-6 h-[2px] mr-2 align-middle" style="background-color: #E8251A;"></span>
+            <span class="inline-block w-6 h-[2px] mr-2 align-middle" style="background-color: var(--brand-secondary);"></span>
             Contact Us
           </p>
           <ul class="space-y-3 text-sm text-white/70">
             <li class="flex items-start gap-2">
-              <MapPin className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#E8251A' }} />
+              <MapPin className="w-4 h-4 mt-0.5 shrink-0" style={{ color: 'var(--brand-secondary)' }} />
               <span>{siteConfig.location.city}</span>
             </li>
             <li class="flex items-start gap-2">
-              <Phone className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#E8251A' }} />
-              <a href={`tel:${siteConfig.contact.phone}`} class="hover:text-[#E8251A] transition-colors">{siteConfig.contact.phoneFormatted}</a>
+              <Phone className="w-4 h-4 mt-0.5 shrink-0" style={{ color: 'var(--brand-secondary)' }} />
+              <a href={`tel:${siteConfig.contact.phone}`} class="hover:text-[var(--brand-secondary)] transition-colors">{siteConfig.contact.phoneFormatted}</a>
             </li>
             <li class="flex items-start gap-2">
-              <Mail className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#E8251A' }} />
-              <a href={`mailto:${siteConfig.contact.email}`} class="hover:text-[#E8251A] transition-colors break-words min-w-0">{siteConfig.contact.email}</a>
+              <Mail className="w-4 h-4 mt-0.5 shrink-0" style={{ color: 'var(--brand-secondary)' }} />
+              <a href={`mailto:${siteConfig.contact.email}`} class="hover:text-[var(--brand-secondary)] transition-colors break-words min-w-0">{siteConfig.contact.email}</a>
             </li>
           </ul>
         </div>
@@ -168,7 +168,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
           {footerConfig.bottomLinks.map((link, i) => (
             <>
               {i > 0 && <span class="opacity-30">|</span>}
-              <a href={link.href} class="hover:text-[#E8251A] transition-colors">{link.label}</a>
+              <a href={link.href} class="hover:text-[var(--brand-secondary)] transition-colors">{link.label}</a>
             </>
           ))}
         </div>
@@ -181,7 +181,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
 )}
 
 {variant === "centered" && (
-  <footer class="text-white" style="background-color: #0D1B2A;">
+  <footer class="text-white" style="background-color: var(--brand-primary);">
     <div class="container mx-auto px-4">
       <div class="py-14 text-center border-b" style="border-color: rgba(255,255,255,0.08);">
         <a href="/" class="inline-block mb-4">
@@ -195,12 +195,12 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
 
       <div class="py-10 space-y-8">
         <div class="flex flex-wrap justify-center gap-x-8 gap-y-3">
-          <a href="/about-us" class="text-sm text-white/70 hover:text-[#E8251A] transition-colors">About</a>
-          <a href="/solutions" class="text-sm text-white/70 hover:text-[#E8251A] transition-colors">Solutions</a>
-          <a href="/indoor-billboards/screen-advertising" class="text-sm text-white/70 hover:text-[#E8251A] transition-colors">Screen Advertising</a>
-          <a href="/indoor-billboards/become-a-venue-partner" class="text-sm text-white/70 hover:text-[#E8251A] transition-colors">Venue Partner</a>
-          <a href="/indoor-billboards/locations" class="text-sm text-white/70 hover:text-[#E8251A] transition-colors">Locations</a>
-          <a href="/contact-us" class="text-sm text-white/70 hover:text-[#E8251A] transition-colors">Contact</a>
+          <a href="/about-us" class="text-sm text-white/70 hover:text-[var(--brand-secondary)] transition-colors">About</a>
+          <a href="/solutions" class="text-sm text-white/70 hover:text-[var(--brand-secondary)] transition-colors">Solutions</a>
+          <a href="/indoor-billboards/screen-advertising" class="text-sm text-white/70 hover:text-[var(--brand-secondary)] transition-colors">Screen Advertising</a>
+          <a href="/indoor-billboards/become-a-venue-partner" class="text-sm text-white/70 hover:text-[var(--brand-secondary)] transition-colors">Venue Partner</a>
+          <a href="/indoor-billboards/locations" class="text-sm text-white/70 hover:text-[var(--brand-secondary)] transition-colors">Locations</a>
+          <a href="/contact-us" class="text-sm text-white/70 hover:text-[var(--brand-secondary)] transition-colors">Contact</a>
         </div>
 
         <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-white/60">
@@ -222,7 +222,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${siteConfig.business.name} on ${platform.charAt(0).toUpperCase() + platform.slice(1)}`}
-                  class="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-[#E8251A] transition-all"
+                  class="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-[var(--brand-secondary)] transition-all"
                   style="background-color: rgba(255,255,255,0.08);"
                 >
                   <Icon className="w-5 h-5" aria-hidden="true" />
@@ -236,8 +236,8 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
       <div class="py-6 border-t text-center" style="border-color: rgba(255,255,255,0.08);">
         <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/50">
           <span>© {currentYear} {siteConfig.business.name}</span>
-          <a href="/terms" class="hover:text-[#E8251A] transition-colors">Terms</a>
-          <a href="/privacy" class="hover:text-[#E8251A] transition-colors">Privacy</a>
+          <a href="/terms" class="hover:text-[var(--brand-secondary)] transition-colors">Terms</a>
+          <a href="/privacy" class="hover:text-[var(--brand-secondary)] transition-colors">Privacy</a>
         </div>
       </div>
     </div>
@@ -245,7 +245,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
 )}
 
 {variant === "minimal" && (
-  <footer class="text-white py-8" style="background-color: #0D1B2A;">
+  <footer class="text-white py-8" style="background-color: var(--brand-primary);">
     <div class="container mx-auto px-4">
       <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
         <a href="/">
@@ -254,12 +254,12 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
         </a>
 
         <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/70">
-          <a href="/about-us" class="hover:text-[#E8251A] transition-colors">About</a>
-          <a href="/solutions" class="hover:text-[#E8251A] transition-colors">Solutions</a>
-          <a href="/contact-us" class="hover:text-[#E8251A] transition-colors">Contact</a>
+          <a href="/about-us" class="hover:text-[var(--brand-secondary)] transition-colors">About</a>
+          <a href="/solutions" class="hover:text-[var(--brand-secondary)] transition-colors">Solutions</a>
+          <a href="/contact-us" class="hover:text-[var(--brand-secondary)] transition-colors">Contact</a>
           <span class="hidden md:inline opacity-30">|</span>
-          <a href="/terms" class="hover:text-[#E8251A] transition-colors">Terms</a>
-          <a href="/privacy" class="hover:text-[#E8251A] transition-colors">Privacy</a>
+          <a href="/terms" class="hover:text-[var(--brand-secondary)] transition-colors">Terms</a>
+          <a href="/privacy" class="hover:text-[var(--brand-secondary)] transition-colors">Privacy</a>
         </div>
 
         <p class="text-sm text-white/50">© {currentYear} {siteConfig.business.name}</p>

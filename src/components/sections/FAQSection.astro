@@ -49,7 +49,7 @@ const { head, tail } = splitTitle(processedTitle)
           <div class="text-center mb-14">
             {processedBadge && <span class="conztru-badge mb-4 justify-center">{processedBadge}</span>}
             <h2 class="text-3xl md:text-4xl lg:text-5xl mb-4 text-balance leading-tight" style="font-family:'Barlow',sans-serif; font-weight:800;">
-              <span style="color:#0D1B2A;">{head} </span>
+              <span style="color:var(--brand-primary);">{head} </span>
               {tail && <span class="conztru-italic-red">{tail}</span>}
             </h2>
             {processedDescription && (
@@ -64,8 +64,8 @@ const { head, tail } = splitTitle(processedTitle)
           {faqs.map((faq, index) => (
             <AnimateOnScroll animation="fade-up" delay={index * 100}>
               <div
-                :class={`openIndex === ${index} ? 'border-[#E8251A]/60' : 'border-gray-200 hover:border-gray-300'`}
-                :style={`openIndex === ${index} ? 'backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: linear-gradient(135deg, rgba(232,37,26,0.025) 0%, rgba(255,255,255,0.6) 100%); box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.6);' : 'backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.4) 100%); box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.6);'`}
+                :class={`openIndex === ${index} ? 'border-[var(--brand-secondary)]/60' : 'border-gray-200 hover:border-gray-300'`}
+                :style={`openIndex === ${index} ? 'backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: linear-gradient(135deg, color-mix(in srgb, var(--brand-secondary) 2.5%, transparent) 0%, rgba(255,255,255,0.6) 100%); box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.6);' : 'backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.4) 100%); box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.6);'`}
                 class="rounded-2xl border transition-all duration-300"
               >
                 <button
@@ -73,10 +73,10 @@ const { head, tail } = splitTitle(processedTitle)
                   :aria-expanded={`openIndex === ${index}`}
                   class="w-full flex items-center justify-between p-6 text-left"
                 >
-                  <span class="font-bold text-base md:text-lg pr-4" style="color:#0D1B2A;">{getLocationText(faq.question)}</span>
+                  <span class="font-bold text-base md:text-lg pr-4" style="color:var(--brand-primary);">{getLocationText(faq.question)}</span>
                   <div
                     :class={`openIndex === ${index} ? 'rotate-180 text-white' : 'text-gray-600'`}
-                    :style={`openIndex === ${index} ? 'background-color:#E8251A;' : 'background-color:#f3f4f6;'`}
+                    :style={`openIndex === ${index} ? 'background-color:var(--brand-secondary);' : 'background-color:#f3f4f6;'`}
                     class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
                   >
                     <ChevronDown className="w-5 h-5" />
@@ -107,7 +107,7 @@ const { head, tail } = splitTitle(processedTitle)
           <div class="text-center mb-14">
             {processedBadge && <span class="conztru-badge mb-4 justify-center">{processedBadge}</span>}
             <h2 class="text-3xl md:text-4xl lg:text-5xl mb-4 text-balance leading-tight" style="font-family:'Barlow',sans-serif; font-weight:800;">
-              <span style="color:#0D1B2A;">{head} </span>
+              <span style="color:var(--brand-primary);">{head} </span>
               {tail && <span class="conztru-italic-red">{tail}</span>}
             </h2>
             {processedDescription && (
@@ -124,19 +124,19 @@ const { head, tail } = splitTitle(processedTitle)
               <div
                 @click={`openIndex = openIndex === ${index} ? null : ${index}`}
                 :class={`openIndex === ${index} ? 'text-white shadow-xl' : 'bg-gray-50 hover:bg-gray-100'`}
-                :style={`openIndex === ${index} ? 'background-color:#0D1B2A;' : ''`}
+                :style={`openIndex === ${index} ? 'background-color:var(--brand-primary);' : ''`}
                 class="group rounded-2xl p-6 transition-all duration-300 cursor-pointer h-full"
               >
                 <div class="flex items-start justify-between gap-4 mb-3">
-                  <h3 :class={`openIndex === ${index} ? 'text-white' : 'text-[#0D1B2A]'`} class="font-bold text-base md:text-lg">
+                  <h3 :class={`openIndex === ${index} ? 'text-white' : 'text-[var(--brand-primary)]'`} class="font-bold text-base md:text-lg">
                     {getLocationText(faq.question)}
                   </h3>
-                  <div :style={`openIndex === ${index} ? 'background-color:#E8251A;' : 'background-color:white;'`} class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all">
+                  <div :style={`openIndex === ${index} ? 'background-color:var(--brand-secondary);' : 'background-color:white;'`} class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all">
                     <template x-if={`openIndex === ${index}`}>
                       <Minus className="w-4 h-4 text-white" />
                     </template>
                     <template x-if={`openIndex !== ${index}`}>
-                      <Plus className="w-4 h-4" style={{ color: '#E8251A' }} />
+                      <Plus className="w-4 h-4" style={{ color: 'var(--brand-secondary)' }} />
                     </template>
                   </div>
                 </div>
@@ -156,7 +156,7 @@ const { head, tail } = splitTitle(processedTitle)
         <AnimateOnScroll animation="fade-right" class="lg:col-span-2 lg:sticky lg:top-28 lg:self-start">
           {processedBadge && <span class="conztru-badge mb-4">{processedBadge}</span>}
           <h2 class="text-3xl md:text-4xl lg:text-5xl mb-4 text-balance leading-tight" style="font-family:'Barlow',sans-serif; font-weight:800;">
-            <span style="color:#0D1B2A;">{head} </span>
+            <span style="color:var(--brand-primary);">{head} </span>
             {tail && <span class="conztru-italic-red">{tail}</span>}
           </h2>
           {processedDescription && (
@@ -166,7 +166,7 @@ const { head, tail } = splitTitle(processedTitle)
           )}
           <div class="hidden lg:block mt-8 pt-8 border-t border-gray-100">
             <p class="text-sm text-gray-500 mb-2">Still have questions?</p>
-            <a href="/contact-us" class="inline-flex items-center font-bold" style="color:#C41C12;">
+            <a href="/contact-us" class="inline-flex items-center font-bold" style="color:var(--brand-secondary-dark);">
               Contact our team
               <ChevronDown className="w-4 h-4 ml-1 -rotate-90" />
             </a>
@@ -183,13 +183,13 @@ const { head, tail } = splitTitle(processedTitle)
                   class="w-full flex items-start justify-between text-left group"
                 >
                   <span
-                    :class={`openIndex === ${index} ? 'text-[#E8251A]' : 'text-[#0D1B2A] group-hover:text-[#E8251A]'`}
+                    :class={`openIndex === ${index} ? 'text-[var(--brand-secondary)]' : 'text-[var(--brand-primary)] group-hover:text-[var(--brand-secondary)]'`}
                     class="font-bold text-base md:text-lg pr-8 transition-colors"
                   >
                     {getLocationText(faq.question)}
                   </span>
                   <div
-                    :style={`openIndex === ${index} ? 'border-color:#E8251A; background-color:#E8251A;' : 'border-color:#d1d5db;'`}
+                    :style={`openIndex === ${index} ? 'border-color:var(--brand-secondary); background-color:var(--brand-secondary);' : 'border-color:#d1d5db;'`}
                     class="w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 transition-all"
                   >
                     <template x-if={`openIndex === ${index}`}>
