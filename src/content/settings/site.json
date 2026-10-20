@@ -17,14 +17,14 @@
     "phoneFormatted": "(470) 200-3475"
   },
   "colors": {
-    "primary": "#141414",
-    "secondary": "#737373",
-    "tertiary": "#D4D4D4",
+    "primary": "#233D8C",
+    "secondary": "#0367A6",
+    "tertiary": "#1EA4D9",
     "quaternary": "#ffffff"
   },
   "logo": {
-    "src": "/logo/hyper-local-media-group.svg",
-    "whiteSrc": "/logo/hyper-local-media-group-white.svg",
+    "src": "/logo/hyper-local-media-group.png",
+    "whiteSrc": "/logo/hyper-local-media-group-white.png",
     "alt": "Hyper Local Media Group Logo"
   },
   "social": {
@@ -40,7 +40,7 @@
     "defaultDescription": "We connect local businesses with their communities through digital signage, PPC, social media, SEO, and website design to keep brands visible and top of mind.",
     "keywords": "local marketing agency, digital marketing, local marketing services, indoor billboard advertising, social media management, website design, PPC advertising, Google Business Profile, hyper local marketing",
     "siteUrl": "https://hyperlocalmediagrp.com",
-    "ogImage": "/logo/hyper-local-media-group.svg",
+    "ogImage": "/logo/hyper-local-media-group.png",
     "twitterHandle": ""
   },
   "analytics": {

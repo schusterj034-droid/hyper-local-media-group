@@ -194,7 +194,25 @@ a.underline:focus-visible {
 :root {
   --brand-primary-soft: color-mix(in srgb, var(--brand-primary) 88%, white);
   --brand-secondary-dark: color-mix(in srgb, var(--brand-secondary) 85%, black);
-  --brand-secondary-light: color-mix(in srgb, var(--brand-secondary) 60%, white);
+  /* Accent on dark backgrounds — the brand's light blue reads better there
+     than the mid-blue secondary. */
+  --brand-secondary-light: var(--brand-tertiary);
+}
+
+/* Dark panels (heroes, footer, glass cards): the mid-blue accent disappears
+   on navy, so swap in the light brand blue for everything inside. */
+.brand-on-dark {
+  --brand-secondary: var(--brand-tertiary);
+  --brand-secondary-dark: var(--brand-tertiary);
+}
+/* Badge + italic title text use --conztru-red, which resolves at :root (it
+   also colours buttons, so it isn't remapped above) — recolour just the text. */
+.brand-on-dark .conztru-italic-red,
+.brand-on-dark .conztru-badge {
+  color: var(--brand-tertiary);
+}
+.brand-on-dark .conztru-badge::before {
+  background-color: var(--brand-tertiary);
 }
 
 /* Brand color utilities with opacity support */
