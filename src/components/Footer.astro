@@ -148,7 +148,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
           <ul class="space-y-3 text-sm text-white/70">
             <li class="flex items-start gap-2">
               <MapPin className="w-4 h-4 mt-0.5 shrink-0" style={{ color: 'var(--brand-secondary)' }} />
-              <span>{siteConfig.location.city}</span>
+              <span>{siteConfig.location.address}</span>
             </li>
             <li class="flex items-start gap-2">
               <Phone className="w-4 h-4 mt-0.5 shrink-0" style={{ color: 'var(--brand-secondary)' }} />
@@ -208,7 +208,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
           <span class="opacity-30">·</span>
           <span>{siteConfig.contact.email}</span>
           <span class="opacity-30">·</span>
-          <span>{siteConfig.location.city}, {siteConfig.location.state}</span>
+          <span>{siteConfig.location.address}</span>
         </div>
 
         {socialLinks.length > 0 && (
