@@ -89,7 +89,7 @@ const { head, tail } = splitTitle(processedTitle)
     {(variant === "half" || variant === "split") && (
       <div class="grid lg:grid-cols-2 gap-8 items-stretch">
         <AnimateOnScroll animation="fade-right">
-          <div class="rounded-3xl p-10 md:p-12 lg:p-14 flex flex-col h-full relative overflow-hidden" style="background-color:var(--brand-primary);">
+          <div class="brand-on-dark rounded-3xl p-10 md:p-12 lg:p-14 flex flex-col h-full relative overflow-hidden" style="background-color:var(--brand-primary);">
             <div class="absolute top-0 right-0 w-64 h-64 rounded-full -translate-y-1/3 translate-x-1/3" style="background-color:color-mix(in srgb, var(--brand-secondary) 8%, transparent);" />
             <div class="relative z-10 flex flex-col h-full">
               {processedBadge && variant === "split" && <span class="conztru-badge conztru-badge--light mb-5">{processedBadge}</span>}
@@ -178,7 +178,7 @@ const { head, tail } = splitTitle(processedTitle)
           </div>
           <!-- Mobile fallback -->
           <div class="md:hidden grid gap-8">
-            <div class="rounded-3xl p-8" style="background-color:var(--brand-primary);">
+            <div class="brand-on-dark rounded-3xl p-8" style="background-color:var(--brand-primary);">
               <span class="conztru-badge conztru-badge--light mb-5">{processedOverlayBadge}</span>
               <h3 class="text-3xl mb-4 text-balance leading-tight" style="font-family:'Barlow',sans-serif; font-weight:800;">
                 <span class="block text-white">{overlayHead}</span>
@@ -246,7 +246,7 @@ const { head, tail } = splitTitle(processedTitle)
         </div>
         <!-- Mobile fallback -->
         <div class="md:hidden grid gap-8">
-          <div class="rounded-3xl p-8" style="background-color:var(--brand-primary);">
+          <div class="brand-on-dark rounded-3xl p-8" style="background-color:var(--brand-primary);">
             {processedBadge && <span class="conztru-badge conztru-badge--light mb-5">{processedBadge}</span>}
             <h2 class="text-3xl mb-4 text-balance leading-tight" style="font-family:'Barlow',sans-serif; font-weight:800;">
               <span class="block text-white">{head}</span>

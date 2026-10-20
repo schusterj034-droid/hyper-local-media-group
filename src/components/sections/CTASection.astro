@@ -47,7 +47,7 @@ const { head, tail } = splitTitle(processedTitle)
   <section class="py-20 md:py-28" style="background-color:#C9D1D6;">
     <div class="container mx-auto px-4">
       <AnimateOnScroll animation="fade-up">
-        <div class="relative rounded-3xl p-6 sm:p-10 md:p-16 lg:p-20 overflow-hidden backdrop-blur-2xl border border-white/15 shadow-2xl" style="background: linear-gradient(135deg, color-mix(in srgb, var(--brand-primary) 92%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 78%, transparent) 100%); box-shadow: 0 8px 32px 0 color-mix(in srgb, var(--brand-primary) 37%, transparent), inset 0 1px 0 0 rgba(255,255,255,0.12);">
+        <div class="brand-on-dark relative rounded-3xl p-6 sm:p-10 md:p-16 lg:p-20 overflow-hidden backdrop-blur-2xl border border-white/15 shadow-2xl" style="background: linear-gradient(135deg, color-mix(in srgb, var(--brand-primary) 92%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 78%, transparent) 100%); box-shadow: 0 8px 32px 0 color-mix(in srgb, var(--brand-primary) 37%, transparent), inset 0 1px 0 0 rgba(255,255,255,0.12);">
           <div class="relative z-10 text-center max-w-3xl mx-auto">
             {processedBadge && <span class="conztru-badge mb-5 justify-center" style="color:var(--brand-secondary-light);">{processedBadge}</span>}
 
@@ -83,7 +83,7 @@ const { head, tail } = splitTitle(processedTitle)
     <div class="container mx-auto px-4">
       <div class="relative rounded-3xl overflow-hidden shadow-2xl">
         <div class="grid lg:grid-cols-5">
-          <div class="lg:col-span-3 p-10 md:p-14 lg:p-16" style="background-color:var(--brand-primary);">
+          <div class="brand-on-dark lg:col-span-3 p-10 md:p-14 lg:p-16" style="background-color:var(--brand-primary);">
             <div class="max-w-xl">
               {processedBadge && <span class="conztru-badge mb-5">{processedBadge}</span>}
               <h2 class="text-3xl md:text-4xl lg:text-5xl mb-4 text-balance leading-tight" style="font-family:'Barlow',sans-serif; font-weight:800;">

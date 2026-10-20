@@ -79,7 +79,7 @@ const { head, tail } = splitTitle(processedTitle)
   {variant === "card" ? (
     <div class="container mx-auto px-4">
       <AnimateOnScroll animation="fade-up">
-        <div class="conztru-showcase relative overflow-hidden rounded-[20px] sm:rounded-[28px] md:rounded-[36px]">
+        <div class="brand-on-dark conztru-showcase relative overflow-hidden rounded-[20px] sm:rounded-[28px] md:rounded-[36px]">
           <!-- Full-bleed image background — desktop only -->
           <div class="conztru-showcase-media absolute inset-0 hidden md:block">
             <img src={image} srcset={`${image.replace(/(\.[^.]+)$/, '-800$1')} 800w, ${image} 1600w`} alt={imageAlt} class="w-full h-full object-cover" width={1600} height={900} loading="lazy" decoding="async" sizes="100vw" />
@@ -154,7 +154,7 @@ const { head, tail } = splitTitle(processedTitle)
   ) : variant === "dark" ? (
     <div class="container mx-auto px-4">
       <AnimateOnScroll animation="fade-up">
-        <div class="conztru-dark-glass rounded-[2rem] overflow-hidden relative backdrop-blur-2xl border border-white/15 shadow-2xl">
+        <div class="brand-on-dark conztru-dark-glass rounded-[2rem] overflow-hidden relative backdrop-blur-2xl border border-white/15 shadow-2xl">
           <div class="grid md:grid-cols-2 relative">
             <div class={cn(
               "p-10 md:p-14 lg:p-20 flex flex-col justify-center relative z-10",
