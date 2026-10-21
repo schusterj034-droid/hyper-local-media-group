@@ -143,64 +143,8 @@ const { head, tail } = splitTitle(processedTitle)
           </div>
         </AnimateOnScroll>
         <AnimateOnScroll animation="fade-up" delay={150}>
-          <div class="relative rounded-3xl overflow-hidden min-h-[700px] hidden md:block">
-            <div class="absolute inset-0">
-              <iframe src={mapUrl} class="w-full h-full" style="border: 0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Service Area Map" />
-            </div>
-            <div class="absolute inset-0 p-6 md:p-10 lg:p-12 flex items-center pointer-events-none">
-              <div class="locations-overlay-glass rounded-2xl p-8 md:p-10 w-full max-w-sm md:min-w-[24rem] pointer-events-auto">
-                <span class="conztru-badge conztru-badge--light mb-5">{processedOverlayBadge}</span>
-                <h3 class="text-3xl md:text-4xl mb-4 text-balance leading-tight" style="font-family:'Barlow',sans-serif; font-weight:800;">
-                  <span class="block text-white">{overlayHead}</span>
-                  {overlayTail && <span class="block conztru-italic-red">{overlayTail}</span>}
-                </h3>
-                <div class="space-y-2">
-                  <p class="text-xs font-bold uppercase tracking-[0.2em] mb-3" style="color:var(--brand-secondary-light);">Featured Locations</p>
-                  {locations.map((location) => (
-                    <a href={location.href} class="group flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-300">
-                      <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background-color:var(--brand-secondary);">
-                          <MapPin className="w-4 h-4 text-white" />
-                        </div>
-                        <div>
-                          <span class="font-bold text-white text-sm">{location.name}</span>
-                          {location.description && (
-                            <p class="text-xs text-white/55">{location.description}</p>
-                          )}
-                        </div>
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-[var(--brand-secondary)] group-hover:translate-x-1 transition-all" />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Mobile fallback -->
-          <div class="md:hidden grid gap-8">
-            <div class="brand-on-dark rounded-3xl p-8" style="background-color:var(--brand-primary);">
-              <span class="conztru-badge conztru-badge--light mb-5">{processedOverlayBadge}</span>
-              <h3 class="text-3xl mb-4 text-balance leading-tight" style="font-family:'Barlow',sans-serif; font-weight:800;">
-                <span class="block text-white">{overlayHead}</span>
-                {overlayTail && <span class="block conztru-italic-red">{overlayTail}</span>}
-              </h3>
-              {locations.length > 0 && (
-                <div class="grid grid-cols-2 gap-3">
-                  {locations.map((location) => (
-                    <a href={location.href} class="flex items-center gap-1.5 px-2.5 py-2.5 rounded-2xl bg-white/5 border border-white/10 min-w-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
-                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
-                        <circle cx="12" cy="10" r="3"/>
-                      </svg>
-                      <span class="font-bold text-white text-[0.78rem] leading-tight whitespace-nowrap">{location.name}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div class="rounded-3xl overflow-hidden min-h-[400px] shadow-2xl">
-              <iframe src={mapUrl} class="w-full h-full" style="border: 0; min-height: 100%" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location Map" />
-            </div>
+          <div class="rounded-3xl overflow-hidden h-[400px] md:h-[700px]">
+            <iframe src={mapUrl} class="w-full h-full" style="border: 0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location Map" />
           </div>
         </AnimateOnScroll>
       </>
