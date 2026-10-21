@@ -47,12 +47,13 @@ const splitOverlay = (t: string) => {
 }
 const { head: overlayHead, tail: overlayTail } = splitOverlay(processedOverlayTitle)
 
-// Default: pin the business address from site settings. A section can still
-// pass its own `mapUrl` or `mapCenter`.
+// Default: the site-wide map embed from settings (e.g. a My Maps territory),
+// else a pin on the business address. A section can still pass its own
+// `mapUrl` or `mapCenter`.
 const addressMapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(siteConfig.location.fullAddress)}&z=15&output=embed`
 const mapUrl = customMapUrl || (Astro.props.mapCenter
   ? `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d196281.12937236!2d${mapCenter.lng}!3d${mapCenter.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1704067200000!5m2!1sen!2sus`
-  : addressMapUrl)
+  : siteConfig.location.mapEmbedUrl || addressMapUrl)
 
 const splitTitle = (t: string) => {
   if (t.includes("\n")) {

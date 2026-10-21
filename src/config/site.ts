@@ -99,6 +99,7 @@ export const siteConfig = {
     address: siteData.location?.address || defaults.location.address,
     fullAddress: siteData.location?.fullAddress || defaults.location.fullAddress,
     zip: (siteData.location as { zip?: string })?.zip || "",
+    mapEmbedUrl: (siteData.location as { mapEmbedUrl?: string })?.mapEmbedUrl || "",
   },
 
   contact: {

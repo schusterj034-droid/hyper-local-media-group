@@ -11,7 +11,8 @@
     "stateFull": "Georgia",
     "address": "1056 Bridgewater Walk",
     "fullAddress": "1056 Bridgewater Walk, Snellville, GA 30078",
-    "zip": "30078"
+    "zip": "30078",
+    "mapEmbedUrl": "https://www.google.com/maps/d/embed?mid=1QtwLIkuILAPwg2aTOcrDRJScItvixNk&ehbc=2E312F"
   },
   "contact": {
     "email": "Jim@hyperlocalmediagrp.com",

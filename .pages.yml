@@ -45,7 +45,8 @@ content:
           - { name: stateFull, label: State (full name), type: string, description: "e.g. Georgia" }
           - { name: address, label: Address, type: string, description: "Street address only" }
           - { name: zip, label: ZIP Code, type: string }
-          - { name: fullAddress, label: Full Address, type: string, description: "Street, city, state and ZIP — used for the map" }
+          - { name: fullAddress, label: Full Address, type: string, description: "Street, city, state and ZIP — the map pins this when Map Embed URL is empty" }
+          - { name: mapEmbedUrl, label: Map Embed URL, type: string, description: "Google Maps / My Maps embed link (only the src=\"...\" URL from the iframe). Leave empty to pin the Full Address." }
       - name: contact
         label: "📞 Contact"
         type: object
