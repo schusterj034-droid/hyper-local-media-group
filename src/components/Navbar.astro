@@ -507,6 +507,7 @@ const socialLinks = Object.entries(siteConfig.social || {}).filter(([_, url]) =>
     --conztru-red-dark: var(--brand-secondary-dark);
     --conztru-navy: var(--brand-primary);
     --conztru-navy-soft: var(--brand-primary-soft);
+    --conztru-navy-deep: color-mix(in srgb, var(--brand-primary) 72%, black);
     --conztru-gray: #6b7280;
   }
 
@@ -619,13 +620,13 @@ const socialLinks = Object.entries(siteConfig.social || {}).filter(([_, url]) =>
   /* Logo pill stays solid navy on scroll (matching the nav pill), so keep
      the LIGHT logo throughout — no white-pill / dark-logo swap. */
   .conztru-floating-nav.is-scrolled .conztru-logo {
-    background-color: var(--conztru-navy);
-    border-color: rgba(255, 255, 255, 0.12);
+    background-color: var(--conztru-navy-deep);
+    border-color: rgba(255, 255, 255, 0.22);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
   }
   .conztru-floating-nav.is-scrolled .conztru-logo:hover {
     opacity: 0.85;
-    background-color: var(--conztru-navy-soft);
+    background-color: var(--conztru-navy);
   }
 
   .conztru-cta-pill {
@@ -672,17 +673,19 @@ const socialLinks = Object.entries(siteConfig.social || {}).filter(([_, url]) =>
     color: #ffffff;
   }
 
-  /* Scrolled state — kicks in after the hero is out of view */
+  /* Scrolled state — kicks in after the hero is out of view. Solid, and a
+     shade deeper than the brand navy so the pills still stand out when they
+     float over navy sections (CTA banners, footer). */
   .conztru-floating-nav.is-scrolled .conztru-nav-pill,
   .conztru-floating-nav.is-scrolled .conztru-mobile-btn {
-    background-color: color-mix(in srgb, var(--brand-primary) 85%, transparent);
-    border-color: rgba(255, 255, 255, 0.12);
+    background-color: var(--conztru-navy-deep);
+    border-color: rgba(255, 255, 255, 0.22);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
   }
   .conztru-floating-nav.is-scrolled .conztru-nav-pill:hover,
   .conztru-floating-nav.is-scrolled .conztru-mobile-btn:hover {
-    background-color: color-mix(in srgb, var(--brand-primary) 95%, transparent);
-    border-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--conztru-navy);
+    border-color: rgba(255, 255, 255, 0.3);
   }
   .conztru-floating-nav.is-scrolled .conztru-nav-divider {
     background-color: rgba(255, 255, 255, 0.18);
