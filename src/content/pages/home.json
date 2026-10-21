@@ -10,8 +10,8 @@
       "subtitle": "Helping Businesses Get Noticed, On Screens and Online",
       "buttonText": "Talk to Our Team",
       "buttonHref": "/contact-us",
-      "image": "/images/home.avif",
-      "imageAlt": "{city} digital marketing"
+      "image": "/images/atlanta-skyline.avif",
+      "imageAlt": "Atlanta skyline from the Jackson Street Bridge"
     },
     {
       "type": "features",
@@ -156,28 +156,7 @@
       "title": "We Put Local Brands on the Map",
       "description": "Our network spans across {city}'s most popular neighborhoods and venues",
       "variant": "overlay-titled",
-      "locations": [
-        {
-          "name": "Aurora",
-          "href": "/locations/aurora",
-          "description": "East Denver Metro"
-        },
-        {
-          "name": "Arvada",
-          "href": "/locations/arvada",
-          "description": "Northwest Denver"
-        },
-        {
-          "name": "Lakewood",
-          "href": "/locations/lakewood",
-          "description": "West Denver Metro"
-        },
-        {
-          "name": "Centennial",
-          "href": "/locations/centennial",
-          "description": "South Denver Metro"
-        }
-      ]
+      "locations": []
     },
     {
       "type": "cta",

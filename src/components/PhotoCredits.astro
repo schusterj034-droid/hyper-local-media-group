@@ -1,0 +1,27 @@
+---
+import { photoCredits } from "@/config/photo-credits"
+
+interface Props {
+  class?: string
+}
+
+const { class: className = "" } = Astro.props
+const linkClass = "underline-offset-2 hover:underline hover:text-white/70"
+---
+
+{photoCredits.length > 0 && (
+  <p class={`text-xs text-white/40 leading-relaxed ${className}`}>
+    Photos:{" "}
+    {photoCredits.map((c, i) => (
+      <>
+        {i > 0 && "; "}
+        “<a href={c.sourceUrl} target="_blank" rel="noopener noreferrer" class={linkClass}>{c.title}</a>” by{" "}
+        {c.authorUrl
+          ? <a href={c.authorUrl} target="_blank" rel="noopener noreferrer" class={linkClass}>{c.author}</a>
+          : c.author},{" "}
+        <a href={c.licenseUrl} target="_blank" rel="noopener noreferrer license" class={linkClass}>{c.license}</a>
+        {c.changes && `, ${c.changes}`}, via {c.source}
+      </>
+    ))}.
+  </p>
+)}

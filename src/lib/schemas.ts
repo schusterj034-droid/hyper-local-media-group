@@ -30,6 +30,11 @@ export function organizationSchema() {
     email: siteConfig.contact.email,
     address: {
       "@type": "PostalAddress",
+      // Street + ZIP only once a real street address is set (template default is just "City, ST").
+      ...(siteConfig.location.zip && {
+        streetAddress: siteConfig.location.address,
+        postalCode: siteConfig.location.zip,
+      }),
       addressLocality: siteConfig.location.city,
       addressRegion: siteConfig.location.state,
       addressCountry: "US",

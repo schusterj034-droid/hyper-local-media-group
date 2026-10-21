@@ -6,10 +6,12 @@
     "description": "Hyper Local Media Group is a local marketing company offering website design, social media management, digital advertising, and indoor billboard advertising."
   },
   "location": {
-    "city": "Denver",
-    "state": "Colorado",
+    "city": "Snellville",
+    "state": "GA",
+    "stateFull": "Georgia",
     "address": "1056 Bridgewater Walk",
-    "fullAddress": "1056 Bridgewater Walk"
+    "fullAddress": "1056 Bridgewater Walk, Snellville, GA 30078",
+    "zip": "30078"
   },
   "contact": {
     "email": "Jim@hyperlocalmediagrp.com",

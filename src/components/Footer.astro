@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from "@/config/site"
 import { footerConfig } from "@/config/navigation"
+import PhotoCredits from "@/components/PhotoCredits.astro"
 import { Facebook, Instagram, Linkedin, Twitter, Youtube, ChevronRight, ChevronDown, Phone, Mail, MapPin } from "lucide-react"
 
 interface Props {
@@ -176,6 +177,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
           {siteConfig.business.name} · {currentYear} · All rights reserved.
         </p>
       </div>
+      <PhotoCredits class="pb-6 text-center md:text-left" />
     </div>
   </footer>
 )}
@@ -240,6 +242,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
           <a href="/privacy" class="hover:text-[var(--brand-secondary)] transition-colors">Privacy</a>
         </div>
       </div>
+      <PhotoCredits class="pb-6 text-center" />
     </div>
   </footer>
 )}
@@ -264,6 +267,7 @@ const gridCols = Math.min(footerConfig.columns.length + 1, 4)
 
         <p class="text-sm text-white/50">© {currentYear} {siteConfig.business.name}</p>
       </div>
+      <PhotoCredits class="mt-6 text-center" />
     </div>
   </footer>
 )}

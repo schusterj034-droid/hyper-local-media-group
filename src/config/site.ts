@@ -98,6 +98,7 @@ export const siteConfig = {
       defaults.location.stateFull,
     address: siteData.location?.address || defaults.location.address,
     fullAddress: siteData.location?.fullAddress || defaults.location.fullAddress,
+    zip: (siteData.location as { zip?: string })?.zip || "",
   },
 
   contact: {

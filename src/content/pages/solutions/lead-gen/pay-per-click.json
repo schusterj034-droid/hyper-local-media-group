@@ -151,30 +151,9 @@
     {
       "type": "locations",
       "title": "We Put Local Brands on the Map",
-      "description": "Our network spans across Denver's most popular neighborhoods and venues",
+      "description": "Our network spans across {city}'s most popular neighborhoods and venues",
       "variant": "overlay-titled",
-      "locations": [
-        {
-          "name": "Aurora",
-          "href": "/locations/aurora",
-          "description": "East Denver Metro"
-        },
-        {
-          "name": "Lakewood",
-          "href": "/locations/lakewood",
-          "description": "West Denver Metro"
-        },
-        {
-          "name": "Arvada",
-          "href": "/locations/arvada",
-          "description": "Northwest Denver"
-        },
-        {
-          "name": "Centennial",
-          "href": "/locations/centennial",
-          "description": "South Denver Metro"
-        }
-      ]
+      "locations": []
     },
     {
       "type": "cta",
